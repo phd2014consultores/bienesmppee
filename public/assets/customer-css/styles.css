@@ -1,0 +1,469 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+.demo-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
+  color: rgba(0, 0, 0, 0.54);
+}
+.mdl-layout__drawer .avatar {
+  margin-bottom: 16px;
+}
+.demo-drawer {
+  border: none;
+}
+/* iOS Safari specific workaround */
+.demo-drawer .mdl-menu__container {
+  z-index: -1;
+}
+.demo-drawer .demo-navigation {
+  z-index: -2;
+}
+/* END iOS Safari specific workaround */
+.demo-drawer .mdl-menu .mdl-menu__item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.demo-drawer-header {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 16px;
+  height: 151px;
+}
+.demo-avatar-dropdown {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.demo-navigation {
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+.demo-layout .demo-navigation .mdl-navigation__link {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 500;
+}
+.demo-layout .demo-navigation .mdl-navigation__link:hover {
+  background-color: #00BCD4;
+  color: #37474F;
+}
+.demo-navigation .mdl-navigation__link .material-icons {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.56);
+  margin-right: 32px;
+}
+
+.demo-content {
+  max-width: 1080px;
+}
+
+.demo-charts {
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.demo-chart:nth-child(1) {
+  color: #ACEC00;
+}
+.demo-chart:nth-child(2) {
+  color: #00BBD6;
+}
+.demo-chart:nth-child(3) {
+  color: #BA65C9;
+}
+.demo-chart:nth-child(4) {
+  color: #EF3C79;
+}
+.demo-graphs {
+  padding: 16px 32px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+/* TODO: Find a proper solution to have the graphs
+ * not float around outside their container in IE10/11.
+ * Using a browserhacks.com solution for now.
+ */
+_:-ms-input-placeholder, :root .demo-graphs {
+  min-height: 664px;
+}
+_:-ms-input-placeholder, :root .demo-graph {
+  max-height: 300px;
+}
+/* TODO end */
+.demo-graph:nth-child(1) {
+  color: #00b9d8;
+}
+.demo-graph:nth-child(2) {
+  color: #d9006e;
+}
+
+.demo-cards {
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start;
+}
+.demo-cards .demo-separator {
+  height: 32px;
+}
+.demo-cards .mdl-card__title.mdl-card__title {
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+}
+.demo-cards ul {
+  padding: 0;
+}
+.demo-cards h3 {
+  font-size: 1em;
+}
+.demo-updates .mdl-card__title {
+  min-height: 200px;
+  background-image: url('../images/dog.png');
+  background-position: 90% 100%;
+  background-repeat: no-repeat;
+}
+.demo-cards .mdl-card__actions a {
+  color: #00BCD4;
+  text-decoration: none;
+}
+
+.demo-options h3 {
+  margin: 0;
+}
+.demo-options .mdl-checkbox__box-outline {
+  border-color: rgba(255, 255, 255, 0.89);
+}
+.demo-options ul {
+  margin: 0;
+  list-style-type: none;
+}
+.demo-options li {
+  margin: 4px 0;
+}
+.demo-options .material-icons {
+  color: rgba(255, 255, 255, 0.89);
+}
+.demo-options .mdl-card__actions {
+  height: 64px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+
+.mdl-layout__header-row {
+  padding: 0 30px 0 15px !important;
+}
+
+.mdl-layout__header-row img{
+  width: 100%;
+}
+
+.phd-invert-element {
+  -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+#phd-title-app {
+  width: 100%;
+}
+.phd-demo-card-dashboard {
+    width: 100%;
+    min-height: 0;
+    margin-bottom: 16px;
+    transition: height 0.5s;
+}
+.phd-demo-card-dashboard .mdl-list li:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+.phd-title-list {
+  margin-top: 0;
+  width: 100%;
+}
+.phd-arrow {
+  position: absolute;
+  right: 16px;
+}
+.phd-is-focused .mdl-textfield__label{
+  color: rgb(96,125,139) !important;
+  font-size: 12px !important;
+  top: 4px !important;
+  visibility: visible !important;
+}
+.mdl-textfield.phd-is-focused .mdl-textfield__input {
+    outline: none;
+}
+.phd-input-out {
+  margin-left: 16px;
+}
+
+
+table {
+  width: 100%;
+}
+
+tbody {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+tbody tr {
+    cursor: pointer;
+}
+
+ul:not(.browser-default) {
+    padding-left: 0;
+    list-style-type: none;
+}
+ul:not(.browser-default)>li {
+    list-style-type: none;
+}
+.phd-paginator {
+  text-align: right;
+}
+.pagination li {
+    display: inline-block;
+    border-radius: 2px;
+    text-align: center;
+    vertical-align: top;
+    height: 30px;
+}
+.pagination li a {
+    color: #444;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
+}
+.pagination li.active {
+    background-color: #00BCD4;
+}
+.pagination li.disabled a {
+    cursor: default;
+    color: #999;
+}
+.pagination li i {
+    font-size: 2rem;
+}
+
+.phd-subtitle {
+  margin-left: 16px;
+  margin-top: 16px;
+}
+.getmdl-select .mdl-menu__container {
+  width: 100% !important;
+}
+.getmdl-select ul {
+  width: 100% !important;
+  height: 120px !important;
+  overflow-y: scroll;
+}
+.phdShow{
+  display:block;
+}
+.phdHide{
+  display:none;
+}
+textarea {
+  height: 100px !important;
+  resize: none;
+}
+.phd-input-group_interno {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+.phd-input-group_interno button{
+  margin-right: 8px;
+}
+.phd-align_right {
+  text-align: right;
+}
+.phd-right {
+  float: right;
+}
+.phd-componente-bien-mueble:hover {
+    background-color: #eceff1 !important;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+.phd-m16 {
+  margin-top: 16px;
+}
+.mdl-card__title {
+    background-color: #263238 !important;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+.mdl-card__title > h5 {
+    color: #fff;
+}
+.phd-form {
+  width: 100%;
+}
+.phd-buttons-form {
+  text-align: center;
+}
+.phd-head_with_search label, .phd-head_with_search input {
+  color: rgb(96,125,139) !important;
+}
+.phd-head_with_search input {
+  border-bottom: 1px solid rgba(96,125,139,.12) !important;
+}
+.phd-menuBottom .mdl-menu__container.is-visible{
+  top: -150px !important;
+}
+.phd-listFile li {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.phd-listFile {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.phd-listFile img {
+  max-width: 200px;
+  max-height: 200px;
+  padding: 5px;
+}
+.phd-login.phd-fixed {
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  width: 50%;
+  transform: translate(0, -50%);
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+    height: 200px;
+    background: url(../images/logo.jpg) center no-repeat;
+    background-size: contain;
+    background-color: #fff !important;
+    background-color: white !important;
+    background-position-y: 15px;
+    box-shadow: none !important;
+}
+.mdl-card__actions.mdl-card--border {
+  border-top: none !important;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+.phd-align_center {
+  text-align: center;
+}
+
+.phd-listFile li {
+  display: inline-block;
+  position: relative;
+}
+
+.deleteImage {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+  color: red;
+}
+
+.itemImage{
+  display: grid;
+  text-align: center;
+  margin-top: 24px;
+}
+
+span.itemImage > span {
+  margin-top: 8px;
+}
+.contenedorImg {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+.phd-table-span-hover {
+  position: absolute;
+    left: 0;
+    top: 0;
+    background: #263238;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    display: none;
+    z-index: 1;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+.mdl-data-table__cell--non-numeric:hover .phd-table-span-hover {
+  display: block;
+}
