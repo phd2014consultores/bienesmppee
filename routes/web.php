@@ -35,6 +35,7 @@ Route::get('lapor2', ['as' => 'laportwo','uses'=>'AsignacionController@lapor2'])
 Route::get('lapor3', ['as' => 'laportree','uses'=>'AsignacionController@lapor3']);
 Route::get('lapor4', ['as' => 'laportfour','uses'=>'AsignacionController@lapor4']);
 Route::get('lapor5', ['as' => 'laportfive','uses'=>'AsignacionController@lapor5']);
+Route::get('lapor6', ['as' => 'laportsix','uses'=>'AsignacionController@lapor6']);
 
 Route::get('/reasignar', 'ReasignacionController@cargarBienes');
 Route::post('/reasignar','ReasignacionController@actualizarBien');
@@ -53,3 +54,12 @@ Route::get('archivos',function(){
 Route::post('/archivos','GeneradorArchivosController@datosBasicos');
 Route::post('/archivos','GeneradorArchivosController@datosMaximaAutoridad');
 Route::post('/archivos','GeneradorArchivosController@datosResponsablePatrimonial');
+
+Route::get('proveedor','ProveedorController@cargarMensaje'); 
+Route::post('/proveedor','ProveedorController@agregarProveedor');
+
+Route::get('ente','EnteController@cargarMensaje'); 
+Route::post('/ente','EnteController@agregarEnte');
+
+Route::get('maxima_autoridad','Maxima_AutoridadController@cargarMensaje'); 
+Route::post('/maxima_autoridad','Maxima_AutoridadController@agregarMaximaAutoridad');

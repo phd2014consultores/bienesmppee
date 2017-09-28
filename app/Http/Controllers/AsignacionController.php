@@ -137,4 +137,8 @@ class AsignacionController extends Controller
         public function lapor5(){
         return view('tablero');
         }
+
+        public function lapor6(){
+        return view('archivos');
+        }
 }

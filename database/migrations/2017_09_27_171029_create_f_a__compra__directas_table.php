@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -21,11 +22,16 @@ class CreateFACompraDirectasTable extends Migration
             $table->mediumText('numero_factura');
             $table->integer('fecha_factura');
             $table->integer('forma_adquisicion_id');
+            $table->mediumText('proveedor_id');
             $table->timestamps();
 
                 $table->foreign('forma_adquisicion_id')
                   ->references('id')
-                  ->on('forma__adquisicions');           
+                  ->on('forma__adquisicions');
+
+                $table->foreign('proveedor_id')
+                  ->references('id')
+                  ->on('proveedors'); 
         });
     }
 
@@ -36,6 +42,6 @@ class CreateFACompraDirectasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('f_a__compra__directas');
+        Schema::dropIfExists('f_a__compra__directas');
     }
 }

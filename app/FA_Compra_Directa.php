@@ -6,16 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class FA_Compra_Directa extends Model
 {
-     protected $fillable = ['id','proveedor','numero_orden_compra','fecha_orden_compra','numero_nota_entrega','fecha_nota_entrega','numero_factura','fecha_factura','forma_adquisicion_id'];
+    protected $fillable = ['id','proveedor','numero_orden_compra','fecha_orden_compra','numero_nota_entrega','fecha_nota_entrega','numero_factura','fecha_factura','forma_adquisicion_id','proveedor_id'];
 
-     	public function forma_adquisicion() 
-	{
-		return $this->belongsTo('App\Forma_Adquisicion');
-	}
+      public function forma_adquisicion() 
+  {
+    return $this->belongsTo('App\Forma_Adquisicion');
+  }
 
-	public function bien() 
+  public function bien() 
     {
-		return $this->hasMany('App\Bien');
-	}
+    return $this->hasMany('App\Bien');
+  }
 
+   public function proveedor() 
+    {
+    return $this->hasMany('App\Proveedor');
+  }
 }

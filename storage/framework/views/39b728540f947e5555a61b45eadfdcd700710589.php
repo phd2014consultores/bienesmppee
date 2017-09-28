@@ -86,7 +86,7 @@
             <a class="mdl-navigation__link" href="/asignar"><i class="mdl-color-text--blue-grey-400 material-icons phd-invert-element" role="presentation">reply</i>Asignar</a>
             <a class="mdl-navigation__link" href="/reasignar"><i class="mdl-color-text--blue-grey-400 material-icons  phd-invert-element" role="presentation">reply_all</i>Reasignar</a>
             <a class="mdl-navigation__link" href="/desincorporar"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">backspace</i>Desincorporar</a>
-            <a class="mdl-navigation__link" href="#!"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">attach_file</i>Archivos</a>
+            <a class="mdl-navigation__link" href="/archivos"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">attach_file</i>Archivos</a>
           </nav>
         </div>
         <?php echo $__env->yieldContent('content'); ?>

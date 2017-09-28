@@ -18,12 +18,7 @@ class CreateProveedorsTable extends Migration
             $table->mediumText('tipo_proveedor');
             $table->mediumText('rif');
             $table->mediumText('otra_descripcion');
-            $table->integer('fa_compra_directa');
             $table->timestamps();
-
-            $table->foreign('fa_compra_directa')
-            ->references('id')
-            ->on('f_a__compra__directas');
 
 
         });

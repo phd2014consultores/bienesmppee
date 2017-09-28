@@ -128,6 +128,9 @@ var bienInstance = {
 		descripcion_cobertura: '',
 	},
 };
+var maximaInstance = {
+	ente : '',
+};
 var asignacionInstance = {
 	tipo_bien : '',
 	bien_id: '',
@@ -531,6 +534,7 @@ document.addEventListener('DOMContentLoaded',function(){
 var vm = new Vue({
 	el: 'main',
 	data: {
+		maxima : maximaInstance,
 		bien: bienInstance,
 		asignacion: asignacionInstance,
 		desincorporacion: desincorporacionInstance,

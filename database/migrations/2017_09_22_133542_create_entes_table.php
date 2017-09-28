@@ -14,10 +14,8 @@ class CreateEntesTable extends Migration
     public function up()
     {
         Schema::create('entes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->mediumText('rif_organismo');
+            $table->increments('id');            
             $table->mediumText('codigo_rgbp');
-            $table->integer('fecha_remision_inventario');
             $table->mediumText('codigo_sicegof');
             $table->mediumText('siglas');
             $table->mediumText('rif');
