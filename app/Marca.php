@@ -8,7 +8,7 @@ use App\Modelo;
 
 class Marca extends Model
 {
-    protected $fillable = ['id','denominacion_comercial','nombre_fabricante'];
+    protected $fillable = ['id','denominacion_comercial','nombre_fabricante','codigo'];
 
     public function mueble() 
     {

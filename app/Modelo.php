@@ -7,7 +7,7 @@ use App\Mueble;
 
 class Modelo extends Model
 {
-            protected $fillable = ['id','denominacion_fabricante','marca_id'];
+            protected $fillable = ['id','denominacion_fabricante','marca_id','codigo','codigo_bien'];
 
     public function mueble() 
     {

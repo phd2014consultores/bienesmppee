@@ -15,8 +15,8 @@ class CreateMueblesTable extends Migration
         Schema::create('muebles', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('serial');
-            $table->mediumText('marca_id');
-            $table->mediumText('modelo_id');
+            $table->integer('marca_id');
+            $table->integer('modelo_id');
             $table->integer('color_id');
             $table->integer('ano_fabricacion');
             $table->mediumText('especificaciones_tecnicas');

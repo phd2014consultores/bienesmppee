@@ -13,10 +13,11 @@ class CreateModelosTable extends Migration
     public function up()
     {
         Schema::create('modelos', function (Blueprint $table) {
-            $table->mediumText('id')->primary();
+            $table->increments('id');
             $table->mediumText('denominacion_fabricante');
-            $table->mediumText('marca_id');
-            $table->mediumText('modelo');
+            $table->integer('marca_id');
+            $table->mediumText('codigo');
+            $table->mediumText('codigo_bien');
             $table->timestamps();
 
             $table->foreign('marca_id')

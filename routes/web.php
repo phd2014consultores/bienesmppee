@@ -54,6 +54,7 @@ Route::get('archivos',function(){
 Route::post('/archivos','GeneradorArchivosController@datosBasicos');
 Route::post('/archivos','GeneradorArchivosController@datosMaximaAutoridad');
 Route::post('/archivos','GeneradorArchivosController@datosResponsablePatrimonial');
+Route::post('/archivos','GeneradorArchivosController@datosSede');
 
 Route::get('proveedor','ProveedorController@cargarMensaje'); 
 Route::post('/proveedor','ProveedorController@agregarProveedor');
@@ -63,3 +64,18 @@ Route::post('/ente','EnteController@agregarEnte');
 
 Route::get('maxima_autoridad','Maxima_AutoridadController@cargarMensaje'); 
 Route::post('/maxima_autoridad','Maxima_AutoridadController@agregarMaximaAutoridad');
+
+Route::get('responsable_patrimonial','Responsable_PatrimonialController@cargarMensaje'); 
+Route::post('/responsable_patrimonial','Responsable_PatrimonialController@agregarResponsablePatrimonial');
+
+Route::get('sede','SedeController@cargarMensaje'); 
+Route::post('/sede','SedeController@agregarSede');
+
+Route::get('unidad_administrativa','UnidadAdministrativaController@cargarMensaje'); 
+Route::post('/unidad_administrativa','UnidadAdministrativaController@agregarUnidadAdministrativa');
+
+Route::get('marca','MarcaController@cargarMensaje'); 
+Route::post('/marca','MarcaController@agregarMarca');
+
+Route::get('modelo','ModeloController@cargarMensaje'); 
+Route::post('/modelo','ModeloController@agregarModelo');

@@ -29,7 +29,8 @@ class EnteController extends Controller
                     'direccion_web'=> $request['phd-direccion_web'],
                     'correo_electronico'=> $request['phd-correo_electronico'],
                     'fecha_gaceta'=>str_replace("/", "",  $request['phd-fecha_gaceta']),
-                    'numero_gaceta'=> $request['phd-numero_gaceta']
+                    'numero_gaceta'=> $request['phd-numero_gaceta'],
+                    'habilitado'=>True,
                 ]);
 
          $mensaje = "Ente agregado satisfactoriamente.";

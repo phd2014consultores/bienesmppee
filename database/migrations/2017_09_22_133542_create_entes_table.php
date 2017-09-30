@@ -25,6 +25,7 @@ class CreateEntesTable extends Migration
             $table->mediumText('correo_electronico');
             $table->integer('fecha_gaceta');
             $table->mediumText('numero_gaceta');
+            $table->boolean('habilitado');
             $table->timestamps();
 
 

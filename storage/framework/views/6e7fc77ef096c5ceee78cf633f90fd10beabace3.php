@@ -43,18 +43,23 @@
                 </span>
                 </li>
                 </form>
-                <li class="mdl-list__item">
+                <li class="mdl-list__item" onclick="document.getElementById('datos-sedes').click();">
                   <span class="mdl-list__item-primary-content">
+                  <form method="POST" action="archivos" id="phd-form" class="phd-form">
+                  <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" id="csrf_token">
+                  <button id="datos-sedes" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
                   Datos de las Sedes y Similares del Órgano o Ente
                 </span>
                 </li>
+                </form>
                 <li class="mdl-list__item">
                   <span class="mdl-list__item-primary-content">
                   <i class="material-icons mdl-list__item-icon">file_download</i>
                   Datos de las Unidades Administrativas del Órgano o Ente
                 </span>
                 </li>
+                 </form>
                 <li class="mdl-list__item">
                   <span class="mdl-list__item-primary-content">
                   <i class="material-icons mdl-list__item-icon">file_download</i>

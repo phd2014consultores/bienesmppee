@@ -13,10 +13,10 @@ class CreateMarcasTable extends Migration
     public function up()
     {
         Schema::create('marcas', function (Blueprint $table) {
-            $table->mediumText('id')->primary();
+            $table->increments('id');
             $table->mediumText('denominacion_comercial');
             $table->mediumText('nombre_fabricante');
-            $table->mediumText('marca');
+            $table->mediumText('codigo');
             $table->timestamps();
         });
     }

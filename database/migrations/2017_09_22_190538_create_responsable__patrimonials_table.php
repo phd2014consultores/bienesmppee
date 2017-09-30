@@ -26,6 +26,7 @@ class CreateResponsablePatrimonialsTable extends Migration
             $table->mediumText('numero_resolucion_decreto');
             $table->integer('fecha_resolucion_decreto');
             $table->integer('ente_id');
+            $table->boolean('habilitado');
             $table->timestamps();
 
             $table->foreign('ente_id')

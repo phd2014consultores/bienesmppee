@@ -5,16 +5,16 @@
           <div class="mdl-grid demo-content">
 
             <div id="phd-title-app"><h4><strong>SISGEBIP - Sistema de Gestión de Bienes Públicos</strong></h4></div>
-            <div id="phd-title-app"><h4><strong>Máxima Autoridad</strong></h4></div>
+            <div id="phd-title-app"><h4><strong>Responsable Patrimonial</strong></h4></div>
 
-        <form method="POST" action="maxima_autoridad" id="phd-form" class="phd-form">
+        <form method="POST" action="responsable_patrimonial" id="phd-form" class="phd-form">
             <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
 
 
 
                <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                   <div class="mdl-card__title">
-                    <h5 class="phd-title-list">Datos Máxima Autoridad</h5>
+                    <h5 class="phd-title-list">Datos del Responsable Patrimonial</h5>
                     <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                      <i class="material-icons">keyboard_arrow_down</i>
                     </button>
