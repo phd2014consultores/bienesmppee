@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Unidades_Administrativas;
+use Illuminate\Support\Facades\DB;
 
 class UnidadAdministrativaController extends Controller
 {
-    public function cargarmensaje()
+    public function create()
     {
-
-    
-       
+        $unidades_administrativas = DB::table('unidades__administrativas')->paginate(10);
         $mensaje = "";
 
-     return view('unidad_administrativa', compact('mensaje'));
+        return view('unidad_administrativa', compact('mensaje', 'unidades_administrativas'));
     }
 
-    public function agregarUnidadAdministrativa(Request $request)
+    public function store(Request $request)
     {
     	if($request['phd-denominacion'] == ""){
     		$denominacion = null;
@@ -26,9 +25,9 @@ class UnidadAdministrativaController extends Controller
     	}
 
 
-   		$unidad = Unidades_Administrativas::create(
-                [  
-                    'codigo' => $request['phd-codigo'],
+   		$unidad = Unidades_Administrativas::updateOrCreate(
+                ['codigo' => $request['phd-codigo']],
+   		        [
                     'descripcion' => $request['phd-descripcion'],
                     'codigo_categoria' => $request['phd-codigo_categoria'],
                     'denominacion'=> $denominacion,
@@ -36,10 +35,11 @@ class UnidadAdministrativaController extends Controller
    
                 ]);
 
-         $mensaje = "La unidad administrativa ha sido agregada satisfactoriamente.";
+        $unidades_administrativas = DB::table('unidades__administrativas')->paginate(10);
+    	$mensaje = "La unidad administrativa ha sido agregada satisfactoriamente.";
          
 
-     return view('unidad_administrativa', compact('mensaje'));
+     return view('unidad_administrativa', compact('mensaje','unidades_administrativas'));
 
  	}
 }

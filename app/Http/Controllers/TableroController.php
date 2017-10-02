@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bien;
+use Illuminate\Support\Facades\DB;
 
 class TableroController extends Controller
 {
-    	 public function cargarBienes()
+    public function index()
     {
-     	$bien= Bien::all();
-                          
-
-     return view('tablero', compact('bien'));
+        $bien = DB::table('biens')->paginate(10);
+        return view('tablero', compact('bien'));
  	}
 }

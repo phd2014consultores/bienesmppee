@@ -20,7 +20,7 @@ class ReasignacionController extends Controller
 {
     
 
-	 public function cargarBienes()
+	 public function create()
     {
      	$bien= Bien::select('*')
                              ->where('responsable_id', '!=', null)
@@ -35,7 +35,7 @@ class ReasignacionController extends Controller
  	}
 
 
- 	public function actualizarBien(Request $request)
+ 	public function store(Request $request)
     {
 
 

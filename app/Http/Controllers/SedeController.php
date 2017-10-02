@@ -5,30 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ente;
 use App\Sede;
+use Illuminate\Support\Facades\DB;
 
 class SedeController extends Controller
 {
-    public function cargarmensaje()
+    public function create()
     {
 
-    	$ente = Ente::all();
-       
+        $ente = Ente::all();
+        $sedes = DB::table('sedes')->paginate(10);
         $mensaje = "";
-
-     return view('sede', compact('mensaje','ente'));
+        return view('sede', compact('mensaje','ente','sedes'));
     }
 
-    public function agregarSede(Request $request)
+    public function store(Request $request)
     {
 
     	$ente= Ente::select('*')
                              ->where('razon_social', '=', $request['phd-ente'])
-                             ->get(); 
-
-
-   		$sede = Sede::create(
-                [  
-                    'codigo' => $request['phd-codigo'],
+                             ->get();
+   		$sede = Sede::updateOrCreate(
+   		        ['codigo' => $request['phd-codigo']],
+                [
                     'tipo_sede' => $request['phd-tipo_sede'],
                     'especificacion_tipo_sede' => $request['phd-especificacion_tipo_sede'],
                     'descripcion'=> $request['phd-descripcion'],
@@ -46,10 +44,11 @@ class SedeController extends Controller
 
                 ]);
 
-         $mensaje = "La sede ha sido agregada satisfactoriamente.";
-         $ente = Ente::all();
+   		$mensaje = "La sede ha sido agregada satisfactoriamente.";
+        $ente = Ente::all();
+        $sedes = DB::table('sedes')->paginate(10);
 
-     return view('sede', compact('mensaje','ente'));
+        return view('sede', compact('mensaje','ente','sedes'));
 
  	}
 }

@@ -15,7 +15,7 @@
               <ul class="demo-list-icon mdl-list ">
                 <li class="mdl-list__item" onclick="document.getElementById('datos-basicos').click();">
                   <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="archivos" id="phd-form" class="phd-form">
+                  <form method="POST" action="/archivos/datos_basicos" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
                   <button id="datos-basicos" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
@@ -25,7 +25,7 @@
                 </form>
                 <li class="mdl-list__item" onclick="document.getElementById('datos-maxima-autoridad').click();">
                   <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="archivos" id="phd-form" class="phd-form">
+                  <form method="POST" action="/archivos/maxima_autoridad" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
                   <button id="datos-maxima-autoridad" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
@@ -35,7 +35,7 @@
                 </form>
                 <li class="mdl-list__item" onclick="document.getElementById('datos-responsable-patrimonial').click();">
                   <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="archivos" id="phd-form" class="phd-form">
+                  <form method="POST" action="/archivos/responsable_patrimonial" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
                   <button id="datos-responsable-patrimonial" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
@@ -45,7 +45,7 @@
                 </form>
                 <li class="mdl-list__item" onclick="document.getElementById('datos-sedes').click();">
                   <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="archivos" id="phd-form" class="phd-form">
+                  <form method="POST" action="/archivos/datos_sede" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
                   <button id="datos-sedes" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>

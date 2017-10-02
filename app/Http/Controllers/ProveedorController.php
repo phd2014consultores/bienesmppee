@@ -4,33 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Proveedor;
+use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
 
-     public function cargarmensaje()
+    public function create()
     {
-       
+        $proveedores = DB::table('proveedors')->paginate(10);
         $mensaje = "";
-
-     return view('proveedor', compact('mensaje'));
+        return view('proveedor', compact('mensaje', 'proveedores'));
     }
 
-    public function agregarProveedor(Request $request)
+    public function store(Request $request)
     {
 
-   		$proveedor = Proveedor::create(
-                [  
-                    'id' => $request['phd-id_proveedor'],
+        $proveedor = Proveedor::updateOrCreate(
+                ['id' => $request['phd-id_proveedor']],
+
+                [
                     'descripcion' => $request['phd-descripcion_proveedor'],
                     'tipo_proveedor' => $request['phd-tipo_proveedor'],
                     'rif'=> $request['phd-rif_proveedor'],
                     'otra_descripcion'=> $request['phd-otra_descripcion_proveedor']
                 ]);
 
-         $mensaje = "Proveedor agregado satisfactoriamente.";
+        $proveedores = DB::table('proveedors')->paginate(10);
+        $mensaje = "Proveedor agregado satisfactoriamente.";
 
-     return view('proveedor', compact('mensaje'));
+     return view('proveedor', compact('mensaje', 'proveedores'));
 
  	}
 }

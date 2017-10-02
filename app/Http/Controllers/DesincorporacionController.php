@@ -12,7 +12,7 @@ use App\Fotos;
 
 class DesincorporacionController extends Controller
 {
-     public function cargarBienes()
+     public function create()
     {
      	$bien= Bien::select('*')
                              ->where('habilitado', '=', true)
@@ -26,7 +26,7 @@ class DesincorporacionController extends Controller
  	}
 
 
-public function actualizarBien(Request $request)
+public function store(Request $request)
     {
 
 

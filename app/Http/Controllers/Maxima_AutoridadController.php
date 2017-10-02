@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ente;
 use App\Maxima_Autoridad;
+use Illuminate\Support\Facades\DB;
 
 class Maxima_AutoridadController extends Controller
 {
-       public function cargarmensaje()
+       public function create()
     {
 
     	$ente = Ente::all();
-       
+        $maximas_autoridades = DB::table('maxima__autoridads')->paginate(10);
         $mensaje = "";
 
-     return view('maxima_autoridad', compact('mensaje','ente'));
+     return view('maxima_autoridad', compact('mensaje','ente','maximas_autoridades'));
     }
 
-    public function agregarMaximaAutoridad(Request $request)
+    public function store(Request $request)
     {
 
     	$ente= Ente::select('*')
@@ -26,9 +27,9 @@ class Maxima_AutoridadController extends Controller
                              ->get(); 
 
 
-   		$maxima_autoridad = Maxima_Autoridad::create(
+   		$maxima_autoridad = Maxima_Autoridad::updateOrCreate(
+   		        ['ci' => $request['phd-ci']],
                 [  
-                    'ci' => $request['phd-ci'],
                     'nombre' => $request['phd-nombre'],
                     'apellido' => $request['phd-apellido'],
                     'telefono'=> $request['phd-telefono'],
@@ -39,15 +40,18 @@ class Maxima_AutoridadController extends Controller
                     'fecha_gaceta'=>str_replace("/", "",  $request['phd-fecha_gaceta']),
                     'numero_resolucion_decreto'=> $request['phd-numero_decreto'],
                     'fecha_resolucion_decreto'=>str_replace("/", "",  $request['phd-fecha_decreto']),
-                    'habilitado' => True,
+                    'habilitado' => ($request['phd-habilitado'] == "SI") ? true : false,
                     'ente_id' => $ente[0]->id
 
                 ]);
+        if ($request['phd-habilitado'] == "SI") {
+            Maxima_Autoridad::where('ci','!=', $request['phd-ci'])->update(['habilitado' => false]);
+        }
+        $maximas_autoridades = DB::table('maxima__autoridads')->paginate(10);
+   		$mensaje = "Máxima autoridad agregada satisfactoriamente.";
+        $ente = Ente::all();
 
-         $mensaje = "Máxima autoridad agregada satisfactoriamente.";
-         $ente = Ente::all();
-
-     return view('maxima_autoridad', compact('mensaje','ente'));
+        return view('maxima_autoridad', compact('mensaje','ente','maximas_autoridades'));
 
  	}
 }

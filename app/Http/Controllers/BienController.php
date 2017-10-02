@@ -56,7 +56,26 @@ class BienController extends Controller
      */
     public function create()
     {
-        //
+        $tipo_bien = Tipo_Bien::all();
+        $forma_adquisicion = Forma_Adquisicion::all();
+        $categoria = Categoria::all();
+        $subcategoria = Subcategoria::all();
+        $categoria_especifica = Categoria_Especifica::all();
+        $estado_bien = Estado_Bien::all();
+        $estado_uso = Estado_Uso_Bien::all();
+        $uso_actual = Uso_Actual_Bien::all();
+        $moneda = Moneda::all();
+        $color = Color::all();
+        $marca = Marca::all();
+        $modelo = Modelo::all();
+        $unidad = Unidad_Medida::all();
+        $compañia_aseguradora = Compañia_Aseguradora::all();
+        $cobertura = Cobertura::all();
+        $proveedor = Proveedor::all();
+
+        $mensaje = "";
+
+        return view('incorporar', compact('tipo_bien', 'forma_adquisicion','categoria','subcategoria', 'categoria_especifica', 'estado_bien', 'estado_uso','uso_actual','moneda','color','marca','modelo','unidad','compañia_aseguradora','cobertura', 'proveedor','mensaje'));
     }
 
     /**

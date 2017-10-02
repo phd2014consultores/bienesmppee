@@ -12,14 +12,56 @@
 
 
 
-               <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title phd-head_with_search">
+                    <h5 class="phd-title-list">Listado de Responsables Patrimoniales</h5>
+
+                    <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class="mdl-card__actions phdShow">
+                    <div class="phd-formMueble phdShow">
+                        <table class="phd-table-dashboard mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Nombre y Apellido</th>
+                                <th class="mdl-data-table__cell--non-numeric">Cargo</th>
+                                <th class="mdl-data-table__cell--non-numeric">¿Habilitado?</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($responsables_patrimoniales as $responsable_patrimonial)
+                                <tr v-on:click="obtenerResponsablePatrimonial('{{$responsable_patrimonial->id }}',{{$ente}})">
+                                    <td class="mdl-data-table__cell--non-numeric">{{$responsable_patrimonial->nombre}} {{$responsable_patrimonial->apellido}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{$responsable_patrimonial->cargo}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        @if ($responsable_patrimonial->habilitado === true)
+                                            SI
+                                        @else
+                                            NO
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                        {{ $responsables_patrimoniales->links() }}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                   <div class="mdl-card__title">
                     <h5 class="phd-title-list">Datos del Responsable Patrimonial</h5>
                     <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                      <i class="material-icons">keyboard_arrow_down</i>
                     </button>
                   </div>
-        <div class="mdl-card__actions phdHide">
+        <div class="mdl-card__actions phdHide" style="height: 375px;">
 
                      <div class="phd-input-group">
                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
@@ -33,66 +75,75 @@
 
                         </ul>
                       </div>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-ci" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-ci">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Cédula de Identidad (*)</label>
-                        </div>
+                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                             <input v-model="maxima.ci" class="mdl-textfield__input" type="text" id="phd-ci" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-ci">
+                             <label class="mdl-textfield__label" for="phd-id_proveedor">Cédula de Identidad (*)</label>
+                         </div>
 
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-nombre" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Nombre (*)</label>
-                        </div>
-                      
+                             <input v-model="maxima.nombre" class="mdl-textfield__input" type="text" id="phd-nombre" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre">
+                             <label class="mdl-textfield__label" for="phd-id_proveedor">Nombre (*)</label>
+                         </div>
 
 
-                    </div>
 
-                     <div class="phd-input-group">
-                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-apellido" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-apellido">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Apellido (*)</label>
+                     </div>
 
-                        </div>
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-telefono" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-telefono">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Teléfono (*)</label>   
-                        </div>
+            <div class="phd-input-group">
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.apellido" class="mdl-textfield__input" type="text" id="phd-apellido" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-apellido">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor">Apellido (*)</label>
 
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-cargo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-cargo">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Cargo (*)</label>
+                </div>
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.telefono" class="mdl-textfield__input" type="text" id="phd-telefono" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-telefono">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor"> Teléfono (*)</label>
+                </div>
 
-                        </div>
-                        
-                
-                       
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.cargo" class="mdl-textfield__input" type="text" id="phd-cargo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-cargo">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor">Cargo (*)</label>
 
-                    </div>
-                        
-                    <div class="phd-input-group">
-                            <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-correo_electronico" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-correo_electronico">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Correo Electrónico (*)</label>   
-                        </div>
-
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-numero_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_gaceta">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Número Gaceta (*)</label>   
-                        </div>
-                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_gaceta" name="phd-fecha_gaceta" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
-                          <label class="mdl-textfield__label" >Fecha Gaceta (DD/MM/AAAA) (*)</label>
-                        </div>
-
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-numero_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_decreto">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Número de Resolución ó Decreto (*)</label>   
-                        </div>
+                </div>
 
 
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_decreto" name="phd-fecha_decreto" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Fecha de Resolución ó Decreto (DD/MM/AAAA) (*)</label>   
+
+
+            </div>
+
+            <div class="phd-input-group">
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.correo_electronico" class="mdl-textfield__input" type="text" id="phd-correo_electronico" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-correo_electronico">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor"> Correo Electrónico (*)</label>
+                </div>
+
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.numero_gaceta" class="mdl-textfield__input" type="text" id="phd-numero_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_gaceta">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor"> Número Gaceta (*)</label>
+                </div>
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.fecha_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_gaceta" name="phd-fecha_gaceta" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
+                    <label class="mdl-textfield__label" >Fecha Gaceta (DD/MM/AAAA) (*)</label>
+                </div>
+
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.numero_resolucion_decreto" class="mdl-textfield__input" type="text" id="phd-numero_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_decreto">
+                    <label class="mdl-textfield__label" for="phd-id_proveedor"> Número de Resolución ó Decreto (*)</label>
+                </div>
+
+
+                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input v-model="maxima.fecha_resolucion_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_decreto" name="phd-fecha_decreto" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
+                    <label class="mdl-textfield__label" for="phd-id_proveedor"> Fecha de Resolución ó Decreto (DD/MM/AAAA) (*)</label>
+                </div>
+
+                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                            <input class="mdl-textfield__input" type="text" id="phd-habilitado"  v-model="maxima.habilitado" readonly tabIndex="-1" name="phd-habilitado">
+                            <label for="phd-habilitado" class="mdl-textfield__label">¿Habilitado? (*)</label>
+                            <ul for="phd-habilitado" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                <li class="mdl-menu__item"  v-on:click="maxima.habilitado = 'SI';"> SI </li>
+                                <li class="mdl-menu__item"  v-on:click="maxima.habilitado = 'NO';"> NO </li>
+                            </ul>
                         </div>
 
                       

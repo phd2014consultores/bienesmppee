@@ -11,8 +11,43 @@
   					<input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
 
 
+                    <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title phd-head_with_search">
+                            <h5 class="phd-title-list">Listado de Unidades Administrativas</h5>
 
-               <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                            <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                <i class="material-icons">keyboard_arrow_down</i>
+                            </button>
+                        </div>
+                        <div class="mdl-card__actions phdShow">
+                            <div class="phd-formMueble phdShow">
+                                <table class="phd-table-dashboard mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                    <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">Código</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Descripción</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Denominación</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($unidades_administrativas as $unidad_administrativa)
+                                        <tr v-on:click="obtenerUnidadAdministrativa('{{$unidad_administrativa->id}}')">
+                                            <td class="mdl-data-table__cell--non-numeric">{{$unidad_administrativa->codigo}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{$unidad_administrativa->descripcion}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{$unidad_administrativa->denominacion}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                                {{ $unidades_administrativas->links() }}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                   <div class="mdl-card__title">
                     <h5 class="phd-title-list">Datos de la Unidad Administrativa</h5>
                     <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
@@ -23,17 +58,17 @@
 
                      <div class="phd-input-group">
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
+                          <input v-model="unidad_administrativa.codigo" class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Unidad(*)</label>
                         </div>
 
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-descripcion" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-descripcion">
+                          <input v-model="unidad_administrativa.descripcion" class="mdl-textfield__input" type="text" id="phd-descripcion" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-descripcion">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Descripción de la Unidad (*)</label>
                         </div>
                       
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo_categoria" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_categoria">
+                          <input v-model="unidad_administrativa.codigo_categoria" class="mdl-textfield__input" type="text" id="phd-codigo_categoria" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_categoria">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Categoría de la Unidad (*)</label>
 
                         </div>
@@ -43,12 +78,12 @@
                      <div class="phd-input-group">
                       
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-denominacion" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion">
+                          <input v-model="unidad_administrativa.denominacion" class="mdl-textfield__input" type="text" id="phd-denominacion" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion">
                           <label class="mdl-textfield__label" for="phd-id_proveedor"> Especifique la denominación de la categoría (*)</label>   
                         </div>
 
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo_unidad_adscrita" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_unidad_adscrita">
+                          <input v-model="unidad_administrativa.codigo_unidad_adscrita" class="mdl-textfield__input" type="text" id="phd-codigo_unidad_adscrita" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_unidad_adscrita">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Unidad a la cual está adscrita (*)</label>
 
                         </div>

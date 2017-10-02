@@ -129,7 +129,20 @@ var bienInstance = {
 	},
 };
 var maximaInstance = {
-	ente : '',
+	'ente' : '',
+    'id' : '',
+	'ci' : '',
+	'nombre' : '',
+	'apellido' : '',
+	'telefono' : '',
+	'cargo' : '',
+	'correo_electronico' : '',
+	'numero_gaceta' : '',
+	'fecha_gaceta' : '',
+	'numero_resolucion_decreto' : '',
+	'fecha_resolucion_decreto' : '',
+	'ente_id' : '',
+	'habilitado' : '',
 };
 var asignacionInstance = {
 	tipo_bien : '',
@@ -159,11 +172,59 @@ var desincorporacionInstance = {
 	estado_uso: '',
 	files: [],
 	img: [],
-}
+};
 var dialogInstance = {
 	title: '',
 	content: '',
-}
+};
+var proveedorInstance = {
+	"id": "",
+	"rif" : "",
+	"descripcion": "",
+	"tipo_proveedor": "",
+	"otra_descripcion": "",
+};
+var enteInstance = {
+    'id' : '',
+	'codigo_rgbp' : '',
+	'codigo_sicegof' : '',
+	'siglas' : '',
+	'rif' : '',
+	'razon_social' : '',
+	'telefono' : '',
+	'direccion_web' : '',
+	'correo_electronico' : '',
+	'fecha_gaceta' : '',
+	'numero_gaceta' : '',
+	'habilitado' : ''
+};
+var sedeInstance = {
+    'id' : '',
+    'codigo' : '',
+    'tipo_sede' : '',
+    'especificacion_tipo_sede' : '',
+    'descripcion' : '',
+    'localizacion' : '',
+    'codigo_pais' : '',
+    'especifique_otro_pais' : '',
+    'codigo_parroquia_ente' : '',
+    'codigo_ciudad_ente' : '',
+    'nombre_otra_ciudad' : '',
+    'urbanizacion' : '',
+    'calle_avenida' : '',
+    'casa_edificio' : '',
+    'piso' : '',
+    'ente_id' : ''
+};
+var unidadAdministrativaInstance = {
+    'id' : '',
+    'codigo' : '',
+    'descripcion' : '',
+    'codigo_categoria' : '',
+    'denominacion' : '',
+    'codigo_unidad_adscrita' : ''
+};
+
 var arrowToggleImpl = function (el) {
 	var CLS_TO_TOGGLE_PARENT = "phd-demo-card-dashboard";
 	var CLS_TO_TOGGLE_CHILDRE = "mdl-card__actions";
@@ -440,6 +501,69 @@ var borrarDatosFormularioImpl = function () {
 		files: [],
 		img: [],
 	};
+    vm.proveedor = {
+        "id": "",
+        "rif" : "",
+        "descripcion": "",
+        "tipo_proveedor": "",
+        "otra_descripcion": "",
+    };
+    vm.ente = {
+        'id' : '',
+        'codigo_rgbp' : '',
+        'codigo_sicegof' : '',
+        'siglas' : '',
+        'rif' : '',
+        'razon_social' : '',
+        'telefono' : '',
+        'direccion_web' : '',
+        'correo_electronico' : '',
+        'fecha_gaceta' : '',
+        'numero_gaceta' : '',
+        'habilitado' : ''
+    };
+    vm.maxima = {
+        'ente' : '',
+        'id' : '',
+        'ci' : '',
+        'nombre' : '',
+        'apellido' : '',
+        'telefono' : '',
+        'cargo' : '',
+        'correo_electronico' : '',
+        'numero_gaceta' : '',
+        'fecha_gaceta' : '',
+        'numero_resolucion_decreto' : '',
+        'fecha_resolucion_decreto' : '',
+        'ente_id' : '',
+        'habilitado' : '',
+    };
+    vm.sede = {
+        'id' : '',
+        'codigo' : '',
+        'tipo_sede' : '',
+        'especificacion_tipo_sede' : '',
+        'descripcion' : '',
+        'localizacion' : '',
+        'codigo_pais' : '',
+        'especifique_otro_pais' : '',
+        'codigo_parroquia_ente' : '',
+        'codigo_ciudad_ente' : '',
+        'nombre_otra_ciudad' : '',
+        'urbanizacion' : '',
+        'calle_avenida' : '',
+        'casa_edificio' : '',
+        'piso' : '',
+        'ente_id' : ''
+    };
+    vm.unidadAdministrativa = {
+        'id' : '',
+        'codigo' : '',
+        'descripcion' : '',
+        'codigo_categoria' : '',
+        'denominacion' : '',
+        'codigo_unidad_adscrita' : ''
+    };
 	vm.string_fotos = 'Agregar';
 };
 var validarFormIncorporarImpl = function () {
@@ -541,6 +665,10 @@ var vm = new Vue({
 		string_fotos: 'Agregar',
 		subcategorias: [],
 		categorias_especificas: [],
+		proveedor: proveedorInstance,
+		ente: enteInstance,
+        sede: sedeInstance,
+        unidad_administrativa: unidadAdministrativaInstance,
 	},
 	methods: {
 		arrowToggle(event) {
@@ -763,18 +891,15 @@ var vm = new Vue({
 			}else {return false;}
 		},
 		enviarIdCategoria(id){
-			console.log(id);
 	
 			this.$http.post('/obtenerSubcategoria', {
 			 _token: document.getElementById('csrf_token').value,
-             id: id 
+				id: id
           }).then(function(response) { 
              this.subcategorias =response.body;
              this.bien.subcategoria = '';
-
           }, function() { 
-             alert('Error'); 
-      
+             alert('Error');
           });
 		},
 
@@ -793,9 +918,93 @@ var vm = new Vue({
 		},
 
 		eliminarFoto(indice){
-			console.log("	SADJHASKJLDHASLJDA " + indice);
 			this.desincorporacion.img.splice(indice,1);
-		}
+		},
+        obtenerProveedor(id){
+            this.$http.post('/obtenerProveedor', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.proveedor =response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerEnte(id){
+            console.log(id);
+            this.$http.post('/obtenerEnte', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.ente =response.body;
+                this.ente.habilitado = (this.ente.habilitado) ? "SI" : "NO";
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerMaximaAutoridad(id,entes){
+            this.$http.post('/obtenerMaximaAutoridad', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.maxima =response.body;
+                this.maxima.habilitado = (this.maxima.habilitado) ? "SI" : "NO";
+                for (var i = 0; i < entes.length; i++) {
+                    if (entes[i].id === this.maxima.ente_id) {
+                        this.maxima.ente = entes[i].razon_social;
+                    }
+                }
+
+
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerResponsablePatrimonial(id,entes){
+            this.$http.post('/obtenerResponsablePatrimonial', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.maxima =response.body;
+                this.maxima.habilitado = (this.maxima.habilitado) ? "SI" : "NO";
+                for (var i = 0; i < entes.length; i++) {
+                    if (entes[i].id === this.maxima.ente_id) {
+                        this.maxima.ente = entes[i].razon_social;
+                    }
+                }
+
+
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerSede(id,entes){
+            this.$http.post('/obtenerSede', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.sede =response.body;
+                for (var i = 0; i < entes.length; i++) {
+                    if (entes[i].id === this.sede.ente_id) {
+                        this.sede.ente = entes[i].razon_social;
+                    }
+                }
+
+
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerUnidadAdministrativa(id,entes){
+            this.$http.post('/obtenerUnidadAdministrativa', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.unidad_administrativa =response.body;
+            }, function() {
+                alert('Error');
+            });
+        }
 	},
 
 

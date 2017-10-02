@@ -5,31 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ente;
 use App\Responsable_Patrimonial;
+use Illuminate\Support\Facades\DB;
 
 class Responsable_PatrimonialController extends Controller
 {
     
-       public function cargarmensaje()
+       public function create()
     {
-
     	$ente = Ente::all();
-       
+        $responsables_patrimoniales = DB::table('responsable__patrimonials')->paginate(10);
         $mensaje = "";
-
-     return view('responsable_patrimonial', compact('mensaje','ente'));
+        return view('responsable_patrimonial', compact('mensaje','ente','responsables_patrimoniales'));
     }
 
-    public function agregarResponsablePatrimonial(Request $request)
+    public function store(Request $request)
     {
 
     	$ente= Ente::select('*')
                              ->where('razon_social', '=', $request['phd-ente'])
-                             ->get(); 
-
-
-   		$responsable = Responsable_Patrimonial::create(
-                [  
-                    'ci' => $request['phd-ci'],
+                             ->get();
+   		$responsable = Responsable_Patrimonial::updateOrCreate(
+                ['ci' => $request['phd-ci']],
+   		        [
                     'nombre' => $request['phd-nombre'],
                     'apellido' => $request['phd-apellido'],
                     'telefono'=> $request['phd-telefono'],
@@ -40,15 +37,18 @@ class Responsable_PatrimonialController extends Controller
                     'fecha_gaceta'=>str_replace("/", "",  $request['phd-fecha_gaceta']),
                     'numero_resolucion_decreto'=> $request['phd-numero_decreto'],
                     'fecha_resolucion_decreto'=>str_replace("/", "",  $request['phd-fecha_decreto']),
-                    'habilitado' => True,
+                    'habilitado' => ($request['phd-habilitado'] == "SI") ? true : false,
                     'ente_id' => $ente[0]->id
 
                 ]);
+        if ($request['phd-habilitado'] == "SI") {
+            Responsable_Patrimonial::where('ci','!=', $request['phd-ci'])->update(['habilitado' => false]);
+        }
+        $mensaje = "Responsable patrimonial agregado satisfactoriamente.";
+        $ente = Ente::all();
+        $responsables_patrimoniales = DB::table('responsable__patrimonials')->paginate(10);
 
-         $mensaje = "Responsable patrimonial agregado satisfactoriamente.";
-         $ente = Ente::all();
-
-     return view('responsable_patrimonial', compact('mensaje','ente'));
+        return view('responsable_patrimonial', compact('mensaje','ente','responsables_patrimoniales'));
 
  	}
 }
