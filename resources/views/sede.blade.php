@@ -75,17 +75,17 @@
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Sede (*)</label>
                         </div>
 
-                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input v-model="sede.tipo_sede" class="mdl-textfield__input" type="text" id="phd-tipo_sede" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-tipo_sede">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Tipo de Sede (*)</label>
-                        </div>
-                      
+                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                        <input class="mdl-textfield__input" type="text" id="phd-tipo_sede" v-model="sede.tipo_sede" readonly tabIndex="-1" name="phd-tipo_sede">
+                        <label for="phd-tipo_sede" class="mdl-textfield__label">Tipo de Sede (*)</label>
+                        <ul for="phd-tipo_sede" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                          @foreach ($tipo_sede as $tipo_sede1)
+                            <li class="mdl-menu__item"  v-on:click='sede.tipo_sede ="{{$tipo_sede1->tipo}}"'>{{$tipo_sede1->tipo}}</li>
+                          @endforeach
 
-
-                    </div>
-
-                     <div class="phd-input-group">
-                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        </ul>
+                      </div>
+                       <div v-if="sede.tipo_sede == 'Otra Tipo de Sede o Lugar'"  class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input v-model="sede.especificacion_tipo_sede" class="mdl-textfield__input" type="text" id="phd-especificacion_tipo_sede" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-especificacion_tipo_sede">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Especifique tipo de sede o lugar (*)</label>
 
@@ -95,37 +95,57 @@
                           <label class="mdl-textfield__label" for="phd-id_proveedor"> Descripción de la Sede (*)</label>   
                         </div>
 
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input v-model="sede.localizacion" class="mdl-textfield__input" type="text" id="phd-localizacion" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-localizacion">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Localización (*)</label>
-
-                        </div>
-                        
+                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                        <input class="mdl-textfield__input" type="text" id="phd-localizacion" v-model="sede.localizacion" readonly tabIndex="-1" name="phd-localizacion">
+                        <label for="phd-localizacion" class="mdl-textfield__label">Localización (*)</label>
+                        <ul for="phd-localizacion" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item"  v-on:click="sede.localizacion = 'Nacional'">Nacional</li>
+                            <li class="mdl-menu__item"  v-on:click="sede.localizacion = 'Internacional'">Internacional</li>
+                        </ul>
+                      </div>
                 
                        
+                     <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                        <input class="mdl-textfield__input" type="text" id="phd-pais" v-model="sede.codigo_pais" readonly tabIndex="-1" name="phd-pais">
+                        <label for="phd-pais" class="mdl-textfield__label">País donde se ubica
+la Sede (*)</label>
+                        <ul for="phd-pais" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                          @foreach ($pais as $pais1)
+                            <li class="mdl-menu__item"  v-on:click='sede.codigo_pais ="{{$pais1->pais}}"'>{{$pais1->pais}}</li>
+                          @endforeach
 
-                    </div>
-                        
-                    <div class="phd-input-group">
-                            <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input v-model="sede.codigo_pais" class="mdl-textfield__input" type="text" id="phd-codigo_pais" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_pais">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Código del País donde se ubica la Sede. (*)</label>   
-                        </div>
+                        </ul>
+                      </div>
 
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <div v-if="sede.codigo_pais == 'Otro País'" class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input v-model="sede.especifique_otro_pais" class="mdl-textfield__input" type="text" id="phd-especifique_otro_pais" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-especifique_otro_pais">
                           <label class="mdl-textfield__label" for="phd-id_proveedor"> Especifique el otro país (*)</label>   
                         </div>
-                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input v-model="sede.codigo_parroquia_ente" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-codigo_parroquia_ente" name="phd-codigo_parroquia_ente"  >
-                          <label class="mdl-textfield__label" >Código de la parroquia donde se ubica el Órgano o Ente. (*)</label>
-                        </div>
 
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input v-model="sede.codigo_ciudad_ente" class="mdl-textfield__input" type="text" id="phd-codigo_ciudad_ente" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_ciudad_ente">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor"> Código de la Ciudad donde se ubica el Órgano o Ente(*)</label>   
-                        </div>
+                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                        <input class="mdl-textfield__input" type="text" id="phd-codigo_ciudad_ente" v-model="sede.codigo_ciudad_ente" readonly tabIndex="-1" name="phd-codigo_ciudad_ente">
+                        <label for="phd-codigo_ciudad_ente" class="mdl-textfield__label">Ciudad donde se ubica el Órgano o Ente (*)</label>
+                        <ul for="phd-codigo_ciudad_ente" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                          @foreach ($ciudad as $ciudad1)
+                            <li class="mdl-menu__item"  v-on:click='sede.codigo_parroquia_ente ="{{$ciudad1->ciudad}}"'>{{$ciudad1->ciudad}}</li>
+                          @endforeach
 
+                        </ul>
+                      </div>
+
+                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                        <input class="mdl-textfield__input" type="text" id="phd-codigo_parroquia_ente" v-model="sede.codigo_parroquia_ente" readonly tabIndex="-1" name="phd-codigo_parroquia_ente">
+                        <label for="phd-codigo_parroquia_ente" class="mdl-textfield__label">Parroquia donde se ubica el Órgano o Ente (*)</label>
+                        <ul for="phd-parroquia" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                          @foreach ($parroquia as $parroquia1)
+                            <li class="mdl-menu__item"  v-on:click='sede.codigo_parroquia_ente ="{{$parroquia1->parroquia}}"'>{{$parroquia1->parroquia}}</li>
+                          @endforeach
+
+                        </ul>
+                      </div>
+                        
+
+                       
 
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input v-model="sede.nombre_otra_ciudad" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-nombre_otra_ciudad" name="phd-nombre_otra_ciudad" >

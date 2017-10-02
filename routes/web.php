@@ -72,3 +72,11 @@ Route::post('/obtenerMarca','AjaxController@obtenerMarca');
 Route::get('/modelo','ModeloController@create');
 Route::post('/modelo','ModeloController@store');
 Route::post('/obtenerModelo','AjaxController@obtenerModelo');
+
+Route::get('/estado','EstadoController@create');
+Route::post('/estado','EstadoController@store');
+Route::post('/obtenerEstado','AjaxController@obtenerEstado');
+
+Route::get('/municipio','MunicipioController@create');
+Route::post('/municipio','MunicipioController@store');
+Route::post('/obtenerMunicipio','AjaxController@obtenerMunicipio');

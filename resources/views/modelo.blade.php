@@ -32,7 +32,7 @@
                             </thead>
                             <tbody>
                             @foreach($modelos as $modelo)
-                                <tr v-on:click="obtenerMarca('{{$modelo->id}}',{{$marcas}})">
+                                <tr v-on:click="obtenerModelo('{{$modelo->id}}',{{$marcas}})">
                                     <td class="mdl-data-table__cell--non-numeric">{{$modelo->codigo}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{$modelo->marca->denominacion_comercial}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{$modelo->denominacion_fabricante}}</td>

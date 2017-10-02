@@ -16,6 +16,8 @@ use App\Sede;
 use App\Unidades_Administrativas;
 use App\Marca;
 use App\Modelo;
+use App\Estado;
+use App\Municipio;
 use App\FA_Adju_Conf_Expr;
 
 class AjaxController extends Controller
@@ -63,6 +65,14 @@ class AjaxController extends Controller
 
     public  function obtenerModelo(Request $request) {
         return  Modelo::find($request->id);
+    }
+
+    public  function obtenerEstado(Request $request) {
+        return  Estado::find($request->id);
+    }
+
+    public  function obtenerMunicipio(Request $request) {
+        return  Municipio::find($request->id);
     }
 
 

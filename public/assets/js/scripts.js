@@ -238,6 +238,20 @@ var modeloInstance = {
     'codigo_bien' : '',
     'marca' : '',
 };
+var estadoInstance = {
+	'id' : '',
+	'estado' : '',
+	'codigo' : '',
+	'pais_id' : '',
+	'pais' : ''
+};
+var municipioInstance = {
+	'id': '',
+	'estado_id': '',
+	'codigo' : '',
+	'municipio': '',
+	'estado': ''
+};
 
 var arrowToggleImpl = function (el) {
 	var CLS_TO_TOGGLE_PARENT = "phd-demo-card-dashboard";
@@ -592,6 +606,21 @@ var borrarDatosFormularioImpl = function () {
         'codigo_bien' : '',
         'marca' : '',
     };
+    vm.estado = {
+	'id' : '',
+	'estado' : '',
+	'codigo' : '',
+	'pais_id' : '',
+	'pais' : ''
+};
+	vm.municipio = {
+	'id': '',
+	'estado_id': '',
+	'codigo' : '',
+	'municipio': '',
+	'estado': ''
+};
+
 	vm.string_fotos = 'Agregar';
 };
 var validarFormIncorporarImpl = function () {
@@ -699,6 +728,8 @@ var vm = new Vue({
         unidad_administrativa: unidadAdministrativaInstance,
         marca: marcaInstance,
         modelo: modeloInstance,
+        estado: estadoInstance,
+        municipio: municipioInstance,
 	},
 	methods: {
 		arrowToggle(event) {
@@ -1045,7 +1076,7 @@ var vm = new Vue({
                 alert('Error');
             });
         },
-        obtenerMarca(id,marcas){
+        obtenerModelo(id,marcas){
             this.$http.post('/obtenerModelo', {
                 _token: document.getElementById('csrf_token').value,
                 id: id
@@ -1054,6 +1085,37 @@ var vm = new Vue({
                 for (var i = 0; i < marcas.length; i++) {
                     if (marcas[i].id === this.modelo.marca_id) {
                         this.modelo.marca = marcas[i].denominacion_comercial;
+                    }
+                }
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerEstado(id,paises){
+            this.$http.post('/obtenerEstado', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.estado =response.body;
+                for (var i = 0; i < paises.length; i++) {
+                    if (paises[i].id === this.estado.pais_id) {
+                        this.estado.pais = paises[i].pais;
+                    }
+                }
+            }, function() {
+                alert('Error');
+            });
+        },
+
+        obtenerMunicipio(id,estados){
+            this.$http.post('/obtenerMunicipio', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.municipio =response.body;
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].id === this.municipio.estado_id) {
+                        this.municipio.estado = estados[i].estado;
                     }
                 }
             }, function() {
