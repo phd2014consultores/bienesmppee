@@ -224,6 +224,20 @@ var unidadAdministrativaInstance = {
     'denominacion' : '',
     'codigo_unidad_adscrita' : ''
 };
+var marcaInstance = {
+    'id' : '',
+    'denominacion_comercial' : '',
+    'nombre_fabricante' : '',
+    'codigo' : ''
+};
+var modeloInstance = {
+    'id' : '',
+    'denominacion_fabricante' : '',
+    'marca_id' : '',
+    'codigo' : '',
+    'codigo_bien' : '',
+    'marca' : '',
+};
 
 var arrowToggleImpl = function (el) {
 	var CLS_TO_TOGGLE_PARENT = "phd-demo-card-dashboard";
@@ -564,6 +578,20 @@ var borrarDatosFormularioImpl = function () {
         'denominacion' : '',
         'codigo_unidad_adscrita' : ''
     };
+    vm.marca = {
+        'id' : '',
+        'denominacion_comercial' : '',
+        'nombre_fabricante' : '',
+        'codigo' : ''
+    };
+    vm.modelo = {
+        'id' : '',
+        'denominacion_fabricante' : '',
+        'marca_id' : '',
+        'codigo' : '',
+        'codigo_bien' : '',
+        'marca' : '',
+    };
 	vm.string_fotos = 'Agregar';
 };
 var validarFormIncorporarImpl = function () {
@@ -669,6 +697,8 @@ var vm = new Vue({
 		ente: enteInstance,
         sede: sedeInstance,
         unidad_administrativa: unidadAdministrativaInstance,
+        marca: marcaInstance,
+        modelo: modeloInstance,
 	},
 	methods: {
 		arrowToggle(event) {
@@ -1004,7 +1034,32 @@ var vm = new Vue({
             }, function() {
                 alert('Error');
             });
-        }
+        },
+        obtenerMarca(id){
+            this.$http.post('/obtenerMarca', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.marca =response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerMarca(id,marcas){
+            this.$http.post('/obtenerModelo', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.modelo =response.body;
+                for (var i = 0; i < marcas.length; i++) {
+                    if (marcas[i].id === this.modelo.marca_id) {
+                        this.modelo.marca = marcas[i].denominacion_comercial;
+                    }
+                }
+            }, function() {
+                alert('Error');
+            });
+        },
 	},
 
 

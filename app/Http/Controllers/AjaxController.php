@@ -14,6 +14,8 @@ use App\Maxima_Autoridad;
 use App\Responsable_Patrimonial;
 use App\Sede;
 use App\Unidades_Administrativas;
+use App\Marca;
+use App\Modelo;
 use App\FA_Adju_Conf_Expr;
 
 class AjaxController extends Controller
@@ -53,6 +55,14 @@ class AjaxController extends Controller
 
     public  function obtenerUnidadAdministrativa(Request $request) {
         return  Unidades_Administrativas::find($request->id);
+    }
+
+    public  function obtenerMarca(Request $request) {
+        return  Marca::find($request->id);
+    }
+
+    public  function obtenerModelo(Request $request) {
+        return  Modelo::find($request->id);
     }
 
 

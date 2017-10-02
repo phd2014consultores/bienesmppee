@@ -65,8 +65,10 @@ Route::get('/unidad_administrativa','UnidadAdministrativaController@create');
 Route::post('/unidad_administrativa','UnidadAdministrativaController@store');
 Route::post('/obtenerUnidadAdministrativa','AjaxController@obtenerUnidadAdministrativa');
 
-Route::get('marca','MarcaController@cargarMensaje'); 
-Route::post('/marca','MarcaController@agregarMarca');
+Route::get('/marca','MarcaController@create');
+Route::post('/marca','MarcaController@store');
+Route::post('/obtenerMarca','AjaxController@obtenerMarca');
 
-Route::get('modelo','ModeloController@cargarMensaje'); 
-Route::post('/modelo','ModeloController@agregarModelo');
+Route::get('/modelo','ModeloController@create');
+Route::post('/modelo','ModeloController@store');
+Route::post('/obtenerModelo','AjaxController@obtenerModelo');

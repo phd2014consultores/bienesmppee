@@ -11,8 +11,43 @@
             <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
 
 
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title phd-head_with_search">
+                    <h5 class="phd-title-list">Listado de Marcas</h5>
 
-               <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                    <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class="mdl-card__actions phdShow">
+                    <div class="phd-formMueble phdShow">
+                        <table class="phd-table-dashboard mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Código</th>
+                                <th class="mdl-data-table__cell--non-numeric">Denominacion Comercial</th>
+                                <th class="mdl-data-table__cell--non-numeric">Nombre del Fabricante</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($marcas as $marca)
+                                <tr v-on:click="obtenerMarca('{{$marca->id}}')">
+                                    <td class="mdl-data-table__cell--non-numeric">{{$marca->codigo}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{$marca->denominacion_comercial}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{$marca->nombre_fabricante}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                        {{ $marcas->links() }}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                   <div class="mdl-card__title">
                     <h5 class="phd-title-list">Datos de la Marca</h5>
                     <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
@@ -24,17 +59,17 @@
                      <div class="phd-input-group">
                       
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
+                          <input v-model="marca.codigo" class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Marca(*)</label>
                         </div>
 
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-denominacion_comercial" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion_comercial">
+                          <input v-model="marca.denominacion_comercial" class="mdl-textfield__input" type="text" id="phd-denominacion_comercial" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion_comercial">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Denominación Comercial de la Marca (*)</label>
                         </div>
                       
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-nombre_fabricante" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre_fabricante">
+                          <input v-model="marca.nombre_fabricante" class="mdl-textfield__input" type="text" id="phd-nombre_fabricante" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre_fabricante">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Nombre del Fabricante (*)</label>
 
                         </div>

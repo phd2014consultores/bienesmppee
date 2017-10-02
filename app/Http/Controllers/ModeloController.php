@@ -5,38 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Modelo;
 use App\Marca;
+use Illuminate\Support\Facades\DB;
 
 class ModeloController extends Controller
 {
-    public function cargarmensaje()
+    public function create()
     {
-    	$marca = Marca::all();
-       
+    	$marcas = Marca::all();
+        $modelos = Modelo::paginate(10);
         $mensaje = "";
 
-     return view('modelo', compact('mensaje','marca'));
+        return view('modelo', compact('mensaje','marcas', 'modelos'));
     }
 
-    public function agregarModelo(Request $request)
+    public function store(Request $request)
     {
     	$marca= Marca::select('*')
-                             ->where('codigo', '=', $request['phd-marca'])
+                             ->where('denominacion_comercial', '=', $request['phd-marca'])
                              ->get(); 
 
-   		$modelo = Modelo::create(
+   		$modelo = Modelo::updateOrCreate(
+   		        ['codigo'=> $request['phd-codigo']],
                 [  
                    
                     'denominacion_fabricante' => $request['phd-denominacion_fabricante'],
                     'marca_id' => $marca[0]->id,
-                    'codigo'=> $request['phd-codigo'],
                     'codigo_bien'=> $request['phd-codigo_bien'],
 
                 ]);
-
-         $mensaje = "Modelo agregado satisfactoriamente.";
+        $modelos = Modelo::paginate(10);
+        $marcas = Marca::all();
+        $mensaje = "Modelo agregado satisfactoriamente.";
         
 
-     return view('modelo', compact('mensaje'));
+     return view('modelo', compact('mensaje', 'marcas', 'modelos'));
 
  	}
 }

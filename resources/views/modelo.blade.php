@@ -12,7 +12,43 @@
 
 
 
-               <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title phd-head_with_search">
+                    <h5 class="phd-title-list">Listado de Modelos</h5>
+
+                    <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class="mdl-card__actions phdShow">
+                    <div class="phd-formMueble phdShow">
+                        <table class="phd-table-dashboard mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Código</th>
+                                <th class="mdl-data-table__cell--non-numeric">Marca</th>
+                                <th class="mdl-data-table__cell--non-numeric">Nombre del Fabricante</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($modelos as $modelo)
+                                <tr v-on:click="obtenerMarca('{{$modelo->id}}',{{$marcas}})">
+                                    <td class="mdl-data-table__cell--non-numeric">{{$modelo->codigo}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{$modelo->marca->denominacion_comercial}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{$modelo->denominacion_fabricante}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                        {{ $modelos->links() }}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                   <div class="mdl-card__title">
                     <h5 class="phd-title-list">Datos del Modelo</h5>
                     <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
@@ -23,11 +59,11 @@
 
                      <div class="phd-input-group">
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                        <input class="mdl-textfield__input" type="text" id="phd-marca" v-model="bien.datos_particulares_mueble.marca" readonly tabIndex="-1" name="phd-marca">
-                        <label for="phd-categoria" class="mdl-textfield__label">Código de la Marca (*)</label>
+                        <input v-model="modelo.marca" class="mdl-textfield__input" type="text" id="phd-marca" readonly tabIndex="-1" name="phd-marca">
+                        <label for="phd-marca" class="mdl-textfield__label">Marca (*)</label>
                         <ul for="phd-marca" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                          @foreach ($marca as $marca1)
-                            <li class="mdl-menu__item"  v-on:click='bien.datos_particulares_mueble.marca ="{{$marca1->codigo}}"'>{{$marca1->codigo}}</li>
+                          @foreach ($marcas as $marca)
+                            <li class="mdl-menu__item"  v-on:click='modelo.marca ="{{$marca->denominacion_comercial}}"'>{{$marca->denominacion_comercial}}</li>
 
                           @endforeach
 
@@ -35,17 +71,17 @@
                       </div>
                       
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
+                          <input v-model="modelo.codigo" class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código del Modelo(*)</label>
                         </div>
 
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-denominacion_fabricante" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion_fabricante">
+                          <input v-model="modelo.denominacion_fabricante" class="mdl-textfield__input" type="text" id="phd-denominacion_fabricante" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-denominacion_fabricante">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Denominación del Modelo según el fabricante (*)</label>
                         </div>
                       
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-codigo_bien" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_bien">
+                          <input v-model="modelo.codigo_bien" class="mdl-textfield__input" type="text" id="phd-codigo_bien" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_bien">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código del Bien Mueble (*)</label>
 
                         </div>
