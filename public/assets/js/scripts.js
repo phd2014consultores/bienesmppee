@@ -252,6 +252,73 @@ var municipioInstance = {
 	'municipio': '',
 	'estado': ''
 };
+var paisInstance = {
+    'id': '',
+    'pais': ''
+};
+var parroquiaInstance = {
+    'id' : '',
+	'codigo' : '',
+	'parroquia' : '',
+	'municipio_id' : '',
+	'municipio' : '',
+	'estado': {
+    	'estado' : '',
+		'municipios' : []
+	}
+};
+var ciudadInstance = {
+    'id' : '',
+    'codigo' : '',
+    'ciudad' : '',
+    'municipio_id' : '',
+    'municipio' : '',
+    'estado': {
+        'estado' : '',
+        'municipios' : []
+    }
+};
+var categoriaInstance = {
+    'id' : '',
+	'categoria' : '',
+	'codigo' : ''
+};
+var subcategoriaInstance = {
+    'id' : '',
+    'codigo' : '',
+    'subcategoria' : '',
+    'categoria_id' : '',
+    'categoria' : ''
+};
+var categoriaEspecificaInstance = {
+    'id' : '',
+    'codigo' : '',
+    'categoria_especifica' : '',
+    'subcategoria_id' : '',
+    'subcategoria' : '',
+    'categoria': {
+        'categoria' : '',
+        'subcategorias' : []
+    }
+};
+var colorInstance = {
+    'id': '',
+    'color': ''
+};
+var unidadMedidaInstance = {
+    'id': '',
+    'unidad': '',
+    'simbolo': '',
+    'tipo': ''
+};
+var estadoBienInstance = {
+    'id': '',
+    'estado_bien': '',
+};
+var companiaAseguradoraInstance = {
+    'id': '',
+    'nombre': '',
+};
 
 var arrowToggleImpl = function (el) {
 	var CLS_TO_TOGGLE_PARENT = "phd-demo-card-dashboard";
@@ -339,7 +406,7 @@ var addComponentImpl = function () {
 		serial: '',
 		tipo: '',
 		descripcion: '',
-	}
+	};
 	vm.bien.datos_particulares_mueble.componentes.push(componenteBienMueble);
 };
 var removeComponentImpl = function (indice) {
@@ -612,15 +679,81 @@ var borrarDatosFormularioImpl = function () {
 	'codigo' : '',
 	'pais_id' : '',
 	'pais' : ''
-};
+	};
 	vm.municipio = {
 	'id': '',
 	'estado_id': '',
 	'codigo' : '',
 	'municipio': '',
 	'estado': ''
-};
-
+	};
+    vm.pais = {
+        'id': '',
+        'pais': ''
+    };
+    vm.parroquia = {
+        'id' : '',
+        'codigo' : '',
+        'parroquia' : '',
+        'municipio_id' : '',
+        'municipio' : '',
+        'estado': {
+            'estado' : '',
+            'municipios' : []
+        }
+    };
+    vm.ciudad = {
+        'id' : '',
+        'codigo' : '',
+        'ciudad' : '',
+        'municipio_id' : '',
+        'municipio' : '',
+        'estado': {
+            'estado' : '',
+            'municipios' : []
+        }
+    };
+    vm.categoria = {
+        'id' : '',
+        'categoria' : '',
+        'codigo' : ''
+    };
+    vm.subcategoria = {
+        'id' : '',
+        'codigo' : '',
+        'subcategoria' : '',
+        'categoria_id' : '',
+        'categoria' : ''
+    };
+    vm.categoria_especifica = {
+        'id' : '',
+        'codigo' : '',
+        'categoria_especifica' : '',
+        'subcategoria_id' : '',
+        'subcategoria' : '',
+        'categoria': {
+            'categoria' : '',
+            'subcategorias' : []
+        }
+    };
+    vm.color = {
+        'id': '',
+        'color': ''
+    };
+    vm.unidad_medida = {
+        'id': '',
+        'unidad': '',
+        'simbolo': '',
+        'tipo': ''
+    };
+    vm.estado_bien = {
+        'id': '',
+        'estado_bien': '',
+    };
+    vm.compania_aseguradora = {
+        'id': '',
+        'nombre': '',
+    };
 	vm.string_fotos = 'Agregar';
 };
 var validarFormIncorporarImpl = function () {
@@ -730,6 +863,16 @@ var vm = new Vue({
         modelo: modeloInstance,
         estado: estadoInstance,
         municipio: municipioInstance,
+		pais: paisInstance,
+		parroquia: parroquiaInstance,
+		ciudad: ciudadInstance,
+		categoria: categoriaInstance,
+		subcategoria: subcategoriaInstance,
+		categoria_especifica: categoriaEspecificaInstance,
+		color: colorInstance,
+        unidad_medida: unidadMedidaInstance,
+        estado_bien: estadoBienInstance,
+        compania_aseguradora: companiaAseguradoraInstance
 	},
 	methods: {
 		arrowToggle(event) {
@@ -1097,16 +1240,18 @@ var vm = new Vue({
                 id: id
             }).then(function(response) {
                 this.estado =response.body;
+                console.log(JSON.stringify(this.estado));
+                console.log(JSON.stringify(this.estado.pais));
                 for (var i = 0; i < paises.length; i++) {
                     if (paises[i].id === this.estado.pais_id) {
                         this.estado.pais = paises[i].pais;
+                        break;
                     }
                 }
             }, function() {
                 alert('Error');
             });
         },
-
         obtenerMunicipio(id,estados){
             this.$http.post('/obtenerMunicipio', {
                 _token: document.getElementById('csrf_token').value,
@@ -1116,11 +1261,71 @@ var vm = new Vue({
                 for (var i = 0; i < estados.length; i++) {
                     if (estados[i].id === this.municipio.estado_id) {
                         this.municipio.estado = estados[i].estado;
+                        break;
                     }
                 }
             }, function() {
                 alert('Error');
             });
+        },
+        obtenerPais(id){
+            this.$http.post('/obtenerPais', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.pais =response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerParroquia(parroquia, municipio, estado, municipios){
+        	this.parroquia.id = parroquia.id;
+        	this.parroquia.codigo = parroquia.codigo;
+        	this.parroquia.parroquia = parroquia.parroquia;
+        	this.parroquia.municipio_id = parroquia.municipio_id;
+        	this.parroquia.municipio = municipio;
+        	this.parroquia.estado.estado = estado;
+        	this.parroquia.estado.municipios = municipios;
+        },
+        obtenerCiudad(ciudad, municipio, estado, municipios){
+            this.ciudad.id = ciudad.id;
+            this.ciudad.codigo = ciudad.codigo;
+            this.ciudad.ciudad = ciudad.ciudad;
+            this.ciudad.municipio_id = ciudad.municipio_id;
+            this.ciudad.municipio = municipio;
+            this.ciudad.estado.estado = estado;
+            this.ciudad.estado.municipios = municipios;
+        },
+        obtenerCategoria(categoria){
+            this.categoria = categoria;
+        },
+        obtenerSubcategoria(subcategoria, categoria){
+            this.subcategoria.id = subcategoria.id;
+            this.subcategoria.codigo = subcategoria.codigo;
+            this.subcategoria.subcategoria = subcategoria.subcategoria;
+            this.subcategoria.categoria_id = subcategoria.categoria_id;
+            this.subcategoria.categoria = categoria;
+        },
+        obtenerCategoriaEspecifica(categoria_especifica, subcategoria, categoria, subcategorias){
+            this.categoria_especifica.id = categoria_especifica.id;
+            this.categoria_especifica.codigo = categoria_especifica.codigo;
+            this.categoria_especifica.categoria_especifica = categoria_especifica.categoria_especifica;
+            this.categoria_especifica.subcategoria_id = categoria_especifica.subcategoria_id;
+            this.categoria_especifica.subcategoria = subcategoria;
+            this.categoria_especifica.categoria.categoria = categoria;
+            this.categoria_especifica.categoria.subcategorias = subcategorias;
+        },
+        obtenerColor(color){
+            this.color = color;
+        },
+        obtenerUnidadMedida(unidad_medida){
+            this.unidad_medida = unidad_medida;
+        },
+        obtenerEstadoBien(estado_bien){
+            this.estado_bien = estado_bien;
+        },
+        obtenerCompaniaAseguradora(compania_aseguradora){
+            this.compania_aseguradora = compania_aseguradora;
         },
 	},
 

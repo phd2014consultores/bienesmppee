@@ -361,7 +361,7 @@ class ComposerStaticInitaad8a587537309a3417a640ef3455722
         'CreateDatosEspecificosAsignacionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_19_191547_create_datos__especificos__asignacions_table.php',
         'CreateDatosSegurosTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_12_192452_create_datos__seguros_table.php',
         'CreateEntesTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_22_133542_create_entes_table.php',
-        'CreateEstadoBiensTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_180458_create_estado__biens_table.php',
+        'CreateEstadoBiensTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_180458_create_estado_biens_table.php',
         'CreateEstadoUsoBiensTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_181540_create_estado__uso__biens_table.php',
         'CreateEstadosTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_02_180741_create_estados_table.php',
         'CreateFAAdjuConfExprsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_08_194946_create_f_a__adju__conf__exprs_table.php',

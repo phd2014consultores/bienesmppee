@@ -333,6 +333,9 @@ ul:not(.browser-default)>li {
   height: 120px !important;
   overflow-y: scroll;
 }
+.getmdl-select ul > li {
+    overflow: initial !important;
+}
 .phdShow{
   display:block;
 }

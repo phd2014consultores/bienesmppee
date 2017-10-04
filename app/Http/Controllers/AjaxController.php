@@ -18,6 +18,7 @@ use App\Marca;
 use App\Modelo;
 use App\Estado;
 use App\Municipio;
+use App\Pais;
 use App\FA_Adju_Conf_Expr;
 
 class AjaxController extends Controller
@@ -73,6 +74,10 @@ class AjaxController extends Controller
 
     public  function obtenerMunicipio(Request $request) {
         return  Municipio::find($request->id);
+    }
+
+    public  function obtenerPais(Request $request) {
+        return  Pais::find($request->id);
     }
 
 

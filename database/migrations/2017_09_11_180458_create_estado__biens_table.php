@@ -14,7 +14,7 @@ class CreateEstadoBiensTable extends Migration
     {
         Schema::create('estado__biens', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('estado');
+            $table->mediumText('estado_bien');
             $table->timestamps();
         });
     }

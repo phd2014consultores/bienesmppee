@@ -13,8 +13,8 @@ class Ciudad extends Model
     return $this->HasMany('App\Sede');
   }
 
-  public function pais() 
+  public function municipio()
   {
-    return $this->belongsTo('App\Pais');
+    return $this->belongsTo('App\Municipio');
   }
 }
