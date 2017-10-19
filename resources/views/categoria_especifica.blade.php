@@ -33,10 +33,10 @@
                                 </thead>
                                 <tbody>
                                 @foreach($categorias_especificas as $categoria_especifica)
-                                    <tr v-on:click="obtenerCategoriaEspecifica({{$categoria_especifica}},'{{$categoria_especifica->subcategoria->subcategoria}}','{{$categoria_especifica->subcategoria->categoria->categoria}}',{{$categoria_especifica->subcategoria->categoria->subcategoria}})">
-                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->subcategoria->categoria->categoria, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->subcategoria->categoria->categoria}}</p></td>
-                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->subcategoria->subcategoria, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->subcategoria->subcategoria}}</p></td>
-                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->categoria_especifica, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->categoria_especifica}}</p></td>
+                                    <tr v-on:click="obtenerCategoriaEspecifica({{$categoria_especifica}},'{{$categoria_especifica->subcategoria->nombre}}','{{$categoria_especifica->subcategoria->categoria->nombre}}',{{$categoria_especifica->subcategoria->categoria->subcategoria}})">
+                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->subcategoria->categoria->nombre, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->subcategoria->categoria->nombre}}</p></td>
+                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->subcategoria->nombre, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->subcategoria->nombre}}</p></td>
+                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($categoria_especifica->nombre, 30)}}<p class="phd-table-span-hover">{{$categoria_especifica->nombre}}</p></td>
 
                                     </tr>
                                 @endforeach
@@ -61,13 +61,13 @@
                     <div class="mdl-card__actions phdHide" style="height: 200px;">
 
                         <div class="phd-input-group">
-
+                            <input v-model="categoria_especifica.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                                <input class="mdl-textfield__input" type="text" id="phd-categoria" v-model="categoria_especifica.categoria.categoria" readonly tabIndex="-1" name="phd-categoria">
+                                <input class="mdl-textfield__input" type="text" id="phd-categoria" v-model="categoria_especifica.categoria.nombre" readonly tabIndex="-1" name="phd-categoria">
                                 <label for="phd-categoria" class="mdl-textfield__label"> Categoría(*)</label>
                                 <ul for="phd-categoria" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                     @foreach ($categorias as $categoria)
-                                        <li class="mdl-menu__item"  v-on:click='categoria_especifica.categoria.categoria ="{{$categoria->categoria}}"; categoria_especifica.categoria.subcategorias = {{$categoria->subcategoria}};'>{{$categoria->categoria}}</li>
+                                        <li class="mdl-menu__item"  v-on:click='categoria_especifica.categoria.nombre ="{{$categoria->nombre}}"; categoria_especifica.categoria.subcategorias = {{$categoria->subcategoria}};'>{{$categoria->nombre}}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -76,7 +76,7 @@
                                 <input class="mdl-textfield__input" type="text" id="phd-categoria_subcategorias" v-model="categoria_especifica.subcategoria" readonly tabIndex="-1" name="phd-categoria_subcategorias">
                                 <label for="phd-categoria_subcategorias" class="mdl-textfield__label"> Subcategoría(*)</label>
                                 <ul for="phd-categoria_subcategorias" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                    <li v-for="subcategoria in categoria_especifica.categoria.subcategorias" class="mdl-menu__item"  v-on:click='categoria_especifica.subcategoria = subcategoria.subcategoria;'>@{{subcategoria.subcategoria}}</li>
+                                    <li v-for="subcategoria in categoria_especifica.categoria.subcategorias" class="mdl-menu__item"  v-on:click='categoria_especifica.subcategoria = subcategoria.nombre;'>@{{subcategoria.nombre}}</li>
                                 </ul>
                             </div>
 
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input v-model="categoria_especifica.categoria_especifica"  class="mdl-textfield__input" type="text" id="phd-categoria_especifica" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-categoria_especifica">
+                                <input v-model="categoria_especifica.nombre"  class="mdl-textfield__input" type="text" id="phd-categoria_especifica" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-categoria_especifica">
                                 <label class="mdl-textfield__label" for="phd-categoria_especifica">Categoria Específica (*)</label>
                             </div>
 

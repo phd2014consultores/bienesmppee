@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Unidad_Medida extends Model
+class UnidadMedida extends Model
 {
     protected $fillable = ['id','unidad','simbolo','tipo'];
 

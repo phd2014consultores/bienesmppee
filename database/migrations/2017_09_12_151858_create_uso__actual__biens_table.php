@@ -12,7 +12,7 @@ class CreateUsoActualBiensTable extends Migration
      */
     public function up()
     {
-        Schema::create('uso__actual__biens', function (Blueprint $table) {
+        Schema::create('uso_actual_biens', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('uso_actual');
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateUsoActualBiensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('uso__actual__biens');
+        Schema::drop('uso_actual_biens');
     }
 }

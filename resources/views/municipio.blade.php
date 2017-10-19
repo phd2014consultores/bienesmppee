@@ -61,6 +61,7 @@
  				<div class="mdl-card__actions phdHide" style="height: 200px;">
 
                      <div class="phd-input-group">
+                         <input v-model="municipio.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
 
                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                         <input class="mdl-textfield__input" type="text" id="phd-estado" v-model="municipio.estado" readonly tabIndex="-1" name="phd-estado">

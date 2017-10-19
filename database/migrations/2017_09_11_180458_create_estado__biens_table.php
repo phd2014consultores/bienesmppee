@@ -12,7 +12,7 @@ class CreateEstadoBiensTable extends Migration
      */
     public function up()
     {
-        Schema::create('estado__biens', function (Blueprint $table) {
+        Schema::create('estado_biens', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('estado_bien');
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateEstadoBiensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('estado__biens');
+        Schema::drop('estado_biens');
     }
 }

@@ -10,7 +10,7 @@ class Bien extends Model
 
     public function tipo_bien() 
   {
-    return $this->belongsTo('App\Tipo_Bien');
+    return $this->belongsTo('App\TipoBien');
   }
   public function inmueble() 
   {
@@ -22,7 +22,7 @@ class Bien extends Model
   }
   public function forma_adquisicon() 
   {
-    return $this->belongsTo('App\Forma_Adquisicion');
+    return $this->belongsTo('App\FormaAdquisicion');
   }
   public function categoria() 
   {
@@ -34,7 +34,7 @@ class Bien extends Model
   }
   public function categoria_especifica() 
   {
-    return $this->belongsTo('App\Categoria_Especifica');
+    return $this->belongsTo('App\CategoriaEspecifica');
   }
   public function fa_adju_conf_expr() 
   {
@@ -75,15 +75,15 @@ class Bien extends Model
   }
     public function estado_bien() 
   {
-    return $this->belongsTo('App\Estado_Bien');
+    return $this->belongsTo('App\EstadoBien');
   }
     public function estado_uso_bien() 
   {
-    return $this->belongsTo('App\Estado_Uso_Bien');
+    return $this->belongsTo('App\EstadoUsoBien');
   }
     public function uso_actual_bien() 
   {
-    return $this->belongsTo('App\Uso_Actual_Bien');
+    return $this->belongsTo('App\UsoActualBien');
   }
     public function responsable() 
   {

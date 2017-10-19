@@ -144,6 +144,22 @@ var maximaInstance = {
 	'ente_id' : '',
 	'habilitado' : '',
 };
+var responsableInstance = {
+    'ente' : '',
+    'id' : '',
+    'ci' : '',
+    'nombre' : '',
+    'apellido' : '',
+    'telefono' : '',
+    'cargo' : '',
+    'correo_electronico' : '',
+    'numero_gaceta' : '',
+    'fecha_gaceta' : '',
+    'numero_resolucion_decreto' : '',
+    'fecha_resolucion_decreto' : '',
+    'ente_id' : '',
+    'habilitado' : '',
+};
 var asignacionInstance = {
 	tipo_bien : '',
 	bien_id: '',
@@ -205,16 +221,23 @@ var sedeInstance = {
     'especificacion_tipo_sede' : '',
     'descripcion' : '',
     'localizacion' : '',
+	'estados' : '',
     'codigo_pais' : '',
+    'pais' : '',
     'especifique_otro_pais' : '',
+	'municipio' : '',
+	'municipios' : '',
     'codigo_parroquia_ente' : '',
-    'codigo_ciudad_ente' : '',
+	'parroquias' : '',
+    'codigo_ciudad_ente' : {},
+	'ciudades' : '',
     'nombre_otra_ciudad' : '',
     'urbanizacion' : '',
     'calle_avenida' : '',
     'casa_edificio' : '',
     'piso' : '',
-    'ente_id' : ''
+    'ente_id' : '',
+	'ente' : '',
 };
 var unidadAdministrativaInstance = {
     'id' : '',
@@ -280,12 +303,12 @@ var ciudadInstance = {
 };
 var categoriaInstance = {
     'id' : '',
-	'categoria' : '',
+	'nombre' : '',
 	'codigo' : ''
 };
 var subcategoriaInstance = {
     'id' : '',
-    'codigo' : '',
+    'nombre' : '',
     'subcategoria' : '',
     'categoria_id' : '',
     'categoria' : ''
@@ -293,7 +316,7 @@ var subcategoriaInstance = {
 var categoriaEspecificaInstance = {
     'id' : '',
     'codigo' : '',
-    'categoria_especifica' : '',
+    'nombre' : '',
     'subcategoria_id' : '',
     'subcategoria' : '',
     'categoria': {
@@ -319,6 +342,43 @@ var companiaAseguradoraInstance = {
     'id': '',
     'nombre': '',
 };
+var tipoCoberturaInstance = {
+    'id': '',
+    'cobertura': '',
+};
+var monedaInstance = {
+    'id': '',
+    'moneda': '',
+};
+var monedaInstance = {
+    'id': '',
+    'moneda': '',
+};
+var tipoBienInstance = {
+    'id': '',
+    'nombre': '',
+};
+var formaAdquisicionInstance = {
+    'id': '',
+    'nombre': '',
+};
+var estadoUsoBienInstance = {
+    'id': '',
+    'estado_uso': '',
+};
+var usoActualBienInstance = {
+    'id': '',
+    'uso_actual': '',
+};
+var tipoSedeInstance = {
+    'id': '',
+    'tipo': '',
+};
+var ubicacionAdministrativaInstance = {
+    'id': '',
+    'ubicacion': '',
+};
+
 
 var arrowToggleImpl = function (el) {
 	var CLS_TO_TOGGLE_PARENT = "phd-demo-card-dashboard";
@@ -374,7 +434,18 @@ var removeIsFocusedSelectInputImpl = function (el) {
 	    }       
 	}
 };
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+}
 var showFormImpl = function (cls) {
+    cls = cls.toLowerCase()
+		.replaceAll(" ","_")
+        .replaceAll(/á/gi,"a")
+        .replaceAll(/é/gi,"e")
+        .replaceAll(/í/gi,"i")
+        .replaceAll(/ó/gi,"o")
+        .replaceAll(/ú/gi,"u");
 	var el = document.getElementsByClassName(cls);
 	for (var i=0; i < el.length; i++) {
 		var children = el[i].parentNode.children;
@@ -633,6 +704,22 @@ var borrarDatosFormularioImpl = function () {
         'ente_id' : '',
         'habilitado' : '',
     };
+    vm.responsable = {
+        'ente' : '',
+        'id' : '',
+        'ci' : '',
+        'nombre' : '',
+        'apellido' : '',
+        'telefono' : '',
+        'cargo' : '',
+        'correo_electronico' : '',
+        'numero_gaceta' : '',
+        'fecha_gaceta' : '',
+        'numero_resolucion_decreto' : '',
+        'fecha_resolucion_decreto' : '',
+        'ente_id' : '',
+        'habilitado' : '',
+    };
     vm.sede = {
         'id' : '',
         'codigo' : '',
@@ -640,16 +727,23 @@ var borrarDatosFormularioImpl = function () {
         'especificacion_tipo_sede' : '',
         'descripcion' : '',
         'localizacion' : '',
+        'estados' : '',
         'codigo_pais' : '',
+        'pais' : '',
         'especifique_otro_pais' : '',
+        'municipio' : '',
+        'municipios' : '',
         'codigo_parroquia_ente' : '',
-        'codigo_ciudad_ente' : '',
+        'parroquias' : '',
+        'codigo_ciudad_ente' : {},
+        'ciudades' : '',
         'nombre_otra_ciudad' : '',
         'urbanizacion' : '',
         'calle_avenida' : '',
         'casa_edificio' : '',
         'piso' : '',
-        'ente_id' : ''
+        'ente_id' : '',
+        'ente' : '',
     };
     vm.unidadAdministrativa = {
         'id' : '',
@@ -715,20 +809,20 @@ var borrarDatosFormularioImpl = function () {
     };
     vm.categoria = {
         'id' : '',
-        'categoria' : '',
+        'nombre' : '',
         'codigo' : ''
     };
     vm.subcategoria = {
         'id' : '',
         'codigo' : '',
-        'subcategoria' : '',
+        'nombre' : '',
         'categoria_id' : '',
         'categoria' : ''
     };
     vm.categoria_especifica = {
         'id' : '',
         'codigo' : '',
-        'categoria_especifica' : '',
+        'nombre' : '',
         'subcategoria_id' : '',
         'subcategoria' : '',
         'categoria': {
@@ -753,6 +847,38 @@ var borrarDatosFormularioImpl = function () {
     vm.compania_aseguradora = {
         'id': '',
         'nombre': '',
+    };
+    vm.tipo_cobertura = {
+        'id': '',
+        'cobertura': '',
+    };
+    vm.moneda = {
+        'id': '',
+        'moneda': '',
+    };
+    vm.tipo_bien = {
+        'id': '',
+        'nombre': '',
+    };
+    vm.forma_adquisicion = {
+        'id': '',
+        'nombre': '',
+    };
+    vm.estado_uso_bien = {
+        'id': '',
+        'estado_uso': '',
+    };
+    vm.uso_actual_bien = {
+        'id': '',
+        'uso_actual': '',
+    };
+    vm.tipo_sede = {
+        'id': '',
+        'tipo': '',
+    };
+    vm.ubicacion_administrativa = {
+        'id': '',
+        'ubicacion': '',
     };
 	vm.string_fotos = 'Agregar';
 };
@@ -872,7 +998,20 @@ var vm = new Vue({
 		color: colorInstance,
         unidad_medida: unidadMedidaInstance,
         estado_bien: estadoBienInstance,
-        compania_aseguradora: companiaAseguradoraInstance
+        compania_aseguradora: companiaAseguradoraInstance,
+		tipo_cobertura : tipoCoberturaInstance,
+		moneda : monedaInstance,
+		tipo_bien : tipoBienInstance,
+		forma_adquisicion : formaAdquisicionInstance,
+		estado_uso_bien : estadoUsoBienInstance,
+		uso_actual_bien : usoActualBienInstance,
+		tipo_sede : tipoSedeInstance,
+		responsable : responsableInstance,
+		ubicacion_administrativa : ubicacionAdministrativaInstance,
+		responsables_admin : [],
+        responsables_uso : [],
+		dateFrom : '',
+		dateTo: '',
 	},
 	methods: {
 		arrowToggle(event) {
@@ -919,205 +1058,23 @@ var vm = new Vue({
 		removeFile(indice) {
 			removeFileImpl(indice);
 		},
-		isFormValid () {
-			if (this.bien.tipo_bien!=""){
-				if (this.bien.tipo_bien == "Mueble"){
-					if (this.bien.datos_particulares_mueble.serial!="" && this.bien.datos_particulares_mueble.marca != "" && this.bien.datos_particulares_mueble.modelo != "" && this.bien.datos_particulares_mueble.color != "" && this.bien.datos_particulares_mueble.anio_fabricacion !="" && this.bien.datos_particulares_mueble.especificaciones_tecnicas !="" && this.bien.datos_particulares_mueble.otras_especificaciones_tecnicas != "" ){
-					}else {return false;}
-
-					if (this.bien.forma_adquisicion == "Adjudicación"  || this.bien.forma_adquisicion == "Confiscación"  || this.bien.forma_adquisicion == "Expropiación" ){
-							if (this.bien.fa_adju_conf_expr.propietario != "" && this.bien.fa_adju_conf_expr.beneficiario != "" && this.bien.fa_adju_conf_expr.autoridad != "" && this.bien.fa_adju_conf_expr.numero_sentencia != "" && this.bien.fa_adju_conf_expr.fecha_sentencia != "" && this.bien.fa_adju_conf_expr.nombre_registro != "" && this.bien.fa_adju_conf_expr.tomo != "" && this.bien.fa_adju_conf_expr.folio != "" && this.bien.fa_adju_conf_expr.fecha_registro != "" ){
-							}else {	return false;}
-						}else {
-
-						if (this.bien.forma_adquisicion == "Compra concurso abierto" || this.bien.forma_adquisicion == "Compra concurso cerrado"){
-								if ( this.bien.fa_concurso_abierto_cerrado.numero_concurso != "" && this.bien.fa_concurso_abierto_cerrado.nombre_concurso != "" && this.bien.fa_concurso_abierto_cerrado.fecha_concurso != "" && this.bien.fa_concurso_abierto_cerrado.numero_contrato != "" && this.bien.fa_concurso_abierto_cerrado.fecha_contrato != "" && this.bien.fa_concurso_abierto_cerrado.numero_nota_entrega != "" && this.bien.fa_concurso_abierto_cerrado.fecha_nota_entrega != "" && this.bien.fa_concurso_abierto_cerrado.numero_factura != "" && this.bien.fa_concurso_abierto_cerrado.fecha_factura != ""){
-
-								}else{return false;}
-								
-						} else {
-
-						if (this.bien.forma_adquisicion == "Compra directa"){
-							if (this.bien.fa_compra_directa.proveedor != "" && this.bien.fa_compra_directa.numero_orden_compra != "" && this.bien.fa_compra_directa.fecha_orden_compra != "" && this.bien.fa_compra_directa.numero_nota_entrega != "" && this.bien.fa_compra_directa.fecha_nota_entrega != "" && this.bien.fa_compra_directa.numero_factura != "" && this.bien.fa_compra_directa.fecha_factura !=""){
-
-							} else {return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Dación de pago"){
-							if ( this.bien.fa_dacion_pago.nombre_cedente != "" && this.bien.fa_dacion_pago.nombre_beneficiario != "" && this.bien.fa_dacion_pago.numero_finiquito != "" && this.bien.fa_dacion_pago.fecha_finiquito != "" && this.bien.fa_dacion_pago.nombre_registro != "" && this.bien.fa_dacion_pago.tomo != "" && this.bien.fa_dacion_pago.folio != "" && this.bien.fa_dacion_pago.fecha_registro != ""){
-
-							} else{return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Donación"){
-							if (this.bien.fa_donacion.nombre_donante != "" && this.bien.fa_donacion.nombre_beneficiario != "" && this.bien.fa_donacion.numero_contrato != "" && this.bien.fa_donacion.fecha_contrato != "" && this.bien.fa_donacion.nombre_registro != "" && this.bien.fa_donacion.tomo != "" && this.bien.fa_donacion.folio != "" && this.bien.fa_donacion.fecha_registro != ""){
-
-							}else {return false;}
-
-						}else {
-
-						if (this.bien.forma_adquisicion == "Permuta" ){
-							if (this.bien.fa_permuta.nombre_copermutante != "" && this.bien.fa_permuta.nombre_beneficiario != "" && this.bien.fa_permuta.nombre_licitacion != "" && this.bien.fa_permuta.numero_licitacion != "" && this.bien.fa_permuta.fecha_licitacion != "" && this.bien.fa_permuta.numero_contrato != "" && this.bien.fa_permuta.fecha_contrato != "" && this.bien.fa_permuta.nombre_registro != "" && this.bien.fa_permuta.tomo != "" && this.bien.fa_permuta.folio != "" && this.bien.fa_permuta.fecha_registro != "") {
-							}else{return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Transferencia" ){
-							if (this.bien.fa_transferencia.nombre_quien_transfiere != "" && this.bien.fa_transferencia.nombre_beneficiario != "" && this.bien.fa_transferencia.numero_autorizacion != "" && this.bien.fa_transferencia.fecha_autorizacion != "" && this.bien.fa_transferencia.nombre_registro != "" && this.bien.fa_transferencia.tomo != "" && this.bien.fa_transferencia.folio != "" && this.bien.fa_transferencia.fecha_registro != ""){
-
-							}else { return false;}
-						}else {return false;}
-
-						}
-						}
-						}
-						}
-						}
-						}
-
-						if (this.bien.datos_seguro.nombre_compania != "" && this.bien.datos_seguro.registro_seguro != "" && this.bien.datos_seguro.numero_poliza != "" && this.bien.datos_seguro.monto_asegurado != "" && this.bien.datos_seguro.fecha_inicio_poliza != "" && this.bien.datos_seguro.fecha_fin_poliza != "" && this.bien.datos_seguro.cobertura != "" && this.bien.datos_seguro.posee_responsabilidad_civil != "" && this.bien.datos_seguro.otro_nombre_compania != "" && this.bien.datos_seguro.descripcion_cobertura != ""){
-
-							}else {return false;}
-
-						if (this.bien.codigo_interno != "" && this.bien.valor_adquisicion != "" && this.bien.fecha_adquisicion != "" && this.bien.estado != "" && this.bien.estado_uso != "" && this.bien.uso_actual != "" && this.bien.moneda != "" && this.bien.fecha_ingreso_organo != "" && this.bien.descripcion != ""){
-								if (this.bien.moneda == "Otra moneda"){
-									if (this.bien.otra_moneda != ""){
-
-									}else {return false;}
-								}
-						} else {return false;}
-				}else{
-
-
-
-				if (this.bien.tipo_bien == "Inmueble") {
-					if (this.bien.datos_particulares_inmueble.oficina_registro_notaria != "" && this.bien.datos_particulares_inmueble.referencia_registro != "" && this.bien.datos_particulares_inmueble.numero_registro != "" && this.bien.datos_particulares_inmueble.tomo != "" && this.bien.datos_particulares_inmueble.folio != "" && this.bien.datos_particulares_inmueble.protocolo != "" && this.bien.datos_particulares_inmueble.fecha_registro != "" && this.bien.datos_particulares_inmueble.nombre_propietario_anterior != "" && this.bien.datos_particulares_inmueble.area_construccion != "" && this.bien.datos_particulares_inmueble.unidad_medida_area_construccion != "" && this.bien.datos_particulares_inmueble.area_terreno != "" && this.bien.datos_particulares_inmueble.unidad_medida_area_terreno != "" && this.bien.datos_particulares_inmueble.dependencias_integran != "" && this.bien.datos_particulares_inmueble.otras_especificaciones != "") {
-						
-					}else {return false;}
-
-					if (this.bien.forma_adquisicion == "Adjudicación"  || this.bien.forma_adquisicion == "Confiscación"  || this.bien.forma_adquisicion == "Expropiación" ){
-							if (this.bien.fa_adju_conf_expr.propietario != "" && this.bien.fa_adju_conf_expr.beneficiario != "" && this.bien.fa_adju_conf_expr.autoridad != "" && this.bien.fa_adju_conf_expr.numero_sentencia != "" && this.bien.fa_adju_conf_expr.fecha_sentencia != "" && this.bien.fa_adju_conf_expr.nombre_registro != "" && this.bien.fa_adju_conf_expr.tomo != "" && this.bien.fa_adju_conf_expr.folio != "" && this.bien.fa_adju_conf_expr.fecha_registro != "" ){
-							}else {	return false;}
-						}else {
-
-						if (this.bien.forma_adquisicion == "Compra concurso abierto" || this.bien.forma_adquisicion == "Compra concurso cerrado"){
-								if ( this.bien.fa_concurso_abierto_cerrado.numero_concurso != "" && this.bien.fa_concurso_abierto_cerrado.nombre_concurso != "" && this.bien.fa_concurso_abierto_cerrado.fecha_concurso != "" && this.bien.fa_concurso_abierto_cerrado.numero_contrato != "" && this.bien.fa_concurso_abierto_cerrado.fecha_contrato != "" && this.bien.fa_concurso_abierto_cerrado.numero_nota_entrega != "" && this.bien.fa_concurso_abierto_cerrado.fecha_nota_entrega != "" && this.bien.fa_concurso_abierto_cerrado.numero_factura != "" && this.bien.fa_concurso_abierto_cerrado.fecha_factura != ""){
-
-								}else{return false;}
-								
-						} else {
-
-						if (this.bien.forma_adquisicion == "Compra directa"){
-							if (this.bien.fa_compra_directa.proveedor != "" && this.bien.fa_compra_directa.numero_orden_compra != "" && this.bien.fa_compra_directa.fecha_orden_compra != "" && this.bien.fa_compra_directa.numero_nota_entrega != "" && this.bien.fa_compra_directa.fecha_nota_entrega != "" && this.bien.fa_compra_directa.numero_factura != "" && this.bien.fa_compra_directa.fecha_factura !=""){
-
-							} else {return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Dación de pago"){
-							if ( this.bien.fa_dacion_pago.nombre_cedente != "" && this.bien.fa_dacion_pago.nombre_beneficiario != "" && this.bien.fa_dacion_pago.numero_finiquito != "" && this.bien.fa_dacion_pago.fecha_finiquito != "" && this.bien.fa_dacion_pago.nombre_registro != "" && this.bien.fa_dacion_pago.tomo != "" && this.bien.fa_dacion_pago.folio != "" && this.bien.fa_dacion_pago.fecha_registro != ""){
-
-							} else{return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Donación"){
-							if (this.bien.fa_donacion.nombre_donante != "" && this.bien.fa_donacion.nombre_beneficiario != "" && this.bien.fa_donacion.numero_contrato != "" && this.bien.fa_donacion.fecha_contrato != "" && this.bien.fa_donacion.nombre_registro != "" && this.bien.fa_donacion.tomo != "" && this.bien.fa_donacion.folio != "" && this.bien.fa_donacion.fecha_registro != ""){
-
-							}else {return false;}
-
-						}else {
-
-						if (this.bien.forma_adquisicion == "Permuta" ){
-							if (this.bien.fa_permuta.nombre_copermutante != "" && this.bien.fa_permuta.nombre_beneficiario != "" && this.bien.fa_permuta.nombre_licitacion != "" && this.bien.fa_permuta.numero_licitacion != "" && this.bien.fa_permuta.fecha_licitacion != "" && this.bien.fa_permuta.numero_contrato != "" && this.bien.fa_permuta.fecha_contrato != "" && this.bien.fa_permuta.nombre_registro != "" && this.bien.fa_permuta.tomo != "" && this.bien.fa_permuta.folio != "" && this.bien.fa_permuta.fecha_registro != "") {
-							}else{return false;}
-
-						}else{
-
-						if (this.bien.forma_adquisicion == "Transferencia" ){
-							if (this.bien.fa_transferencia.nombre_quien_transfiere != "" && this.bien.fa_transferencia.nombre_beneficiario != "" && this.bien.fa_transferencia.numero_autorizacion != "" && this.bien.fa_transferencia.fecha_autorizacion != "" && this.bien.fa_transferencia.nombre_registro != "" && this.bien.fa_transferencia.tomo != "" && this.bien.fa_transferencia.folio != "" && this.bien.fa_transferencia.fecha_registro != ""){
-
-							}else { return false;}
-						}else {return false;}
-
-						}
-						}
-						}
-						}
-						}
-						}
-
-						if (this.bien.datos_seguro.nombre_compania != "" && this.bien.datos_seguro.registro_seguro != "" && this.bien.datos_seguro.numero_poliza != "" && this.bien.datos_seguro.monto_asegurado != "" && this.bien.datos_seguro.fecha_inicio_poliza != "" && this.bien.datos_seguro.fecha_fin_poliza != "" && this.bien.datos_seguro.cobertura != "" && this.bien.datos_seguro.posee_responsabilidad_civil != "" && this.bien.datos_seguro.otro_nombre_compania != "" && this.bien.datos_seguro.descripcion_cobertura != ""){
-
-							}else {return false;}
-
-						if (this.bien.codigo_interno != "" && this.bien.valor_adquisicion != "" && this.bien.fecha_adquisicion != "" && this.bien.estado != "" && this.bien.estado_uso != "" && this.bien.uso_actual != "" && this.bien.moneda != "" && this.bien.fecha_ingreso_organo != "" && this.bien.descripcion != ""){
-								if (this.bien.moneda == "Otra moneda"){
-									if (this.bien.otra_moneda != ""){
-
-									}else {return false;}
-								}
-						} else {return false;}
-
-
-				}else {return false;}
-				}
-
-				return true;
-			}else {
-				return false;
-			}
-		},
-		isFormValidAsig (){
-			if (this.asigancion != ""){
-			if (this.asignacion.tipo_bien == "Mueble" ) {
-				if (this.asignacion.mueble.unidad_administrativa != "" && this.asignacion.mueble.responsable_administrativo != "" && this.asignacion.mueble.responsable_uso_directo != "" && this.asignacion.mueble.ubicacion != ""){
-				}else {return false;}
-			}else{
-
-				if (this.asignacion.tipo_bien == "Inmueble") {
-					if (this.asignacion.inmueble.ubicacion != "" && this.asignacion.inmueble.pais != "" && this.asignacion.inmueble.localizacion != "" && this.asignacion.inmueble.parroquia != "" && this.asignacion.inmueble.calle_av != "" && this.asignacion.inmueble.urbanizacion != "" && this.asignacion.inmueble.casa_edificio != "" && this.asignacion.inmueble.posee_sede != "" && this.asignacion.inmueble.sede != "" && this.asignacion.inmueble.unidad_administrativa != "" && this.asignacion.inmueble.responsable_administrativo != "" && this.asignacion.inmueble.responsable_uso_directo != "" ){
-					
-					}else{return false;}
-
-				}else {return false;}
-			}
-
-			return true;
-		}
-		else {return false;}
-		},
-		isFormValidDesin(){
-			if (this.desincorporacion.estado_uso != ""){
-				return true;
-			}else {return false;}
-		},
-		enviarIdCategoria(id){
-	
-			this.$http.post('/obtenerSubcategoria', {
-			 _token: document.getElementById('csrf_token').value,
-				id: id
-          }).then(function(response) { 
-             this.subcategorias =response.body;
-             this.bien.subcategoria = '';
-          }, function() { 
-             alert('Error');
-          });
+        obtenerSubcategorias(subcategorias){
+            this.subcategorias =subcategorias;
+            this.bien.subcategoria = '';
 		},
 
-		enviarIdSubcategoria(id){
+		obtenerCategoriasEspecificas(id){
+        	console.log(id);
 			this.$http.post('/obtenerCategoriaEspecifica', {
 			 _token: document.getElementById('csrf_token').value,
-             id: id 
-          }).then(function(response) { 
+             id: id
+          }).then(function(response) {
              this.categorias_especificas =response.body;
              this.bien.categoria_especifica = '';
 
-          }, function() { 
-             alert('Error'); 
-      
+          }, function() {
+             alert('Error');
+
           });
 		},
 
@@ -1169,11 +1126,11 @@ var vm = new Vue({
                 _token: document.getElementById('csrf_token').value,
                 id: id
             }).then(function(response) {
-                this.maxima =response.body;
-                this.maxima.habilitado = (this.maxima.habilitado) ? "SI" : "NO";
+                this.responsable =response.body;
+                this.responsable.habilitado = (this.responsable.habilitado) ? "SI" : "NO";
                 for (var i = 0; i < entes.length; i++) {
-                    if (entes[i].id === this.maxima.ente_id) {
-                        this.maxima.ente = entes[i].razon_social;
+                    if (entes[i].id === this.responsable.ente_id) {
+                        this.responsable.ente = entes[i].razon_social;
                     }
                 }
 
@@ -1302,17 +1259,17 @@ var vm = new Vue({
         obtenerSubcategoria(subcategoria, categoria){
             this.subcategoria.id = subcategoria.id;
             this.subcategoria.codigo = subcategoria.codigo;
-            this.subcategoria.subcategoria = subcategoria.subcategoria;
+            this.subcategoria.subcategoria = subcategoria.nombre;
             this.subcategoria.categoria_id = subcategoria.categoria_id;
             this.subcategoria.categoria = categoria;
         },
         obtenerCategoriaEspecifica(categoria_especifica, subcategoria, categoria, subcategorias){
             this.categoria_especifica.id = categoria_especifica.id;
             this.categoria_especifica.codigo = categoria_especifica.codigo;
-            this.categoria_especifica.categoria_especifica = categoria_especifica.categoria_especifica;
+            this.categoria_especifica.nombre = categoria_especifica.nombre;
             this.categoria_especifica.subcategoria_id = categoria_especifica.subcategoria_id;
             this.categoria_especifica.subcategoria = subcategoria;
-            this.categoria_especifica.categoria.categoria = categoria;
+            this.categoria_especifica.categoria.nombre = categoria;
             this.categoria_especifica.categoria.subcategorias = subcategorias;
         },
         obtenerColor(color){
@@ -1327,9 +1284,98 @@ var vm = new Vue({
         obtenerCompaniaAseguradora(compania_aseguradora){
             this.compania_aseguradora = compania_aseguradora;
         },
+        obtenerTipoCobertura(tipo_cobertura){
+            this.tipo_cobertura = tipo_cobertura;
+        },
+        obtenerMoneda(moneda){
+            this.moneda = moneda;
+        },
+        obtenerTipoBien(tipo_bien){
+            this.tipo_bien = tipo_bien;
+        },
+        obtenerFormaAdquisicion(forma_adquisicion){
+            this.forma_adquisicion = forma_adquisicion;
+        },
+        obtenerEstadoUsoBien(estado_uso_bien){
+            this.estado_uso_bien = estado_uso_bien;
+        },
+        obtenerUsoActualBien(uso_actual_bien){
+            this.uso_actual_bien = uso_actual_bien;
+        },
+        obtenerUbicacionAdministrativa(ubicacion_administrativa){
+            this.ubicacion_administrativa = ubicacion_administrativa;
+        },
+        obtenerEstadosByPais(estados){
+            this.sede.estados = estados;
+        },
+        obtenerTipoSede(tipo_sede){
+            this.tipo_sede = tipo_sede;
+        },
+        obtenerEstadosPorPais(id){
+            this.$http.post('/obtenerEstadosPorPais', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.sede.estados = response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerMunicipiosPorEstado(id){
+            this.$http.post('/obtenerMunicipiosPorEstado', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.sede.municipios = response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerParroquiasPorMunicipios(id){
+            this.$http.post('/obtenerParroquiasPorMunicipios', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.sede.parroquias = response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        obtenerCiudadesPorMunicipio(id){
+            this.$http.post('/obtenerCiudadesPorMunicipio', {
+                _token: document.getElementById('csrf_token').value,
+                id: id
+            }).then(function(response) {
+                this.sede.ciudades = response.body;
+            }, function() {
+                alert('Error');
+            });
+        },
+        autoCompleteResponsableAdministrativo(responsable){
+
+            this.$http.post('/obtenerResponsables', {
+                _token: document.getElementById('csrf_token').value,
+                key_search: responsable
+            }).then(function(response) {
+                this.responsables_admin = response.body;
+            }, function() {
+                this.responsables_admin = ['luiscarl','jordan'];
+                //alert('Error');
+            });
+        },
+        autoCompleteResponsableUsoDirecto(responsable){
+
+            this.$http.post('/obtenerResponsables', {
+                _token: document.getElementById('csrf_token').value,
+                key_search: responsable
+            }).then(function(response) {
+                this.responsables_uso = response.body;
+            }, function() {
+                this.responsables_uso = ['luiscarl','jordan'];
+                //alert('Error');
+            });
+        },
 	},
-
-
 });
 
 var vmDialog = new Vue({

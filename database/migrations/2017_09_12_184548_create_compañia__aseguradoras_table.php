@@ -12,7 +12,7 @@ class CreateCompañiaAseguradorasTable extends Migration
      */
     public function up()
     {
-        Schema::create('compañia__aseguradoras', function (Blueprint $table) {
+        Schema::create('compania_aseguradoras', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('nombre');
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateCompañiaAseguradorasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('compañia__aseguradoras');
+        Schema::drop('compania_aseguradoras');
     }
 }

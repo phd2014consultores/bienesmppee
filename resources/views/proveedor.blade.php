@@ -59,12 +59,8 @@
  				<div class="mdl-card__actions phdHide">
 
                      <div class="phd-input-group">
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="phd-id_proveedor" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-id_proveedor" v-model="proveedor.id">
-                          <label class="mdl-textfield__label" for="phd-id_proveedor">Codigo del Proveedor (*)</label>
+                         <input v-model="proveedor.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
 
-                          
-                        </div>
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input class="mdl-textfield__input" type="text" id="phd-descripcion_proveedor" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-descripcion_proveedor" v-model="proveedor.descripcion">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Descripción del Proveedor (*)</label>
@@ -77,19 +73,12 @@
 
                         </div>
 
-
-                    </div>
-
-                     <div class="phd-input-group">
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input class="mdl-textfield__input" type="text" id="phd-rif_proveedor" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-rif_proveedor" v-model="proveedor.rif">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">R.I.F del Proveedor (*)</label>
 
                           
                         </div>
-                    </div>
-                        
-                    <div class="phd-input-group">
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <textarea class="mdl-textfield__input" type="text" id="phd-otra_descripcion_proveedor" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-otra_descripcion_proveedor" v-model="proveedor.otra_descripcion"></textarea>
                           <label class="mdl-textfield__label" for="phd-id_proveedor"> Otra Descripción del Proveedor (*)</label>

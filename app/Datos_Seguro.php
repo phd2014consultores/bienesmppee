@@ -12,7 +12,7 @@ class Datos_Seguro extends Model
 
 	public function compañia_aseguradora() 
 	{
-		return $this->belongsTo('App\Compañia_Aseguradora');
+		return $this->belongsTo('App\Compania_Aseguradora');
 	}
 
 	public function cobertura() 

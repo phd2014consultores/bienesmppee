@@ -5,33 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\FA_Adju_Conf_Expr;
-use App\Forma_Adquisicion;
+use App\FormaAdquisicion;
 use App\FA_Compra_Abierto_Cerrado;
 use App\FA_Compra_Directa;
 use App\FA_Dacion_Pago;
 use App\FA_Donacion;
 use App\FA_Permuta;
 use App\FA_Transferencia;
-use App\Tipo_Bien;
+use App\TipoBien;
 use App\Mueble;
 use App\Marca;
 use App\Modelo;
 use App\Color;
 use App\Inmueble;
-use App\Unidad_Medida;
-use App\Compañia_Aseguradora;
+use App\UnidadMedida;
+use App\CompaniaAseguradora;
 use App\Cobertura;
 use App\Datos_Seguro;
 use App\Componentes_Mueble;
-use App\Estado_Bien;
-use App\Estado_Uso_Bien;
-use App\Uso_Actual_Bien;
+use App\EstadoBien;
+use App\EstadoUsoBien;
+use App\UsoActualBien;
 use App\Moneda;
 use App\Categoria;
 use App\Subcategoria;
-use App\Categoria_Especifica;
+use App\CategoriaEspecifica;
 use App\Bien;
 use App\Proveedor;
 
@@ -39,6 +38,12 @@ use App\Proveedor;
 
 class BienController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -56,26 +61,26 @@ class BienController extends Controller
      */
     public function create()
     {
-        $tipo_bien = Tipo_Bien::all();
-        $forma_adquisicion = Forma_Adquisicion::all();
-        $categoria = Categoria::all();
+        $tipo_bienes = TipoBien::all();
+        $formas_adquisicion = FormaAdquisicion::all();
+        $categorias = Categoria::all();
         $subcategoria = Subcategoria::all();
-        $categoria_especifica = Categoria_Especifica::all();
-        $estado_bien = Estado_Bien::all();
-        $estado_uso = Estado_Uso_Bien::all();
-        $uso_actual = Uso_Actual_Bien::all();
+        $categoria_especifica = CategoriaEspecifica::all();
+        $estado_bien = EstadoBien::all();
+        $estado_uso = EstadoUsoBien::all();
+        $uso_actual = UsoActualBien::all();
         $moneda = Moneda::all();
         $color = Color::all();
         $marca = Marca::all();
         $modelo = Modelo::all();
-        $unidad = Unidad_Medida::all();
-        $compañia_aseguradora = Compañia_Aseguradora::all();
+        $unidad = UnidadMedida::all();
+        $compania_aseguradora = CompaniaAseguradora::all();
         $cobertura = Cobertura::all();
         $proveedor = Proveedor::all();
 
         $mensaje = "";
 
-        return view('incorporar', compact('tipo_bien', 'forma_adquisicion','categoria','subcategoria', 'categoria_especifica', 'estado_bien', 'estado_uso','uso_actual','moneda','color','marca','modelo','unidad','compañia_aseguradora','cobertura', 'proveedor','mensaje'));
+        return view('incorporar', compact('tipo_bienes', 'formas_adquisicion','categorias','subcategoria', 'categoria_especifica', 'estado_bien', 'estado_uso','uso_actual','moneda','color','marca','modelo','unidad','compania_aseguradora','cobertura', 'proveedor','mensaje'));
     }
 
     /**
@@ -87,8 +92,8 @@ class BienController extends Controller
     public function store(Request $request)
     {
 
-      $forna_adquisicion = Forma_Adquisicion::select('*')
-                             ->where('forma_adquisicion', '=', $request['phd-forma_adqusicion'])
+      $forna_adquisicion = FormaAdquisicion::select('*')
+                             ->where('nombre', '=', $request['phd-forma_adqusicion'])
                              ->get();
 
 
@@ -225,8 +230,8 @@ class BienController extends Controller
 
 
 
-       $tipo_bien = Tipo_Bien::select('*')
-                             ->where('tipo_bien', '=', $request['phd-tipo_bien'])
+       $tipo_bien = TipoBien::select('*')
+                             ->where('nombre', '=', $request['phd-tipo_bien'])
                              ->get();
 
 
@@ -284,11 +289,11 @@ class BienController extends Controller
 
 
        if($tipo_bien[0]->tipo_bien == "Inmueble"){
-         $unidad_medida_area_construccion = Unidad_Medida::select('*')
+         $unidad_medida_area_construccion = UnidadMedida::select('*')
                             ->where('unidad', '=', $request['phd-datos_particulares_inmueble_unidad_medida_area_construccion'])
                             ->get();  
 
-         $unidad_medida_area_terreno = Unidad_Medida::select('*')
+         $unidad_medida_area_terreno = UnidadMedida::select('*')
                             ->where('unidad', '=', $request['phd-datos_particulares_inmueble_unidad_medida_area_terreno'])
                             ->get();  
                 $inmueble = Inmueble::create(
@@ -312,7 +317,7 @@ class BienController extends Controller
         }
 
 
-        $nombre_compania = Compañia_Aseguradora::select('*')
+        $nombre_compania = CompaniaAseguradora::select('*')
                             ->where('nombre', '=', $request['phd-datos_seguro_nombre_compania'])
                             ->get();  
 
@@ -335,26 +340,26 @@ class BienController extends Controller
                     
                 ]);
 
-        $estado = Estado_Bien::select('*')
-                            ->where('estado', '=', $request['phd-estado'])
+        $estado = EstadoBien::select('*')
+                            ->where('estado_bien', '=', $request['phd-estado'])
                             ->get();  
-        $estado_uso = Estado_Uso_Bien::select('*')
+        $estado_uso = EstadoUsoBien::select('*')
                             ->where('estado_uso', '=', $request['phd-estado_uso'])
                             ->get();  
-        $uso_actual = Uso_Actual_Bien::select('*')
+        $uso_actual = UsoActualBien::select('*')
                             ->where('uso_actual', '=', $request['phd-uso_actual'])
                             ->get();
         $moneda = Moneda::select('*')
                             ->where('moneda', '=', $request['phd-moneda'])
                             ->get(); 
         $categoria = Categoria::select('*')
-                            ->where('categoria', '=', $request['phd-categoria'])
+                            ->where('nombre', '=', $request['phd-categoria'])
                             ->get(); 
        $subcategoria = Subcategoria::select('*')
-                            ->where('subcategoria', '=', $request['phd-subcategoria'])
+                            ->where('nombre', '=', $request['phd-subcategoria'])
                             ->get(); 
-    $categoria_especifica = Categoria_Especifica::select('*')
-                            ->where('categoria_especifica', '=', $request['phd-categoria_especifica'])
+    $categoria_especifica = CategoriaEspecifica::select('*')
+                            ->where('nombre', '=', $request['phd-categoria_especifica'])
                             ->get();                                       
 
         if($moneda[0]->moneda == 'Otra Moneda')
@@ -398,30 +403,30 @@ class BienController extends Controller
                     'habilitado'=>$true,
                     
                 ]);
-                
- 
 
 
-        $tipo_bien = Tipo_Bien::all();  
-        $forma_adquisicion = Forma_Adquisicion::all();
-        $categoria = Categoria::all();
+
+
+        $tipo_bienes = TipoBien::all();
+        $formas_adquisicion = FormaAdquisicion::all();
+        $categorias = Categoria::all();
         $subcategoria = Subcategoria::all();
-        $categoria_especifica = Categoria_Especifica::all();
-        $estado_bien = Estado_Bien::all();
-        $estado_uso = Estado_Uso_Bien::all();
-        $uso_actual = Uso_Actual_Bien::all();
+        $categoria_especifica = CategoriaEspecifica::all();
+        $estado_bien = EstadoBien::all();
+        $estado_uso = EstadoUsoBien::all();
+        $uso_actual = UsoActualBien::all();
         $moneda = Moneda::all();
         $color = Color::all();
         $marca = Marca::all();
         $modelo = Modelo::all();
-        $unidad = Unidad_Medida::all();
-        $compañia_aseguradora = Compañia_Aseguradora::all();
+        $unidad = UnidadMedida::all();
+        $compania_aseguradora = CompaniaAseguradora::all();
         $cobertura = Cobertura::all();
         $proveedor = Proveedor::all();
 
         $mensaje = "Bien incorporado satisfactoriamente.";
-        
-        return view('incorporar', compact('tipo_bien', 'forma_adquisicion','categoria','subcategoria', 'categoria_especifica', 'estado_bien', 'estado_uso','uso_actual','moneda','color','marca','modelo','unidad','compañia_aseguradora','cobertura', 'proveedor', 'mensaje'));
+
+        return view('incorporar', compact('tipo_bienes', 'formas_adquisicion','categorias','subcategoria', 'categoria_especifica', 'estado_bien', 'estado_uso','uso_actual','moneda','color','marca','modelo','unidad','compania_aseguradora','cobertura', 'proveedor','mensaje'));
        
 }
 

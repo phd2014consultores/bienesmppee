@@ -57,6 +57,7 @@
  				<div class="mdl-card__actions phdHide">
 
                      <div class="phd-input-group">
+                         <input v-model="unidad_administrativa.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input v-model="unidad_administrativa.codigo" class="mdl-textfield__input" type="text" id="phd-codigo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código de la Unidad(*)</label>

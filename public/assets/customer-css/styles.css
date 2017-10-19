@@ -17,6 +17,11 @@
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
+a:not(.mdl-navigation__link) {
+    text-decoration: none;
+    color: initial;
+    width: 100%;
+}
 .demo-avatar {
   width: 48px;
   height: 48px;

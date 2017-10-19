@@ -9,6 +9,11 @@ use App\Estado;
 
 class CiudadController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         $ciudades = Ciudad::paginate(10);
@@ -23,13 +28,14 @@ class CiudadController extends Controller
             ->where('municipio', '=', $request['phd-estado_municipios'])
             ->get();
 
-        $ciudad = Ciudad::updateOrCreate(
-            ['codigo' => $request['phd-codigo']],
-
-            [
-                'ciudad' => $request['phd-ciudad'],
-                'municipio_id' => $municipio[0]->id,
-            ]);
+        $data = array('codigo' => $request['phd-codigo'],'municipio_id' => $municipio[0]->id,'ciudad' => $request['phd-ciudad'] );
+        if ($request['phd-it_to_update']) {
+            $ciudad = Ciudad::updateOrCreate(
+                ['id' => $request['phd-it_to_update']],
+                $data);
+        } else {
+            $ciudad = Ciudad::create($data);
+        }
 
         $ciudades = Ciudad::paginate(10);
         $estados = Estado::all();

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ModeloController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
     	$marcas = Marca::all();
@@ -22,17 +27,18 @@ class ModeloController extends Controller
     {
     	$marca= Marca::select('*')
                              ->where('denominacion_comercial', '=', $request['phd-marca'])
-                             ->get(); 
+                             ->get();
 
-   		$modelo = Modelo::updateOrCreate(
-   		        ['codigo'=> $request['phd-codigo']],
-                [  
-                   
-                    'denominacion_fabricante' => $request['phd-denominacion_fabricante'],
-                    'marca_id' => $marca[0]->id,
-                    'codigo_bien'=> $request['phd-codigo_bien'],
-
-                ]);
+        $data = array('codigo' => $request['phd-codigo'],'denominacion_fabricante' => $request['phd-denominacion_fabricante'],
+            'codigo_bien' => $request['phd-codigo_bien'],
+            'marca_id' => $marca[0]->id);
+        if ($request['phd-it_to_update']) {
+            $modelo = Modelo::updateOrCreate(
+                ['id' => $request['phd-it_to_update']],
+                $data);
+        } else {
+            $modelo = Modelo::create($data);
+        }
         $modelos = Modelo::paginate(10);
         $marcas = Marca::all();
         $mensaje = "Modelo agregado satisfactoriamente.";

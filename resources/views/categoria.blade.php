@@ -34,7 +34,7 @@
                                 @foreach($categorias as $categoria)
                                     <tr v-on:click="obtenerCategoria({{$categoria}})">
                                         <td class="mdl-data-table__cell--non-numeric">{{$categoria->codigo}}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">{{$categoria->categoria}} </td>
+                                        <td class="mdl-data-table__cell--non-numeric">{{$categoria->nombre}} </td>
                                     </tr>
                                 @endforeach
 
@@ -58,9 +58,10 @@
                     <div class="mdl-card__actions phdHide" style="height: 200px;">
 
                         <div class="phd-input-group">
+                            <input v-model="categoria.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
 
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input v-model="categoria.categoria"  class="mdl-textfield__input" type="text" id="phd-categoria" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-categoria">
+                                <input v-model="categoria.nombre"  class="mdl-textfield__input" type="text" id="phd-categoria" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-categoria">
                                 <label class="mdl-textfield__label" for="phd-categoria">Categoría (*)</label>
                             </div>
 

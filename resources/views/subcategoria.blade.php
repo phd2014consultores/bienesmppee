@@ -33,10 +33,10 @@
                                 </thead>
                                 <tbody>
                                 @foreach($subcategorias as $subcategoria)
-                                    <tr v-on:click="obtenerSubcategoria({{$subcategoria}},'{{$subcategoria->categoria->categoria}}')">
-                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($subcategoria->categoria->categoria, 30)}}<p class="phd-table-span-hover">{{$subcategoria->categoria->categoria}}</p></td>
+                                    <tr v-on:click="obtenerSubcategoria({{$subcategoria}},'{{$subcategoria->categoria->nombre}}')">
+                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($subcategoria->categoria->nombre, 30)}}<p class="phd-table-span-hover">{{$subcategoria->categoria->nombre}}</p></td>
                                         <td class="mdl-data-table__cell--non-numeric">{{$subcategoria->codigo}} </td>
-                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($subcategoria->subcategoria, 30)}}<p class="phd-table-span-hover">{{$subcategoria->subcategoria}}</p> </td>
+                                        <td class="mdl-data-table__cell--non-numeric">{{str_limit($subcategoria->nombre, 30)}}<p class="phd-table-span-hover">{{$subcategoria->nombre}}</p> </td>
 
                                     </tr>
                                 @endforeach
@@ -61,13 +61,13 @@
                     <div class="mdl-card__actions phdHide" style="height: 200px;">
 
                         <div class="phd-input-group">
-
+                            <input v-model="subcategoria.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                                 <input class="mdl-textfield__input" type="text" id="phd-categoria" v-model="subcategoria.categoria" readonly tabIndex="-1" name="phd-categoria">
                                 <label for="phd-categoria" class="mdl-textfield__label"> Categoría(*)</label>
                                 <ul for="phd-categoria" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                     @foreach ($categorias as $categoria)
-                                        <li class="mdl-menu__item"  v-on:click='subcategoria.categoria ="{{$categoria->categoria}}";'>{{$categoria->categoria}}</li>
+                                        <li class="mdl-menu__item"  v-on:click='subcategoria.categoria ="{{$categoria->nombre}}";'>{{$categoria->nombre}}</li>
                                     @endforeach
                                 </ul>
                             </div>

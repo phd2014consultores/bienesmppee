@@ -28,7 +28,7 @@ class CreateDatosSegurosTable extends Migration
             
             $table->foreign('compania_id')
             ->references('id')
-            ->on('compañia__aseguradoras');
+            ->on('compania_aseguradoras');
 
             $table->foreign('cobertura_id')
             ->references('id')

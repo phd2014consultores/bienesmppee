@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bien;
-use Illuminate\Support\Facades\DB;
 
 class TableroController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $bien = DB::table('biens')->paginate(10);
+        $bien = Bien::paginate(10);
         return view('tablero', compact('bien'));
  	}
 }

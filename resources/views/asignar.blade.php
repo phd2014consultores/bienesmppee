@@ -16,17 +16,7 @@
 			           <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title phd-head_with_search">
                       <h5 class="phd-title-list">Listado de bienes</h5>
-                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                                  mdl-textfield--floating-label mdl-textfield--align-right">
-                        <label class="mdl-button mdl-js-button mdl-button--icon"
-                               for="phd-search">
-                          <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                          <input class="mdl-textfield__input" type="text" name="sample"
-                                 id="phd-search">
-                        </div>
-                      </div>
+
                       <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                         <i class="material-icons">keyboard_arrow_down</i>
                       </button>
@@ -45,12 +35,12 @@
                             </thead>
                             <tbody>
                             @foreach($bien as $bien1)
-                              <tr v-on:click="asignacion.tipo_bien ='{{$bien1->tipo_bien->tipo_bien}}'; asignacion.bien_id ='{{$bien1->id}}'; showForm('phd-form{{$bien1->tipo_bien->tipo_bien}}');"  onclick="setIdBienAsignado({{$bien1->id}})">
-                                <td class="mdl-data-table__cell--non-numeric">{{$bien1->id}}</td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->categoria, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->categoria}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->subcategoria, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->subcategoria}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->categoria_especifica, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->categoria_especifica}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->tipo_bien}}</td>
+                              <tr v-on:click="asignacion.tipo_bien ='{{$bien1->tipo_bien->nombre}}'; asignacion.bien_id ='{{(string)$bien1->id}}'; showForm('phd-form{{$bien1->tipo_bien->nombre}}');"  onclick="setIdBienAsignado({{(string)$bien1->id}})">
+                                <td class="mdl-data-table__cell--non-numeric">{{(string)$bien1->id}}</td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->nombre, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->nombre}}</td>
                               </tr>
                             @endforeach
 
@@ -66,9 +56,8 @@
                       <i class="material-icons phdShow">keyboard_arrow_down</i>
                     </button>
                   </div>
-                  <div class="mdl-card__actions phdHide">
-                    
-                    <div class="phd-formMueble phdShow">
+
+                    <div class="phd-formmueble phdHide" style="height: 400px;">
 
                       <div class="phd-input-group">
                         <p class="phd-subtitle">Datos de ubicación adminitrativa</p>
@@ -85,92 +74,40 @@
 
                       <div class="phd-input-group">
                         <p class="phd-subtitle">Datos específicos de asignación</p>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                              <input v-on:keyup="autoCompleteResponsableAdministrativo(asignacion.mueble.responsable_administrativo);" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_responsable_administrativo" name="phd-asignacion_mueble_responsable_administrativo" v-model="asignacion.mueble.responsable_administrativo" tabIndex="-1">
+                              <label for="phd-asignacion_mueble_responsable_administrativo" class="mdl-textfield__label">Responsable Administrativo (*)</label>
+                              <ul for="phd-asignacion_mueble_responsable_administrativo" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                  <li v-for="item in responsables_admin" class="mdl-menu__item" v-on:click="asignacion.mueble.responsable_administrativo = item;">@{{item}}</li>
+                              </ul>
+                          </div>
+
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_unidad_administrativa" v-model="asignacion.mueble.unidad_administrativa" name="phd-asignacion_mueble_unidad_administrativa">
                           <label class="mdl-textfield__label" for="'phd-asignacion_mueble_unidad_administrativa">Unidad administrativa (*)</label>
                         </div>
 
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_responsable_administrativo" v-model="asignacion.mueble.responsable_administrativo" name="phd-asignacion_mueble_responsable_administrativo">
-                          <label class="mdl-textfield__label" for="'phd-asignacion_mueble_responsable_administrativo">Responsable administrativo (*)</label>
-                        </div>
-
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_responsable_uso_directo" v-model="asignacion.mueble.responsable_uso_directo" name="phd-asignacion_mueble_responsable_uso_directo">
-                          <label class="mdl-textfield__label" for="'phd-asignacion_mueble_responsable_uso_directo">Responsable de uso directo (*)</label>
-                        </div>
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                              <input v-on:keyup="autoCompleteResponsableUsoDirecto(asignacion.mueble.responsable_uso_directo);" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_responsable_uso_directo" name="phd-asignacion_mueble_responsable_uso_directo" v-model="asignacion.mueble.responsable_uso_directo" tabIndex="-1">
+                              <label for="phd-asignacion_mueble_responsable_uso_directo" class="mdl-textfield__label">Responsable Uso Directo (*)</label>
+                              <ul for="phd-asignacion_mueble_responsable_uso_directo" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                  <li v-for="item in responsables_uso" class="mdl-menu__item" v-on:click="asignacion.mueble.responsable_uso_directo = item;">@{{item}}</li>
+                              </ul>
+                          </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="phd-formInmueble phdHide">
+                  <div class="phd-forminmueble phdHide" style="height: 400px;">
                       
                       <div class="phd-input-group">
                         <p class="phd-subtitle">Datos de ubicación geográfica</p>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_ubicacion" v-model="asignacion.inmueble.ubicacion" name="phd-asignacion_ubicacion">
-                          <label class="mdl-textfield__label" for="phd-asignacion_ubicacion">Ubicación (*)</label>
-                        </div>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" id="phd-asignacion_pais" v-model="asignacion.inmueble.pais" readonly tabIndex="-1" name="phd-asignacion_pais">
-                            <label for="phd-asignacion_pais" class="mdl-textfield__label">País (*)</label>
-                            <ul for="phd-asignacion_pais" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            @foreach($pais as $pais1)
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.pais = '{{$pais1->pais}}';">{{$pais1->pais}}</li>
-                            @endforeach
-                            </ul>
-                        </div>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" id="phd-asignacion_localizacion" v-model="asignacion.inmueble.localizacion" readonly tabIndex="-1" name="phd-asignacion_localizacion">
-                            <label for="phd-asignacion_localizacion" class="mdl-textfield__label">Localización (*)</label>
-                            <ul for="phd-asignacion_localizacion" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.localizacion = 'Nacional';">Nacional</li>
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.localizacion = 'Internacional';">Internacional</li>
-                            </ul>
-                        </div>
-                      </div>
-                      <div class="phd-input-group">
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" id="phd-asignacion_parroquia" name="phd-asignacion_parroquia" v-model="asignacion.inmueble.parroquia" readonly tabIndex="-1">
-                            <label for="phd-asignacion_parroquia" class="mdl-textfield__label">Parroquia (*)</label>
-                            <ul for="phd-asignacion_parroquia" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            @foreach($parroquia as $parroquia1)
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.parroquia = '{{$parroquia1->parroquia}}';">{{$parroquia1->parroquia}}</li>
-                            @endforeach
-                            </ul>
-                        </div>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_calle_av" v-model="asignacion.inmueble.calle_av" name="phd-asignacion_calle_av">
-                          <label class="mdl-textfield__label" for="phd-asignacion_calle_av">Calle o Av. (*)</label>
-                        </div>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_urbanizacion" v-model="asignacion.inmueble.urbanizacion" name="phd-asignacion_urbanizacion">
-                          <label class="mdl-textfield__label" for="phd-asignacion_urbanizacion">Urbanización (*)</label>
-                        </div>
-                      </div>
 
-                      <div class="phd-input-group">
-
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_casa_edificio" v-model="asignacion.inmueble.casa_edificio" name="phd-asignacion_casa_edificio">
-                          <label class="mdl-textfield__label" for="phd-asignacion_casa_edificio">Casa o edificio (*)</label>
-                        </div>
-
-
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" id="phd-asignacion_posee_sede"  v-model="asignacion.inmueble.posee_sede" readonly tabIndex="-1" name="phd-asignacion_posee_sede">
-                            <label for="phd-asignacion_posee_sede" class="mdl-textfield__label">Posee sede (*)</label>
-                            <ul for="phd-asignacion_posee_sede" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.posee_sede = 'Si';">Si</li>
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.posee_sede = 'No';">No</li>
-                            </ul>
-                        </div>
                         
                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                             <input class="mdl-textfield__input" type="text" id="phd-asignacion_sede" name="phd-asignacion_sede" v-model="asignacion.inmueble.sede" readonly tabIndex="-1">
                             <label for="phd-asignacion_sede" class="mdl-textfield__label">Sede (*)</label>
                             <ul for="phd-asignacion_sede" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                             @foreach($sede as $sede1)
-                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.sede = '{{$sede1->sede}}';">{{$sede1->sede}}</li>
+                                <li class="mdl-menu__item"  v-on:click="asignacion.inmueble.sede = '{{$sede1->descripcion}}';">{{$sede1->descripcion}}</li>
                             @endforeach
                             </ul>
                         </div>
@@ -179,21 +116,26 @@
 
                       <div class="phd-input-group">
                         <p class="phd-subtitle">Datos específicos de la asignación</p>
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_unidad_administrativa" v-model="asignacion.inmueble.unidad_administrativa" name="phd-asignacion_inmueble_unidad_administrativa">
-                          <label class="mdl-textfield__label" for="'phd-asignacion_inmueble_unidad_administrativa">Unidad administrativa (*)</label>
-                        </div>
-                       
-                        
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_responsable_administrativo" v-model="asignacion.inmueble.responsable_administrativo" name="phd-asignacion_inmueble_responsable_administrativo">
-                          <label class="mdl-textfield__label" for="'phd-asignacion_inmueble_responsable_administrativo">Responsable administrativo (*)</label>
-                        </div>
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                              <input v-on:keyup="autoCompleteResponsableAdministrativo(asignacion.inmueble.responsable_administrativo);" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_responsable_administrativo" name="phd-asignacion_inmueble_responsable_administrativo" v-model="asignacion.inmueble.responsable_administrativo" tabIndex="-1">
+                              <label for="phd-asignacion_inmueble_responsable_administrativo" class="mdl-textfield__label">Responsable Administrativo (*)</label>
+                              <ul for="phd-asignacion_inmueble_responsable_administrativo" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                  <li v-for="item in responsables_admin" class="mdl-menu__item" v-on:click="asignacion.inmueble.responsable_administrativo = item;">@{{item}}</li>
+                              </ul>
+                          </div>
 
-                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_responsable_uso_directo" v-model="asignacion.inmueble.responsable_uso_directo" name="phd-asignacion_inmueble_responsable_uso_directo">
-                          <label class="mdl-textfield__label" for="'phd-asignacion_inmueble_responsable_uso_directo">Responsable de uso directo (*)</label>
-                        </div>
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_unidad_administrativa" v-model="asignacion.inmueble.unidad_administrativa" name="phd-asignacion_inmueble_unidad_administrativa">
+                              <label class="mdl-textfield__label" for="'phd-asignacion_inmueble_unidad_administrativa">Unidad administrativa (*)</label>
+                          </div>
+
+                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                              <input v-on:keyup="autoCompleteResponsableUsoDirecto(asignacion.inmueble.responsable_uso_directo);" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_responsable_uso_directo" name="phd-asignacion_inmueble_responsable_uso_directo" v-model="asignacion.inmueble.responsable_uso_directo" tabIndex="-1">
+                              <label for="phd-asignacion_inmueble_responsable_uso_directo" class="mdl-textfield__label">Responsable Uso Directo (*)</label>
+                              <ul for="phd-asignacion_inmueble_responsable_uso_directo" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                  <li v-for="item in responsables_uso" class="mdl-menu__item" v-on:click="asignacion.inmueble.responsable_uso_directo = item;">@{{item}}</li>
+                              </ul>
+                          </div>
                       </div>
                   </div>
                 </div>
@@ -204,7 +146,7 @@
                         Cancelar
                     </button>
 
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de asignar el bien con los datos suministrados?', submitAsignar);" v-bind:disabled="!isFormValidAsig()">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de asignar el bien con los datos suministrados?', submitAsignar);">
                         Asignar
                     </button>
                     

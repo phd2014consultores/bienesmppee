@@ -9,7 +9,7 @@ use App\Categoria_Especifica;
 
 class Subcategoria extends Model
 {
-     protected $fillable = ['id','subcategoria','categoria_id','codigo'];
+     protected $fillable = ['id','nombre','categoria_id','codigo'];
 
 	public function categoria() 
 	{
@@ -20,7 +20,7 @@ class Subcategoria extends Model
     {
 		return $this->hasMany('App\Categoria_Especifica');
 	}
-	public function bien() 
+	public function bien()
     {
 		return $this->hasMany('App\Bien');
 	}

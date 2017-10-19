@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
+namespace app\Http\Controllers\Auth;
+use Auth;
+use App\User;
+use App\Usuarios;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -18,14 +22,14 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use  \App\Traits\AuthenticateOpenLdap, AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/incorporar';
 
     /**
      * Create a new controller instance.
@@ -36,4 +40,31 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    /**
+     * Crea la autenticación y extración de roles del ldap.
+     *
+     * @return void
+     */
+
+    public function username()
+    {
+        return 'username';
+    }
+
+    public function login(Request $request){
+
+        $login = $this->loginOpenLdap($request);
+
+        if ($login->status() === 200) {
+            $data = json_decode($login->content());
+            return redirect()->to('/incorporar');
+        }else if($login->status() === 401){
+            $error = json_decode($login->content());
+            return view('auth.login', ['error' => $error->error]);
+        }else if($login->status() === 503){
+            $error = json_decode($login->content());
+            return view('auth.login', ['error' => $error->error]);
+        }
+    }
 }
+?>

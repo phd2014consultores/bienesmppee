@@ -18,9 +18,14 @@ use App\Sede;
 
 class ReasignacionController extends Controller
 {
-    
 
-	 public function create()
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function create()
     {
      	$bien= Bien::select('*')
                              ->where('responsable_id', '!=', null)
@@ -35,89 +40,82 @@ class ReasignacionController extends Controller
  	}
 
 
- 	public function store(Request $request)
+    public function store(Request $request)
     {
 
 
-     	$bien= Bien::find($request['idBienSeleccionado']);
-    	if($bien->tipo_bien->tipo_bien == "Mueble") {
+        $bien= Bien::find($request['idBienSeleccionado']);
+        if($bien->tipo_bien->nombre == "Mueble") {
 
 
-    		$ubicacion = Ubicacion_Administrativa::select('*')
-                            ->where('ubicacion', '=', $request['phd-asignacion_mueble_ubicacion'])
-                            ->get(); 
+            $ubicacion = Ubicacion_Administrativa::select('*')
+                ->where('ubicacion', '=', $request['phd-asignacion_mueble_ubicacion'])
+                ->get();
             $ubicacion_geografica =null;
 
-    		$datos_especificos_asignacion = Datos_Especificos_Asignacion::create(
-                [  
-              
+            $datos_especificos_asignacion = Datos_Especificos_Asignacion::create(
+                [
+
                     'unidad_administrativa' => $request['phd-asignacion_mueble_unidad_administrativa'],
                     'responsable_administrativo' => $request['phd-asignacion_mueble_responsable_administrativo'],
                     'responsable_uso_directo'=> $request['phd-asignacion_mueble_responsable_uso_directo'],
                     'ubicacion_administrativa_id' => $ubicacion[0]->id,
                     'ubicacion_geografica_id'=>$ubicacion_geografica,
-                    
+
                 ]);
-     		
+
         }
 
-        if ($bien->tipo_bien->tipo_bien == "Inmueble") {
+        if ($bien->tipo_bien->nombre == "Inmueble") {
 
-        	$pais = Pais::select('*')
-                            ->where('pais', '=', $request['phd-asignacion_pais'])
-                            ->get(); 
             $sede = Sede::select('*')
-            				->where('sede', '=', $request['phd-asignacion_sede'] )
-            				->get();
-            $parroquia = Parroquia::select('*')
-            				->where('parroquia', '=', $request['phd-asignacion_parroquia'])
-                            ->get(); 
-
-        	$ubicacion = Ubicacion_Geografica::create(
+                ->where('descripcion', '=', $request['phd-asignacion_sede'] )
+                ->get();
+            $ubicacion = Ubicacion_Geografica::create(
                 [
-                	'ubicacion'=> $request['phd-asignacion_ubicacion'],
-                	'pais'=> $pais[0]->id,
-                	'localizacion'=> $request['phd-asignacion_localizacion'],
-                	'parroquia'=> $parroquia[0]->id,
-                	'calle_avenida'=> $request['phd-asignacion_calle_av'],
-                	'urbanizacion'=> $request['phd-asignacion_urbanizacion'],
-                	'casa_edificio'=> $request['phd-asignacion_casa_edificio'],
-                	'posee_sede'=> $request['phd-asignacion_posee_sede'],
-                	'sede'=> $sede[0]->id,
+                    'ubicacion'=> $sede[0]->ciudad->ciudad,
+                    'pais'=> $sede[0]->codigo_pais,
+                    'localizacion'=> $sede[0]->localizacion,
+                    'parroquia'=> $sede[0]->parroquia->parroquia,
+                    'calle_avenida'=> $sede[0]->calle_avenida,
+                    'urbanizacion'=> $sede[0]->urbanizacion,
+                    'casa_edificio'=> $sede[0]->casa_edificio,
+                    'posee_sede'=> 'SI',
+                    'sede'=> $sede[0]->id,
 
                 ]);
 
-        	$ubicacion_administrativa = null;
+            $ubicacion_administrativa = null;
 
             $datos_especificos_asignacion = Datos_Especificos_Asignacion::create(
-                [  
-              
+                [
+
                     'unidad_administrativa' => $request['phd-asignacion_inmueble_unidad_administrativa'],
                     'responsable_administrativo' => $request['phd-asignacion_inmueble_responsable_administrativo'],
                     'responsable_uso_directo'=> $request['phd-asignacion_inmueble_responsable_uso_directo'],
                     'ubicacion_administrativa_id' => $ubicacion_administrativa,
                     'ubicacion_geografica_id'=> $ubicacion->id,
-                    
+
                 ]);
 
         }
-        
+
         $bien->responsable_id= $datos_especificos_asignacion->id;
-     	$bien->save();   
+        $bien->save();
 
 
-    $bien= Bien::select('*')
-                             ->where('responsable_id', '=', null)
-                             ->get();    
+        $bien= Bien::select('*')
+            ->where('responsable_id', '!=', null)
+            ->get();
         $ubicacion = Ubicacion_Administrativa::all();
         $pais = Pais::all();
         $parroquia = Parroquia::all();
         $sede = Sede::all();
-        $mensaje = "Bien Reasignado satisfactoriamente.";
+        $mensaje = "Bien asignado satisfactoriamente.";
 
-     return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
-      	
-      	}
+        return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
+
+    }
 
 
 }

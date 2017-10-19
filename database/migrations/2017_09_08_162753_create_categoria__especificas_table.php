@@ -12,10 +12,10 @@ class CreateCategoriaEspecificasTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoria__especificas', function (Blueprint $table) {
+        Schema::create('categoria_especificas', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('codigo');
-            $table->mediumText('categoria_especifica');
+            $table->mediumText('nombre');
             $table->integer('subcategoria_id');
             $table->timestamps();
 
@@ -32,6 +32,6 @@ class CreateCategoriaEspecificasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categoria__especificas');
+        Schema::drop('categoria_especificas');
     }
 }

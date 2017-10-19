@@ -9,81 +9,48 @@
 
 				<form method="POST" action="incorporar" id="phd-form" class="phd-form">
   					<input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
-            <input type="hidden" name="phd-incorporarBien" value="SI" id="phd-incorporarBien">
+                    <input type="hidden" name="phd-incorporarBien" value="SI" id="phd-incorporarBien">
 
                     <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                    <input class="mdl-textfield__input" type="text" id="phd-tipo_bien"  v-model="bien.tipo_bien" readonly tabIndex="-1" name="phd-tipo_bien">
-                    <label for="phd-tipo_bien" class="mdl-textfield__label">Tipo del bien (*)</label>
-                    <ul for="phd-tipo_bien" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        @foreach ($tipo_bien as $tipo_bien1)
-                        @if($tipo_bien1->tipo_bien=='Mueble')
-    					<li class="mdl-menu__item"  v-on:click="bien.tipo_bien = 'Mueble';showForm('phd-formMueble');"> {{ $tipo_bien1->tipo_bien }} </li>
-    					@else
-    					<li class="mdl-menu__item"  v-on:click="bien.tipo_bien = 'Inmueble';showForm('phd-formInmueble');"> {{ $tipo_bien1->tipo_bien }} </li>
-    					@endif
-    					@endforeach
-                    </ul>
-                </div>
+                      <input class="mdl-textfield__input" type="text" id="phd-tipo_bien"  v-model="bien.tipo_bien" readonly tabIndex="-1" name="phd-tipo_bien">
+                      <label for="phd-tipo_bien" class="mdl-textfield__label">Tipo del bien (*)</label>
+                      <ul for="phd-tipo_bien" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                          @foreach ($tipo_bienes as $tipo_bien)
+                          <li class="mdl-menu__item"  v-on:click="bien.tipo_bien = '{{ $tipo_bien->nombre }}';showForm('phd-form{{ $tipo_bien->nombre }}');"> {{ $tipo_bien->nombre }} </li>
+                          @endforeach
+                      </ul>
+                    </div>
 
-                <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
-                  <div class="mdl-card__title">
-                    <h5 class="phd-title-list">Datos Generales</h5>
-                    <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                     <i class="material-icons">keyboard_arrow_down</i>
-                    </button>
-                  </div>
+                    <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
+                      <div class="mdl-card__title">
+                        <h5 class="phd-title-list">Datos Generales</h5>
+                        <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                         <i class="material-icons">keyboard_arrow_down</i>
+                        </button>
+                      </div>
 
 
-                  <div class="mdl-card__actions phdHide">
-                    <div class="phd-input-group">
-                      <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height getmdl-select__fullwidth">
+                      <div class="mdl-card__actions phdHide">
+                        <div class="phd-input-group">
+                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height getmdl-select__fullwidth">
                         <input class="mdl-textfield__input" type="text" id="phd-forma_adqusicion"  v-model="bien.forma_adquisicion" readonly tabIndex="-1" name="phd-forma_adqusicion">
                         <label for="phd-forma_adqusicion" class="mdl-textfield__label">Forma de Adquisición</label>
 
                         <ul for="phd-forma_adqusicion" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            @foreach ($forma_adquisicion as $forma_adquisicion1)
-                        	@if($forma_adquisicion1->forma_adquisicion=='Adjudicación')
-                            <li class="mdl-menu__item"  v-on:click="showForm('phd-fa_adjudicacion',{{ $forma_adquisicion1->id }});bien.forma_adquisicion = 'Adjudicación'">  {{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Compra concurso abierto')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_compra_concurso_abierto');bien.forma_adquisicion = 'Compra concurso abierto'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Compra concurso cerrado')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_compra_concurso_cerrado');bien.forma_adquisicion = 'Compra concurso cerrado'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Compra directa')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_compra_directa');bien.forma_adquisicion = 'Compra directa'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Confiscación')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_confiscacion');bien.forma_adquisicion = 'Confiscación'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Dación de pago')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_dacion_pago');bien.forma_adquisicion = 'Dación de pago'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Donación')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_donacion');bien.forma_adquisicion = 'Donación'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Expropiación')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_expropiacion');bien.forma_adquisicion = 'Expropiación'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Permuta')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_permuta');bien.forma_adquisicion = 'Permuta'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
-                            @if($forma_adquisicion1->forma_adquisicion=='Transferencia')
-                            <li class="mdl-menu__item" v-on:click="showForm('phd-fa_transferencia');bien.forma_adquisicion = 'Transferencia'">{{ $forma_adquisicion1->forma_adquisicion }}</li>
-                            @endif
+                            @foreach ($formas_adquisicion as $forma_adquisicion)
+                            <li class="mdl-menu__item"  v-on:click="showForm('phd-fa_{{ $forma_adquisicion->nombre }}',{{ $forma_adquisicion->id }});bien.forma_adquisicion = '{{ $forma_adquisicion->nombre }}'">{{ $forma_adquisicion->nombre }}</li>
                             @endforeach
                         </ul>
                       </div>
                     </div>
+
                     <div class="phd-input-group">
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                         <input class="mdl-textfield__input" type="text" id="phd-categoria" v-model="bien.categoria" readonly tabIndex="-1" name="phd-categoria">
                         <label for="phd-categoria" class="mdl-textfield__label">Categoría</label>
                         <ul for="phd-categoria" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        	@foreach ($categoria as $categoria1)
-                            <li class="mdl-menu__item"  v-on:click='enviarIdCategoria("{{$categoria1->id }}"); bien.categoria ="{{$categoria1->categoria}}"'>{{$categoria1->categoria }} </li>
-
+                        	@foreach ($categorias as $categoria)
+                            <li class="mdl-menu__item"  v-on:click='obtenerSubcategorias({{$categoria->subcategoria}}); bien.categoria ="{{$categoria->nombre}}"'>{{$categoria->nombre }} </li>
                           @endforeach
 
                         </ul>
@@ -92,7 +59,7 @@
                           <input class="mdl-textfield__input" type="text" id="phd-subcategoria"  v-model="bien.subcategoria" readonly tabIndex="-1" name="phd-subcategoria">
                           <label for="phd-subcategoria" class="mdl-textfield__label">Subcategoría</label>
                           <ul for="phd-subcategoria" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                              		<li class="mdl-menu__item" v-for="item of subcategorias" v-on:click="enviarIdSubcategoria(item.id);bien.subcategoria = item.subcategoria"> @{{item.subcategoria }}</li>
+                              		<li class="mdl-menu__item" v-for="subcategoria of subcategorias" v-on:click="obtenerCategoriasEspecificas(subcategoria.id);bien.subcategoria = subcategoria.nombre"> @{{subcategoria.nombre }}</li>
                           </ul>
                       </div>
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
@@ -100,7 +67,7 @@
                           <label for="phd-categoria_especifica" class="mdl-textfield__label">Categoría específica</label>
                           <ul for="phd-categoria_especifica" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                               
-                              <li class="mdl-menu__item"  v-for="item of categorias_especificas" v-on:click="bien.categoria_especifica =item.categoria_especifica">@{{item.categoria_especifica}}</li>
+                              <li class="mdl-menu__item"  v-for="item of categorias_especificas" v-on:click="bien.categoria_especifica =item.nombre">@{{item.nombre}}</li>
                               
                           </ul>
                       </div>
@@ -160,7 +127,7 @@
 
 
 
-                      <div  class="phd-fa_compra_concurso_abierto phd-fa_compra_concurso_cerrado phdHide">
+                      <div  class="phd-fa_compra_por_concurso_abierto phd-fa_compra_por_concurso_cerrado phdHide">
                         <div class="phd-input-group">
                           <p class="phd-subtitle">Datos básicos del concurso</p>
                           <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -265,7 +232,7 @@
 
 
 
-                      <div  class="phd-fa_dacion_pago phdHide">
+                      <div  class="phd-fa_dacion_en_pago phdHide">
                         <div class="phd-input-group">
                           <p class="phd-subtitle">Datos de los participantes</p>
                           <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -510,7 +477,7 @@
                           <label for="phd-estado" class="mdl-textfield__label">Estado del bien</label>
                           <ul for="phd-estado" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                           @foreach($estado_bien as $estado_bien1)
-                              <li class="mdl-menu__item"  v-on:click="bien.estado = '{{$estado_bien1->estado}}';">{{$estado_bien1->estado}}</li>
+                              <li class="mdl-menu__item"  v-on:click="bien.estado = '{{$estado_bien1->estado_bien}}';">{{$estado_bien1->estado_bien}}</li>
                               @endforeach
                           </ul>
 
@@ -577,7 +544,7 @@
                   </div>
                   <div class="mdl-card__actions phdHide">
                     
-                    <div class="phd-formMueble phdShow">
+                    <div class="phd-formmueble phdShow">
                       <div class="phd-input-group">
                           
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -589,7 +556,7 @@
                             <label for="phd-datos_particulares_mueble_marca" class="mdl-textfield__label">Marca (*)</label>
                             <ul for="phd-datos_particulares_mueble_marca" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                              @foreach($marca as $marca1)
-                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_mueble.marca = '{{$marca1->marca}}';">{{$marca1->marca}}</li>
+                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_mueble.marca = '{{$marca1->denominacion_comercial}}';">{{$marca1->denominacion_comercial}}</li>
                               @endforeach
                             </ul>
                         </div>
@@ -598,7 +565,7 @@
                             <label for="phd-datos_particulares_mueble_modelo" class="mdl-textfield__label">Modelo (*)</label>
                             <ul for="phd-datos_particulares_mueble_modelo" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                             @foreach($modelo as $modelo1)
-                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_mueble.modelo = '{{$modelo1->modelo}}';">{{$modelo1->modelo}}</li>
+                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_mueble.modelo = '{{$modelo1->denominacion_fabricante}}';">{{$modelo1->denominacion_fabricante}}</li>
                             @endforeach
                             </ul>
                         </div>
@@ -694,7 +661,7 @@
 
 
 
-                    <div class="phd-formInmueble phdHide">
+                    <div class="phd-forminmueble phdHide">
                       
                       <div class="phd-input-group">
                         <p class="phd-subtitle">Datos del registro</p>  
@@ -759,7 +726,7 @@
                             <label for="phd-datos_particulares_inmueble_unidad_medida_area_construccion" class="mdl-textfield__label">Unidad de Medida</label>
                             <ul for="phd-datos_particulares_inmueble_unidad_medida_area_construccion" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                             @foreach($unidad as $unidad2)
-                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_inmueble.unidad_medida_area_construccion = '{{$unidad2->unidad}}';">{{$unidad2->unidad}} </li>
+                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_inmueble.unidad_medida_area_construccion = '{{$unidad2->unidad}}';">{{$unidad2->unidad}} ({{$unidad2->simbolo}})</li>
                              @endforeach
                             </ul>
                         </div>
@@ -777,7 +744,7 @@
                             <label for="phd-datos_particulares_inmueble_unidad_medida_area_terreno" class="mdl-textfield__label">Unidad de Medida</label>
                             <ul for="phd-datos_particulares_inmueble_unidad_medida_area_terreno" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                             @foreach($unidad as $unidad1)
-                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_inmueble.unidad_medida_area_terreno = '{{$unidad1->unidad}}';">{{$unidad1->unidad}}  {{$unidad1->simbolo}} </li>
+                                <li class="mdl-menu__item"  v-on:click="bien.datos_particulares_inmueble.unidad_medida_area_terreno = '{{$unidad1->unidad}}';">{{$unidad1->unidad}}  ({{$unidad1->simbolo}}) </li>
                             @endforeach
                             </ul>
                         </div>
@@ -819,8 +786,8 @@
                             <input class="mdl-textfield__input" type="text" id="phd-datos_seguro_nombre_compania" v-model="bien.datos_seguro.nombre_compania" readonly tabIndex="-1" name="phd-datos_seguro_nombre_compania">
                             <label for="phd-datos_seguro_nombre_compania" class="mdl-textfield__label">Nombre de la compañía</label>
                             <ul for="phd-datos_seguro_nombre_compania" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            @foreach($compañia_aseguradora as $compañia_aseguradora1)
-                                <li class="mdl-menu__item"  v-on:click="bien.datos_seguro.nombre_compania = '{{$compañia_aseguradora1->nombre}}'">{{$compañia_aseguradora1->nombre}}</li>
+                            @foreach($compania_aseguradora as $compania_aseguradora1)
+                                <li class="mdl-menu__item"  v-on:click="bien.datos_seguro.nombre_compania = '{{$compania_aseguradora1->nombre}}'">{{$compania_aseguradora1->nombre}}</li>
                             @endforeach
                             </ul>
                         </div>
@@ -898,7 +865,7 @@
                         Cancelar
                     </button>
 
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de incorporar el bien con los datos suministrados?', submitIncorporar);" v-bind:disabled="!isFormValid()" >
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de incorporar el bien con los datos suministrados?', submitIncorporar);" >
                         Incorporar
                     </button>
                     

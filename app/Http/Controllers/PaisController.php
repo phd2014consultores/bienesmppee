@@ -7,6 +7,11 @@ use App\Pais;
 
 class PaisController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         $paises = Pais::paginate(10);
@@ -17,11 +22,14 @@ class PaisController extends Controller
     public function store(Request $request)
     {
 
-        $pais = Pais::updateOrCreate(
-            ['pais' => $request['phd-pais']],
-
-            [
-            ]);
+        $data = array('pais' => $request['phd-pais']);
+        if ($request['phd-it_to_update']) {
+            $pais = Pais::updateOrCreate(
+                ['id' => $request['phd-it_to_update']],
+                $data);
+        } else {
+            $pais = Categoria::create($data);
+        }
 
         $paises = Pais::paginate(10);
         $mensaje = "País agregado satisfactoriamente.";

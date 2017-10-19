@@ -15,7 +15,7 @@ use App\Color;
 use App\Modelo;
 use App\Marca;
 use App\Unidad_Medida;
-use App\Compañia_Aseguradora;
+use App\Compania_Aseguradora;
 use App\Cobertura;
 use App\Proveedor;
 
@@ -26,7 +26,17 @@ use App\Http\Controllers\Controller;
 
 class IncorporarController extends Controller
 {
-      public function cargarBienes()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function cargarBienes()
     {
         $tipo_bien = Tipo_Bien::all();  
         $forma_adquisicion = Forma_Adquisicion::all();
@@ -41,7 +51,7 @@ class IncorporarController extends Controller
         $marca = Marca::all();
         $modelo = Modelo::all();
         $unidad = Unidad_Medida::all();
-        $compañia_aseguradora = Compañia_Aseguradora::all();
+        $compañia_aseguradora = Compania_Aseguradora::all();
         $cobertura = Cobertura::all();
         $proveedor = Proveedor::all();
 

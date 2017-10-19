@@ -12,9 +12,9 @@ class CreateTipoBiensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo__biens', function (Blueprint $table) {
+        Schema::create('tipo_biens', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('tipo_bien');
+            $table->mediumText('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateTipoBiensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tipo__biens');
+        Schema::drop('tipo_biens');
     }
 }

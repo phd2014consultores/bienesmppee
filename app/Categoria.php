@@ -8,14 +8,14 @@ use App\Subcategoria;
 class Categoria extends Model
 
 {   protected $primaryKey = 'id'; 
-	protected $fillable = ['id','categoria','codigo'];
+	protected $fillable = ['id','nombre','codigo'];
     
-    public function subcategoria() 
+    public function subcategoria()
     {
 		return $this->hasMany('App\Subcategoria');
 	}
 
-	public function bien() 
+	public function bien()
     {
 		return $this->hasMany('App\Bien');
 	}

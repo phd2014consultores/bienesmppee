@@ -45,7 +45,7 @@ class CreateBiensTable extends Migration
 
             $table->foreign('tipo_bien_id')
             ->references('id')
-            ->on('tipo__biens');
+            ->on('tipo_biens');
 
             $table->foreign('inmueble_id')
             ->references('id')
@@ -57,7 +57,7 @@ class CreateBiensTable extends Migration
 
             $table->foreign('forma_adquisicion_id')
             ->references('id')
-            ->on('forma__adquisicions');
+            ->on('forma_adquisicions');
 
             $table->foreign('fa_adju_conf_expr_id')
             ->references('id')
@@ -97,7 +97,7 @@ class CreateBiensTable extends Migration
 
             $table->foreign('categoria_especifica_id')
             ->references('id')
-            ->on('categoria__especificas');
+            ->on('categoria_especificas');
 
             $table->foreign('datos_seguro_id')
             ->references('id')
@@ -109,15 +109,15 @@ class CreateBiensTable extends Migration
 
             $table->foreign('estado_bien_id')
             ->references('id')
-            ->on('estado__biens');
+            ->on('estado_biens');
 
             $table->foreign('estado_uso_id')
             ->references('id')
-            ->on('estado__uso__biens');
+            ->on('estado_uso_biens');
 
             $table->foreign('uso_actual_id')
             ->references('id')
-            ->on('uso__actual__biens');
+            ->on('uso_actual_biens');
 
             $table->foreign('responsable_id')
             ->references('id')

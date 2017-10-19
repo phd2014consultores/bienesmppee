@@ -8,6 +8,11 @@ use App\Estado;
 
 class EstadoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
     	$paises = Pais::all();
@@ -23,13 +28,14 @@ class EstadoController extends Controller
                              ->where('pais', '=', $request['phd-pais'])
                              ->get();
 
-   		$estado = Estado::updateOrCreate(
-   				['codigo' => $request['phd-codigo']],
-   		
-                [
-                    'pais_id' => $pais[0]->id,
-                    'estado' => $request['phd-descripcion'],
-                ]);
+        $data = array('codigo' => $request['phd-codigo'],'pais_id' => $pais[0]->id,'estado' => $request['phd-descripcion'] );
+        if ($request['phd-it_to_update']) {
+            $estado = Estado::updateOrCreate(
+                ['id' => $request['phd-it_to_update']],
+                $data);
+        } else {
+            $estado = Estado::create($data);
+        }
 
         $estados = Estado::paginate(10);
    		$mensaje = "Estado agregado satisfactoriamente.";

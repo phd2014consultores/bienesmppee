@@ -11,12 +11,26 @@
               <h5 class="phd-title-list">Listado de archivos para generar</h5>
             </div>
             <div class="mdl-card__actions">
-              
-              <ul class="demo-list-icon mdl-list ">
+
+                <div class="phd-input-group">
+                    <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input v-model="dateFrom"  class="mdl-textfield__input" type="text" id="phd-dateForm" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)">
+                        <label class="mdl-textfield__label" for="phd-dateForm">Fecha inicio: (*)</label>
+                    </div>
+                    <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input v-model="dateTo"  class="mdl-textfield__input" type="text" id="phd-dateTo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)">
+                        <label class="mdl-textfield__label" for="phd-dateTo">Fecha fin: (*)</label>
+                    </div>
+
+                </div>
+
+                <ul class="demo-list-icon mdl-list ">
                 <li class="mdl-list__item" onclick="document.getElementById('datos-basicos').click();">
                   <span class="mdl-list__item-primary-content">
                   <form method="POST" action="/archivos/datos_basicos" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+
+
                   <button id="datos-basicos" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
                   Datos Básicos del Órgano o Ente
@@ -47,6 +61,8 @@
                   <span class="mdl-list__item-primary-content">
                   <form method="POST" action="/archivos/datos_sede" id="phd-form" class="phd-form">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                      <input v-model="dateFrom" type="hidden" name="phd-dateFrom" id="phd-dateFrom">
+                      <input v-model="dateTo" type="hidden" name="phd-dateTo" id="phd-dateTo">
                   <button id="datos-sedes" type="submit" style="display: none;"></button>
                   <i class="material-icons mdl-list__item-icon">file_download</i>
                   Datos de las Sedes y Similares del Órgano o Ente
@@ -214,5 +230,7 @@ Ente
     <link rel="stylesheet" href="assets/mdl/css/material.min.css">
     <link rel="stylesheet" href="assets/customer-css/styles.css">
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="https://unpkg.com/vue@2.3.4"></script>
+<script src="assets/js/scripts.js"></script>
 
   @endsection

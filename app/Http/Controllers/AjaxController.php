@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Ciudad;
+use App\Parroquia;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Subcategoria;
-use App\Categoria_Especifica;
+use App\CategoriaEspecifica;
 use App\Proveedor;
 use App\Ente;
 use App\Maxima_Autoridad;
@@ -31,7 +33,7 @@ class AjaxController extends Controller
     }
 
     public  function obtenerCategoriaEspecifica(Request $request) {
-        return  Categoria_Especifica::select('*')
+        return  CategoriaEspecifica::select('*')
                              ->where('subcategoria_id', '=', $request->id)
                              ->get();
     }
@@ -78,6 +80,35 @@ class AjaxController extends Controller
 
     public  function obtenerPais(Request $request) {
         return  Pais::find($request->id);
+    }
+
+    public  function obtenerEstadosPorPais(Request $request) {
+        return  Estado::select('*')
+                        ->where('pais_id', '=', $request->id)
+                        ->get();
+    }
+
+    public  function obtenerMunicipiosPorEstado(Request $request) {
+        return  Municipio::select('*')
+                        ->where('estado_id', '=', $request->id)
+                        ->get();
+    }
+
+    public  function obtenerParroquiasPorMunicipios(Request $request) {
+        return  Parroquia::select('*')
+            ->where('municipio_id', '=', $request->id)
+            ->get();
+    }
+
+    public  function obtenerCiudadesPorMunicipio(Request $request) {
+        return  Ciudad::select('*')
+            ->where('municipio_id', '=', $request->id)
+            ->get();
+    }
+
+    public  function obtenerResponsables(Request $request) {
+        $key_search = $request->key_search;
+        return array(0 => "$key_search 1",1 => "$key_search 2",2 => "$key_search 3");
     }
 
 

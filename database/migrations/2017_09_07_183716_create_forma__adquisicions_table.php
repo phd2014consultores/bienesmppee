@@ -12,9 +12,9 @@ class CreateFormaAdquisicionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('forma__adquisicions', function (Blueprint $table) {
+        Schema::create('forma_adquisicions', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumtext('forma_adquisicion');
+            $table->mediumtext('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateFormaAdquisicionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('forma__adquisicions');
+        Schema::drop('forma_adquisicions');
     }
 }

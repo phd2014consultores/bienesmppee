@@ -9,6 +9,11 @@ use App\Estado;
 
 class ParroquiaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         $parroquias = Parroquia::paginate(10);
@@ -23,13 +28,14 @@ class ParroquiaController extends Controller
             ->where('municipio', '=', $request['phd-estado_municipios'])
             ->get();
 
-        $parroquia = Parroquia::updateOrCreate(
-            ['codigo' => $request['phd-codigo']],
-
-            [
-                'parroquia' => $request['phd-parroquia'],
-                'municipio_id' => $municipio[0]->id,
-            ]);
+        $data = array('codigo' => $request['phd-codigo'],'municipio_id' => $municipio[0]->id,'parroquia' => $request['phd-parroquia'] );
+        if ($request['phd-it_to_update']) {
+            $parroquia = Parroquia::updateOrCreate(
+                ['id' => $request['phd-it_to_update']],
+                $data);
+        } else {
+            $parroquia = Parroquia::create($data);
+        }
 
         $parroquias = Parroquia::paginate(10);
         $estados = Estado::all();

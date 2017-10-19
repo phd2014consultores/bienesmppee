@@ -27,7 +27,7 @@ class CreateFADonacionsTable extends Migration
 
             $table->foreign('forma_adquisicion_id')
                   ->references('id')
-                  ->on('forma__adquisicions');
+                  ->on('forma_adquisicions');
         });
     }
 

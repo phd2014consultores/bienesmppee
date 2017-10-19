@@ -60,7 +60,7 @@
                     <div class="mdl-card__actions phdHide" style="height: 200px;">
 
                         <div class="phd-input-group">
-
+                            <input v-model="unidad_medida.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input v-model="unidad_medida.unidad"  class="mdl-textfield__input" type="text" id="phd-unidad" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-unidad">
                                 <label class="mdl-textfield__label" for="phd-unidad">Unidad de Medida (*)</label>

@@ -64,6 +64,7 @@
  				<div class="mdl-card__actions phdHide" style="height: 375px;">
 
                      <div class="phd-input-group">
+                         <input v-model="maxima.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                         <input class="mdl-textfield__input" type="text" id="phd-ente" v-model="maxima.ente" readonly tabIndex="-1" name="phd-ente">
                         <label for="phd-ente" class="mdl-textfield__label">Ente (*)</label>

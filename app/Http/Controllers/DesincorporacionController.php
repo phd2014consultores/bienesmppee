@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tipo_Bien;
-use App\Estado_Uso_Bien;
+use App\EstadoUsoBien;
 use App\Bien;
 use App\Fotos;
 
@@ -12,13 +12,18 @@ use App\Fotos;
 
 class DesincorporacionController extends Controller
 {
-     public function create()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function create()
     {
      	$bien= Bien::select('*')
                              ->where('habilitado', '=', true)
                              ->get();   
 
-        $estado_uso = Estado_Uso_Bien::all(); 
+        $estado_uso = EstadoUsoBien::all();
 	
         $mensaje = "";
 
@@ -32,7 +37,7 @@ public function store(Request $request)
 
      	$bien= Bien::find($request['idBienSeleccionado']);
 
-    	$estado_uso = Estado_Uso_Bien::select('*')
+    	$estado_uso = EstadoUsoBien::select('*')
                         ->where('estado_uso', '=', $request['phd-desincorporacion_estado_uso'])
                         ->get(); 
 
@@ -52,7 +57,7 @@ public function store(Request $request)
                              ->where('habilitado', '=', true)
                              ->get();   
 
-        $estado_uso = Estado_Uso_Bien::all(); 
+        $estado_uso = EstadoUsoBien::all();
      	$mensaje = "Bien desincorporado satisfactoriamente.";
      	
      return view('desincorporar', compact('bien','mensaje','estado_uso'));

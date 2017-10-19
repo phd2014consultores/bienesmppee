@@ -66,6 +66,7 @@
  				<div class="mdl-card__actions phdHide" style="height: 375px;">
 
                      <div class="phd-input-group">
+                         <input v-model="ente.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input v-model="ente.codigo_rgbp" class="mdl-textfield__input" type="text" id="phd-codigo_rgbp" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-codigo_rgbp">
                           <label class="mdl-textfield__label" for="phd-id_proveedor">Código RGBP (*)</label>

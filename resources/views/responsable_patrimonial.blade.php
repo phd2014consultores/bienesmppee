@@ -64,24 +64,25 @@
         <div class="mdl-card__actions phdHide" style="height: 375px;">
 
                      <div class="phd-input-group">
+                         <input v-model="responsable.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                        <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                        <input class="mdl-textfield__input" type="text" id="phd-ente" v-model="maxima.ente" readonly tabIndex="-1" name="phd-ente">
+                        <input class="mdl-textfield__input" type="text" id="phd-ente" v-model="responsable.ente" readonly tabIndex="-1" name="phd-ente">
                         <label for="phd-categoria" class="mdl-textfield__label">Ente (*)</label>
                         <ul for="phd-ente" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                           @foreach ($ente as $ente1)
-                            <li class="mdl-menu__item"  v-on:click='maxima.ente ="{{$ente1->razon_social}}"'>{{$ente1->razon_social}}</li>
+                            <li class="mdl-menu__item"  v-on:click='responsable.ente ="{{$ente1->razon_social}}"'>{{$ente1->razon_social}}</li>
 
                           @endforeach
 
                         </ul>
                       </div>
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                             <input v-model="maxima.ci" class="mdl-textfield__input" type="text" id="phd-ci" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-ci">
+                             <input v-model="responsable.ci" class="mdl-textfield__input" type="text" id="phd-ci" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-ci">
                              <label class="mdl-textfield__label" for="phd-id_proveedor">Cédula de Identidad (*)</label>
                          </div>
 
                          <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                             <input v-model="maxima.nombre" class="mdl-textfield__input" type="text" id="phd-nombre" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre">
+                             <input v-model="responsable.nombre" class="mdl-textfield__input" type="text" id="phd-nombre" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-nombre">
                              <label class="mdl-textfield__label" for="phd-id_proveedor">Nombre (*)</label>
                          </div>
 
@@ -91,17 +92,17 @@
 
             <div class="phd-input-group">
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.apellido" class="mdl-textfield__input" type="text" id="phd-apellido" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-apellido">
+                    <input v-model="responsable.apellido" class="mdl-textfield__input" type="text" id="phd-apellido" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-apellido">
                     <label class="mdl-textfield__label" for="phd-id_proveedor">Apellido (*)</label>
 
                 </div>
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.telefono" class="mdl-textfield__input" type="text" id="phd-telefono" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-telefono">
+                    <input v-model="responsable.telefono" class="mdl-textfield__input" type="text" id="phd-telefono" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-telefono">
                     <label class="mdl-textfield__label" for="phd-id_proveedor"> Teléfono (*)</label>
                 </div>
 
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.cargo" class="mdl-textfield__input" type="text" id="phd-cargo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-cargo">
+                    <input v-model="responsable.cargo" class="mdl-textfield__input" type="text" id="phd-cargo" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-cargo">
                     <label class="mdl-textfield__label" for="phd-id_proveedor">Cargo (*)</label>
 
                 </div>
@@ -113,36 +114,36 @@
 
             <div class="phd-input-group">
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.correo_electronico" class="mdl-textfield__input" type="text" id="phd-correo_electronico" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-correo_electronico">
+                    <input v-model="responsable.correo_electronico" class="mdl-textfield__input" type="text" id="phd-correo_electronico" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-correo_electronico">
                     <label class="mdl-textfield__label" for="phd-id_proveedor"> Correo Electrónico (*)</label>
                 </div>
 
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.numero_gaceta" class="mdl-textfield__input" type="text" id="phd-numero_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_gaceta">
+                    <input v-model="responsable.numero_gaceta" class="mdl-textfield__input" type="text" id="phd-numero_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_gaceta">
                     <label class="mdl-textfield__label" for="phd-id_proveedor"> Número Gaceta (*)</label>
                 </div>
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.fecha_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_gaceta" name="phd-fecha_gaceta" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
+                    <input v-model="responsable.fecha_gaceta" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_gaceta" name="phd-fecha_gaceta" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
                     <label class="mdl-textfield__label" >Fecha Gaceta (DD/MM/AAAA) (*)</label>
                 </div>
 
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.numero_resolucion_decreto" class="mdl-textfield__input" type="text" id="phd-numero_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_decreto">
+                    <input v-model="responsable.numero_resolucion_decreto" class="mdl-textfield__input" type="text" id="phd-numero_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)"  name="phd-numero_decreto">
                     <label class="mdl-textfield__label" for="phd-id_proveedor"> Número de Resolución ó Decreto (*)</label>
                 </div>
 
 
                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="maxima.fecha_resolucion_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_decreto" name="phd-fecha_decreto" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
+                    <input v-model="responsable.fecha_resolucion_decreto" @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-fecha_decreto" name="phd-fecha_decreto" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" >
                     <label class="mdl-textfield__label" for="phd-id_proveedor"> Fecha de Resolución ó Decreto (DD/MM/AAAA) (*)</label>
                 </div>
 
                         <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" id="phd-habilitado"  v-model="maxima.habilitado" readonly tabIndex="-1" name="phd-habilitado">
+                            <input class="mdl-textfield__input" type="text" id="phd-habilitado"  v-model="responsable.habilitado" readonly tabIndex="-1" name="phd-habilitado">
                             <label for="phd-habilitado" class="mdl-textfield__label">¿Habilitado? (*)</label>
                             <ul for="phd-habilitado" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item"  v-on:click="maxima.habilitado = 'SI';"> SI </li>
-                                <li class="mdl-menu__item"  v-on:click="maxima.habilitado = 'NO';"> NO </li>
+                                <li class="mdl-menu__item"  v-on:click="responsable.habilitado = 'SI';"> SI </li>
+                                <li class="mdl-menu__item"  v-on:click="responsable.habilitado = 'NO';"> NO </li>
                             </ul>
                         </div>
 

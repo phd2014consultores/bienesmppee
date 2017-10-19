@@ -19,7 +19,12 @@ use App\Sede;
 class AsignacionController extends Controller
 {
 
-	 public function create()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function create()
     {
      	$bien= Bien::select('*')
                              ->where('responsable_id', '=', null)
@@ -39,7 +44,7 @@ class AsignacionController extends Controller
 
 
      	$bien= Bien::find($request['idBienSeleccionado']);
-    	if($bien->tipo_bien->tipo_bien == "Mueble") {
+    	if($bien->tipo_bien->nombre == "Mueble") {
 
 
     		$ubicacion = Ubicacion_Administrativa::select('*')
@@ -60,28 +65,21 @@ class AsignacionController extends Controller
      		
         }
 
-        if ($bien->tipo_bien->tipo_bien == "Inmueble") {
+        if ($bien->tipo_bien->nombre == "Inmueble") {
 
-        	$pais = Pais::select('*')
-                            ->where('pais', '=', $request['phd-asignacion_pais'])
-                            ->get(); 
             $sede = Sede::select('*')
-            				->where('sede', '=', $request['phd-asignacion_sede'] )
-            				->get();
-            $parroquia = Parroquia::select('*')
-            				->where('parroquia', '=', $request['phd-asignacion_parroquia'])
-                            ->get(); 
-
+                ->where('descripcion', '=', $request['phd-asignacion_sede'] )
+                ->get();
         	$ubicacion = Ubicacion_Geografica::create(
                 [
-                	'ubicacion'=> $request['phd-asignacion_ubicacion'],
-                	'pais'=> $pais[0]->id,
-                	'localizacion'=> $request['phd-asignacion_localizacion'],
-                	'parroquia'=> $parroquia[0]->id,
-                	'calle_avenida'=> $request['phd-asignacion_calle_av'],
-                	'urbanizacion'=> $request['phd-asignacion_urbanizacion'],
-                	'casa_edificio'=> $request['phd-asignacion_casa_edificio'],
-                	'posee_sede'=> $request['phd-asignacion_posee_sede'],
+                	'ubicacion'=> $sede[0]->ciudad->ciudad,
+                	'pais'=> $sede[0]->codigo_pais,
+                	'localizacion'=> $sede[0]->localizacion,
+                	'parroquia'=> $sede[0]->parroquia->parroquia,
+                	'calle_avenida'=> $sede[0]->calle_avenida,
+                	'urbanizacion'=> $sede[0]->urbanizacion,
+                	'casa_edificio'=> $sede[0]->casa_edificio,
+                	'posee_sede'=> 'SI',
                 	'sede'=> $sede[0]->id,
 
                 ]);
@@ -117,28 +115,4 @@ class AsignacionController extends Controller
      return view('asignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
 
  	}
-
-        public function lapor1(){
-        return view('incorporar');
-        }
-        //Method 2
-        public function lapor2(){
-        return view('asignar');
-        }
-
-        public function lapor3(){
-        return view('reasignar');
-        }
-
-        public function lapor4(){
-        return view('desincorporar');
-        }
-
-        public function lapor5(){
-        return view('tablero');
-        }
-
-        public function lapor6(){
-        return view('archivos');
-        }
 }

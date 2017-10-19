@@ -28,10 +28,10 @@
                 @foreach($bien as $bien1)
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric">{{$bien1->id}}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->categoria, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->categoria}}</p></td>
-                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->subcategoria, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->subcategoria}}</p></td>
-                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->categoria_especifica, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->categoria_especifica}}</p></td>
-                    <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->tipo_bien}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->nombre, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->nombre}}</p></td>
+                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->nombre}}</p></td>
+                    <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->nombre}}</p></td>
+                    <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->nombre}}</td>
                  </tr>
                 @endforeach              
                 </tbody>

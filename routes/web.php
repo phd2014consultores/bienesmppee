@@ -11,10 +11,10 @@
 |
 */
 
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+Auth::routes();
 /*Route::get('incorporar',function(){
 
 
@@ -28,6 +28,7 @@ Route::get('/reasignar', 'ReasignacionController@create');
 Route::get('/desincorporar', 'DesincorporacionController@create');
 Route::get('/tablero', 'TableroController@index');
 Route::get('/archivos',function(){return view('archivos');});
+Route::get('/configuracion',function(){return view('configuracion');});
 
 Route::post('/obtenerSubcategoria','AjaxController@obtenerSubcategoria');
 Route::post('/obtenerCategoriaEspecifica','AjaxController@obtenerCategoriaEspecifica');
@@ -55,11 +56,16 @@ Route::post('/obtenerMaximaAutoridad','AjaxController@obtenerMaximaAutoridad');
 
 Route::get('/responsable_patrimonial','Responsable_PatrimonialController@create');
 Route::post('/responsable_patrimonial','Responsable_PatrimonialController@store');
-Route::post('/obtenerResponsablePatrimonial','AjaxController@obtenerMaximaAutoridad');
+Route::post('/obtenerResponsablePatrimonial','AjaxController@obtenerResponsablePatrimonial');
 
 Route::get('/sede','SedeController@create');
 Route::post('/sede','SedeController@store');
 Route::post('/obtenerSede','AjaxController@obtenerSede');
+Route::post('/obtenerEstadosPorPais','AjaxController@obtenerEstadosPorPais');
+Route::post('/obtenerMunicipiosPorEstado','AjaxController@obtenerMunicipiosPorEstado');
+Route::post('/obtenerParroquiasPorMunicipios','AjaxController@obtenerParroquiasPorMunicipios');
+Route::post('/obtenerCiudadesPorMunicipio','AjaxController@obtenerCiudadesPorMunicipio');
+
 
 Route::get('/unidad_administrativa','UnidadAdministrativaController@create');
 Route::post('/unidad_administrativa','UnidadAdministrativaController@store');
@@ -110,5 +116,34 @@ Route::post('/unidad_medida','UnidadMedidaController@store');
 Route::get('/estado_bien','EstadoBienController@create');
 Route::post('/estado_bien','EstadoBienController@store');
 
-Route::get('/compania_aseguradora','CompañiaAseguradoraController@create');
-Route::post('/compania_aseguradora','CompañiaAseguradoraController@store');
+Route::get('/compania_aseguradora','CompaniaAseguradoraController@create');
+Route::post('/compania_aseguradora','CompaniaAseguradoraController@store');
+
+Route::get('/tipo_cobertura','TipoCoberturaController@create');
+Route::post('/tipo_cobertura','TipoCoberturaController@store');
+
+Route::get('/moneda','MonedaController@create');
+Route::post('/moneda','MonedaController@store');
+
+Route::get('/categoria_unidad_administrativa','CategoriaUnidadAdministrativaController@create');
+Route::post('/categoria_unidad_administrativa','CategoriaUnidadAdministrativaController@store');
+
+Route::get('/tipo_bien','TipoBienController@create');
+Route::post('/tipo_bien','TipoBienController@store');
+
+Route::get('/forma_adquisicion','FormaAdquisicionController@create');
+Route::post('/forma_adquisicion','FormaAdquisicionController@store');
+
+Route::get('/estado_uso_bien','EstadoUsoBienController@create');
+Route::post('/estado_uso_bien','EstadoUsoBienController@store');
+
+Route::get('/uso_actual_bien','UsoActualBienController@create');
+Route::post('/uso_actual_bien','UsoActualBienController@store');
+
+Route::get('/tipo_sede','TipoSedeController@create');
+Route::post('/tipo_sede','TipoSedeController@store');
+
+Route::get('/ubicacion_administrativa','UbicacionAdministrativaController@create');
+Route::post('/ubicacion_administrativa','UbicacionAdministrativaController@store');
+Route::post('/obtenerResponsables','AjaxController@obtenerResponsables');
+

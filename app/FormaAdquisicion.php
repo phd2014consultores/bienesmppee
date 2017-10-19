@@ -11,9 +11,9 @@ use App\FA_Donacion;
 use App\FA_Permuta;
 use App\FA_Transferencia;
 
-class Forma_Adquisicion extends Model
+class FormaAdquisicion extends Model
 {
-    protected $fillable = ['id','forma_adquisicion'];
+    protected $fillable = ['id','nombre'];
 
         public function fa_adju_conf_expr() 
     {

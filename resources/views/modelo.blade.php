@@ -58,6 +58,7 @@
         <div class="mdl-card__actions phdHide">
 
                      <div class="phd-input-group">
+                         <input v-model="modelo.id" type="hidden" id="phd-it_to_update" name="phd-it_to_update">
                       <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
                         <input v-model="modelo.marca" class="mdl-textfield__input" type="text" id="phd-marca" readonly tabIndex="-1" name="phd-marca">
                         <label for="phd-marca" class="mdl-textfield__label">Marca (*)</label>

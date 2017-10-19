@@ -58,6 +58,9 @@
     
     </head>
     <body>
+    @guest
+      @yield('content')
+    @else
       <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
           <div class="mdl-layout__header-row">
@@ -66,9 +69,9 @@
         </header>
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
           <header class="demo-drawer-header">
-            <img src="assets/images/user.jpg" class="demo-avatar">
+            <i class="material-icons demo-avatar" style="font-size: 50px;">&#xE853;</i>
             <div class="demo-avatar-dropdown">
-              <span>funcionario@mppee.gob.ve</span>
+              <span>Hola, {{ Auth::user()->givenName }}</span>
               <div class="mdl-layout-spacer"></div>
               <button type="button" id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
                 <i class="material-icons" role="presentation">arrow_drop_down</i>
@@ -76,8 +79,12 @@
               </button>
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
                 
-                <li class="mdl-menu__item"><i class="material-icons">power_settings_new</i>Salir</li>
+                <li class="mdl-menu__item"><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"><i class="material-icons">power_settings_new</i>Salir</a></li>
               </ul>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+              </form>
             </div>
           </header>
           <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
@@ -86,11 +93,14 @@
             <a class="mdl-navigation__link" href="/asignar"><i class="mdl-color-text--blue-grey-400 material-icons phd-invert-element" role="presentation">reply</i>Asignar</a>
             <a class="mdl-navigation__link" href="/reasignar"><i class="mdl-color-text--blue-grey-400 material-icons  phd-invert-element" role="presentation">reply_all</i>Reasignar</a>
             <a class="mdl-navigation__link" href="/desincorporar"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">backspace</i>Desincorporar</a>
+            @if (Auth::user()->role == 'ROLE_ADMIN')
             <a class="mdl-navigation__link" href="/archivos"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">attach_file</i>Archivos</a>
+            <a class="mdl-navigation__link" href="/configuracion"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">settings</i>Configuración</a>
+            @endif
           </nav>
         </div>
         @yield('content')
       </div>
-
+      @endguest
     </body>
   </html>

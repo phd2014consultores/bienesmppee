@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Bien extends Model
+class UsoActualBien extends Model
 {
-    protected $fillable = ['tipo_bien'];
-    
-    public function bien() 
+   protected $fillable = ['id','uso_actual'];
+
+   public function bien() 
     {
 		return $this->hasMany('App\Bien');
 	}
-
 }

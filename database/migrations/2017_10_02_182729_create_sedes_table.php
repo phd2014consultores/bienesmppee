@@ -20,7 +20,7 @@ class CreateSedesTable extends Migration
             $table->mediumText('especificacion_tipo_sede')->nullable();
             $table->mediumText('descripcion');
             $table->mediumText('localizacion');
-            $table->integer('pais_id');
+            $table->integer('codigo_pais');
             $table->mediumText('especifique_otro_pais')->nullable();
             $table->integer('parroquia_id');
             $table->integer('ciudad_id');
@@ -36,7 +36,7 @@ class CreateSedesTable extends Migration
             ->references('id')
             ->on('entes');
 
-            $table->foreign('pais_id')
+            $table->foreign('codigo_pais')
             ->references('id')
             ->on('pais');
 

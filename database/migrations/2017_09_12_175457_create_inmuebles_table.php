@@ -32,11 +32,11 @@ class CreateInmueblesTable extends Migration
 
             $table->foreign('unidad_medida_area_construccion')
             ->references('id')
-            ->on('unidad__medidas');
+            ->on('unidad_medidas');
 
             $table->foreign('unidad_medida_area_terreno')
             ->references('id')
-            ->on('unidad__medidas');
+            ->on('unidad_medidas');
 
 
         });

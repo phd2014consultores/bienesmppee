@@ -19,17 +19,7 @@
 			           <div class="phd-demo-card-dashboard mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title phd-head_with_search">
                       <h5 class="phd-title-list">Listado de bienes</h5>
-                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                                  mdl-textfield--floating-label mdl-textfield--align-right">
-                        <label class="mdl-button mdl-js-button mdl-button--icon"
-                               for="phd-search">
-                          <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                          <input class="mdl-textfield__input" type="text" name="sample"
-                                 id="phd-search">
-                        </div>
-                      </div>
+
                       <button type="button" id="phd-datos_generales" ref="phd_button_toggel" v-on:click="arrowToggle" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                         <i class="material-icons">keyboard_arrow_down</i>
                       </button>
@@ -48,12 +38,12 @@
                             </thead>
                             <tbody>
                             @foreach($bien as $bien1)
-                              <tr v-on:click="asignacion.tipo_bien ='{{$bien1->tipo_bien->tipo_bien}}';asignacion.bien_id ='{{$bien1->id}}'; showForm('phd-form{{$bien1->tipo_bien->tipo_bien}}');"  onclick="setIdBienAsignado({{$bien1->id}})">
+                              <tr v-on:click="asignacion.tipo_bien ='{{$bien1->tipo_bien->nombre}}';asignacion.bien_id ='{{$bien1->id}}'; showForm('phd-form{{$bien1->tipo_bien->nombre}}');"  onclick="setIdBienAsignado({{$bien1->id}})">
                                 <td class="mdl-data-table__cell--non-numeric">{{$bien1->id}}</td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->categoria, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->categoria}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->subcategoria, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->subcategoria}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->categoria_especifica, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->categoria_especifica}}</p></td>
-                                <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->tipo_bien}}</td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria->nombre, 30)}} <p class="phd-table-span-hover">{{$bien1->categoria->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->subcategoria->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->subcategoria->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{str_limit($bien1->categoria_especifica->nombre, 30)}}<p class="phd-table-span-hover">{{$bien1->categoria_especifica->nombre}}</p></td>
+                                <td class="mdl-data-table__cell--non-numeric">{{$bien1->tipo_bien->nombre}}</td>
                               </tr>
                             @endforeach
 
@@ -120,7 +110,7 @@
                         Cancelar
                     </button>
 
-                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de desincorporar el bien con los datos suministrados?', submitAsignar);" v-bind:disabled="!isFormValidDesin()">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="showModal('INFORMACIÓN','¿Está seguro de desincorporar el bien con los datos suministrados?', submitAsignar);">
                         Desincorporar
                     </button>
                     
