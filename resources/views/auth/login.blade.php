@@ -1,9 +1,10 @@
 @extends('layout')
 
 @section('content')
+
     <div class="phd-login phd-fixed demo-card-wide mdl-card mdl-shadow--2dp">
+        <div id="phd-title-app" style="text-align: center;"><h4 style="color:#263238 !important;"><strong>SISGEBIP - Sistema de Gestión de Bienes Públicos</strong></h4></div>
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Acceso</h2>
         </div>
         <form class="form-horizontal" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}

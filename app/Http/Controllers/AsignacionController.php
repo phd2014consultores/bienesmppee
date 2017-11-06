@@ -15,6 +15,7 @@ use App\Ubicacion_Geografica;
 use App\Pais;
 use App\Parroquia;
 use App\Sede;
+use App\Unidades_Administrativas;
 
 class AsignacionController extends Controller
 {
@@ -33,9 +34,10 @@ class AsignacionController extends Controller
 		$pais = Pais::all();
 		$parroquia = Parroquia::all();
 		$sede = Sede::all();
+        $unidades = Unidades_Administrativas::all();
         $mensaje = "";
 
-     return view('asignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
+     return view('asignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje','unidades'));
  	}
 
 
@@ -110,9 +112,10 @@ class AsignacionController extends Controller
         $pais = Pais::all();
         $parroquia = Parroquia::all();
         $sede = Sede::all();
+        $unidades = Unidades_Administrativas::all();
         $mensaje = "Bien asignado satisfactoriamente.";
 
-     return view('asignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
+     return view('asignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje','unidades'));
 
  	}
 }

@@ -30,6 +30,8 @@ Route::get('/tablero', 'TableroController@index');
 Route::get('/archivos',function(){return view('archivos');});
 Route::get('/configuracion',function(){return view('configuracion');});
 
+Route::post('/tablero', 'TableroController@index');
+
 Route::post('/obtenerSubcategoria','AjaxController@obtenerSubcategoria');
 Route::post('/obtenerCategoriaEspecifica','AjaxController@obtenerCategoriaEspecifica');
 Route::post('/incorporar','BienController@store');
@@ -41,6 +43,9 @@ Route::post('/archivos/datos_basicos', ['as' => '/archivos', 'uses' => 'Generado
 Route::post('/archivos/maxima_autoridad', ['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosMaximaAutoridad']);
 Route::post('/archivos/responsable_patrimonial',['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosResponsablePatrimonial']);
 Route::post('/archivos/datos_sede',['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosSede']);
+Route::post('/archivos/datos_unidades_administrativas',['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosUnidadesAdministrativas']);
+Route::post('/archivos/datos_proveedores',['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosProveedores']);
+Route::post('/archivos/datos_forma_adquisicion_a',['as' => '/archivos', 'uses' => 'GeneradorArchivosController@datosformasAdquisicionA']);
 
 Route::get('/proveedor','ProveedorController@create');
 Route::post('/proveedor','ProveedorController@store');

@@ -12,5 +12,9 @@ class Ubicacion_Administrativa extends Model
   {
     return $this->hasmany('App\Datos_Especificos_Asignacion');
   }
+    public function unidades_administrativas()
+    {
+        return $this->hasMany('App\Unidades_Administrativas');
+    }
   
 }

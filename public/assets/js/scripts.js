@@ -1012,6 +1012,12 @@ var vm = new Vue({
         responsables_uso : [],
 		dateFrom : '',
 		dateTo: '',
+        filtros: {
+		    tipo_bien : '',
+            forma_adquisicion : '',
+            responsable_administrativo : '',
+            responsable_uso_directo : '',
+        }
 	},
 	methods: {
 		arrowToggle(event) {
@@ -1357,10 +1363,15 @@ var vm = new Vue({
                 _token: document.getElementById('csrf_token').value,
                 key_search: responsable
             }).then(function(response) {
-                this.responsables_admin = response.body;
+                this.responsables_admin = [];
+            	response.body.forEach(
+                	function(item, index) {
+                        vm.responsables_admin.push(item.cn);
+					}
+				);
             }, function() {
-                this.responsables_admin = ['luiscarl','jordan'];
-                //alert('Error');
+                //this.responsables_admin = ['luiscarl','jordan'];
+                console.log('Error');
             });
         },
         autoCompleteResponsableUsoDirecto(responsable){
@@ -1369,10 +1380,15 @@ var vm = new Vue({
                 _token: document.getElementById('csrf_token').value,
                 key_search: responsable
             }).then(function(response) {
-                this.responsables_uso = response.body;
+            	this.responsables_uso = [];
+                response.body.forEach(
+                    function(item, index) {
+                        vm.responsables_uso.push(item.cn);
+                    }
+                );
             }, function() {
-                this.responsables_uso = ['luiscarl','jordan'];
-                //alert('Error');
+                //this.responsables_uso = ['luiscarl','jordan'];
+                console.log('Error');
             });
         },
 	},

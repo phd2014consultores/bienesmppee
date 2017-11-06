@@ -19,8 +19,12 @@ class CreateUnidadesAdministrativasTable extends Migration
             $table->mediumText('descripcion');
             $table->mediumText('codigo_categoria');
             $table->mediumText('denominacion')->nullable();
-            $table->mediumText('codigo_unidad_adscrita');
+            $table->integer('codigo_unidad_adscrita');
             $table->timestamps();
+
+            $table->foreign('codigo_unidad_adscrita')
+                ->references('id')
+                ->on('ubicacion__administrativas');
         });
     }
 

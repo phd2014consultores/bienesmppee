@@ -20,7 +20,7 @@ class Bien extends Model
   {
     return $this->belongsTo('App\Mueble');
   }
-  public function forma_adquisicon() 
+  public function forma_adquisicion()
   {
     return $this->belongsTo('App\FormaAdquisicion');
   }

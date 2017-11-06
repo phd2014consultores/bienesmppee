@@ -475,3 +475,7 @@ span.itemImage > span {
 .mdl-data-table__cell--non-numeric:hover .phd-table-span-hover {
   display: block;
 }
+.phd-filtros_aplicados ul > li {
+    display: inline-block;
+    width: 40%;
+}

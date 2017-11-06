@@ -25,76 +25,78 @@
                 </div>
 
                 <ul class="demo-list-icon mdl-list ">
-                <li class="mdl-list__item" onclick="document.getElementById('datos-basicos').click();">
-                  <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="/archivos/datos_basicos" id="phd-form" class="phd-form">
-                  <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
-
-
-                  <button id="datos-basicos" type="submit" style="display: none;"></button>
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos Básicos del Órgano o Ente
-              </span>
-                </li> 
-                </form>
-                <li class="mdl-list__item" onclick="document.getElementById('datos-maxima-autoridad').click();">
-                  <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="/archivos/maxima_autoridad" id="phd-form" class="phd-form">
-                  <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
-                  <button id="datos-maxima-autoridad" type="submit" style="display: none;"></button>
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos de la Máxima Autoridad del Órgano o Ente
-                </span>
-                </li>
-                </form>
-                <li class="mdl-list__item" onclick="document.getElementById('datos-responsable-patrimonial').click();">
-                  <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="/archivos/responsable_patrimonial" id="phd-form" class="phd-form">
-                  <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
-                  <button id="datos-responsable-patrimonial" type="submit" style="display: none;"></button>
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos del Responsable Patrimonial del Órgano o Ente
-                </span>
-                </li>
-                </form>
-                <li class="mdl-list__item" onclick="document.getElementById('datos-sedes').click();">
-                  <span class="mdl-list__item-primary-content">
-                  <form method="POST" action="/archivos/datos_sede" id="phd-form" class="phd-form">
-                  <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
-                      <input v-model="dateFrom" type="hidden" name="phd-dateFrom" id="phd-dateFrom">
-                      <input v-model="dateTo" type="hidden" name="phd-dateTo" id="phd-dateTo">
-                  <button id="datos-sedes" type="submit" style="display: none;"></button>
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos de las Sedes y Similares del Órgano o Ente
-                </span>
-                </li>
-                </form>
-                <li class="mdl-list__item">
-                  <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos de las Unidades Administrativas del Órgano o Ente
-                </span>
-                </li>
-                 </form>
-                <li class="mdl-list__item">
-                  <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Datos de Ubicación de las Unidades Administrativas del Órgano o Ente
-                </span>
-                </li>
-                <li class="mdl-list__item">
-                  <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Listado de los Proveedores de los Bienes Públicos del Órgano o Ente
-                </span>
-                </li>
-                <li class="mdl-list__item">
-                  <span class="mdl-list__item-primary-content">
-                  <i class="material-icons mdl-list__item-icon">file_download</i>
-                  Listados de los Orígenes (Formas de Adquisición) de los Bienes Muebles e
-Inmuebles del Órgano o Ente (A)
-                </span>
-                </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-basicos').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/datos_basicos" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <button id="datos-basicos" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Datos Básicos del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-maxima-autoridad').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/maxima_autoridad" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <button id="datos-maxima-autoridad" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Datos de la Máxima Autoridad del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-responsable-patrimonial').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/responsable_patrimonial" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <button id="datos-responsable-patrimonial" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Datos del Responsable Patrimonial del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-sedes').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/datos_sede" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <input v-model="dateFrom" type="hidden" name="phd-dateFrom" id="phd-dateFrom">
+                                <input v-model="dateTo" type="hidden" name="phd-dateTo" id="phd-dateTo">
+                                <button id="datos-sedes" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Datos de las Sedes y Similares del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-unidades_administrativas').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/datos_unidades_administrativas" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <input v-model="dateFrom" type="hidden" name="phd-dateFrom" id="phd-dateFrom">
+                                <input v-model="dateTo" type="hidden" name="phd-dateTo" id="phd-dateTo">
+                                <button id="datos-unidades_administrativas" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Datos de las Unidades Administrativas del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item" onclick="document.getElementById('datos-proveedores').click();">
+                        <span class="mdl-list__item-primary-content">
+                            <form method="POST" action="/archivos/datos_proveedores" id="phd-form" class="phd-form">
+                                <input type="hidden" name="_token" value="{{ csrf_token()}}" id="csrf_token">
+                                <input v-model="dateFrom" type="hidden" name="phd-dateFrom" id="phd-dateFrom">
+                                <input v-model="dateTo" type="hidden" name="phd-dateTo" id="phd-dateTo">
+                                <button id="datos-proveedores" type="submit" style="display: none;"></button>
+                                <i class="material-icons mdl-list__item-icon">file_download</i>
+                                Listado de los Proveedores de los Bienes Públicos del Órgano o Ente
+                            </form>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">file_download</i>
+                            Listados de los Orígenes (Formas de Adquisición) de los Bienes Muebles e Inmuebles del Órgano o Ente (A)
+                        </span>
+                    </li>
                 </li>
                 <li class="mdl-list__item">
                   <span class="mdl-list__item-primary-content">

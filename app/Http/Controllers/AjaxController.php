@@ -22,9 +22,11 @@ use App\Estado;
 use App\Municipio;
 use App\Pais;
 use App\FA_Adju_Conf_Expr;
+use App\Traits\LdapSearchOpenLdap;
 
 class AjaxController extends Controller
 {
+    use LdapSearchOpenLdap;
   
     public  function obtenerSubcategoria(Request $request) {
         return  Subcategoria::select('*')
@@ -108,7 +110,8 @@ class AjaxController extends Controller
 
     public  function obtenerResponsables(Request $request) {
         $key_search = $request->key_search;
-        return array(0 => "$key_search 1",1 => "$key_search 2",2 => "$key_search 3");
+        $user = $this->ldapSearchOpenLdap($key_search);
+        return $user->getData();
     }
 
 

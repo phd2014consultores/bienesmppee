@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Unidades_Administrativas;
 use Illuminate\Http\Request;
 use App\Tipo_Bien;
 use App\Categoria;
@@ -34,9 +35,10 @@ class ReasignacionController extends Controller
 		$pais = Pais::all();
 		$parroquia = Parroquia::all();
 		$sede = Sede::all();
+        $unidades = Unidades_Administrativas::all();
         $mensaje = "";
 
-     return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
+     return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje','unidades'));
  	}
 
 
@@ -111,9 +113,10 @@ class ReasignacionController extends Controller
         $pais = Pais::all();
         $parroquia = Parroquia::all();
         $sede = Sede::all();
+        $unidades = Unidades_Administrativas::all();
         $mensaje = "Bien asignado satisfactoriamente.";
 
-        return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje'));
+        return view('reasignar', compact('bien','ubicacion','pais','parroquia','sede','mensaje','unidades'));
 
     }
 

@@ -57,10 +57,12 @@
       <link rel="stylesheet" href="assets/dialog/dialog.css">
     
     </head>
-    <body>
     @guest
+    <body style="background-color: #263238 !important">
+
       @yield('content')
     @else
+      <body>
       <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
           <div class="mdl-layout__header-row">

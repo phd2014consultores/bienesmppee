@@ -82,9 +82,14 @@
                                     </ul>
                                 </div>
 
-                                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_unidad_administrativa" v-model="asignacion.mueble.unidad_administrativa" name="phd-asignacion_mueble_unidad_administrativa">
-                                    <label class="mdl-textfield__label" for="'phd-asignacion_mueble_unidad_administrativa">Unidad administrativa (*)</label>
+                                <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                                    <input class="mdl-textfield__input" type="text" id="phd-asignacion_mueble_unidad_administrativa" name="phd-asignacion_mueble_unidad_administrativa" v-model="asignacion.mueble.unidad_administrativa" readonly tabIndex="-1">
+                                    <label for="phd-asignacion_mueble_unidad_administrativa" class="mdl-textfield__label">Unidad administrativa (*)</label>
+                                    <ul for="phd-asignacion_mueble_unidad_administrativa" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        @foreach($unidades as $unidad)
+                                            <li class="mdl-menu__item"  v-on:click="asignacion.mueble.unidad_administrativa = '{{$unidad->descripcion}}';">{{$unidad->descripcion}}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
 
                                 <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
@@ -124,9 +129,14 @@
                                 </ul>
                             </div>
 
-                            <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input @focus="setIsFocused" onblur="removeIsFocusedImpl(this)" class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_unidad_administrativa" v-model="asignacion.inmueble.unidad_administrativa" name="phd-asignacion_inmueble_unidad_administrativa">
-                                <label class="mdl-textfield__label" for="'phd-asignacion_inmueble_unidad_administrativa">Unidad administrativa (*)</label>
+                            <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                                <input class="mdl-textfield__input" type="text" id="phd-asignacion_inmueble_unidad_administrativa" name="phd-asignacion_inmueble_unidad_administrativa" v-model="asignacion.mueble.unidad_administrativa" readonly tabIndex="-1">
+                                <label for="phd-asignacion_inmueble_unidad_administrativa" class="mdl-textfield__label">Unidad administrativa (*)</label>
+                                <ul for="phd-asignacion_inmueble_unidad_administrativa" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                    @foreach($unidades as $unidad)
+                                        <li class="mdl-menu__item"  v-on:click="asignacion.mueble.unidad_administrativa = '{{$unidad->descripcion}}';">{{$unidad->descripcion}}</li>
+                                    @endforeach
+                                </ul>
                             </div>
 
                             <div class="phd-input-out phd-is-focused mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">

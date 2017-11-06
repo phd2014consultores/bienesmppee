@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ubicacion_Administrativa;
 use Illuminate\Http\Request;
 use App\Unidades_Administrativas;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +16,11 @@ class UnidadAdministrativaController extends Controller
 
     public function create()
     {
-        $unidades_administrativas = DB::table('unidades__administrativas')->paginate(10);
+        $unidades_administrativas = Unidades_Administrativas::paginate(10);
+        $ubicaciones_administrativas = Ubicacion_Administrativa::all()->get();
         $mensaje = "";
 
-        return view('unidad_administrativa', compact('mensaje', 'unidades_administrativas'));
+        return view('unidad_administrativa', compact('mensaje', 'unidades_administrativas','ubicaciones_administrativas'));
     }
 
     public function store(Request $request)
@@ -36,11 +38,12 @@ class UnidadAdministrativaController extends Controller
             $unidad = Unidades_Administrativas::create($data);
         }
 
-        $unidades_administrativas = DB::table('unidades__administrativas')->paginate(10);
+        $unidades_administrativas = Unidades_Administrativas::paginate(10);
+        $ubicaciones_administrativas = Ubicacion_Administrativa::all()->get();
     	$mensaje = "La unidad administrativa ha sido agregada satisfactoriamente.";
          
 
-     return view('unidad_administrativa', compact('mensaje','unidades_administrativas'));
+     return view('unidad_administrativa', compact('mensaje','unidades_administrativas','ubicaciones_administrativas'));
 
  	}
 }
